@@ -6,15 +6,15 @@ Caveat: Reduction varies by repository size and structure.
 
 CONTEXT.md artifacts are preserved in `benchmark_results/contexts/` for manual inspection.
 
-Average token reduction vs naive: **76.19%**
+Average token reduction vs naive: **76.90%**
 
 | Repo | LOC | Naive Tokens | codectx Tokens | vs Naive | Coverage |
 |------|-----|--------------|---------------|----------|----------|
-| fastapi | 32283 | 223936 | 88813 | 60.34% | 0.0% (0/527) |
-| requests | 5637 | 41412 | 6862 | 83.43% | 0.0% (0/19) |
-| typer | 12759 | 79994 | 36429 | 54.46% | 0.0% (0/323) |
-| rich | 39002 | 353919 | 28001 | 92.09% | 0.0% (0/109) |
-| httpx | 8827 | 63731 | 5976 | 90.62% | 0.0% (0/23) |
+| fastapi | 32408 | 224672 | 89750 | 60.05% | 0.0% (0/529) |
+| requests | 5634 | 41353 | 6327 | 84.70% | 0.0% (0/19) |
+| typer | 12798 | 80204 | 35992 | 55.12% | 0.0% (0/324) |
+| rich | 39002 | 353919 | 28075 | 92.07% | 0.0% (0/109) |
+| httpx | 8827 | 63731 | 4760 | 92.53% | 0.0% (0/23) |
 
 ## Chart
 

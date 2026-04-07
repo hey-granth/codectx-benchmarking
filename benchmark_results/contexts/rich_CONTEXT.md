@@ -841,9 +841,7 @@ if __name__ == "__main__":  # pragma: no cover
 
 __main__.ColorBox()
   → console.NoChange()
-  → text.Span()
-  → style._Bit()
-  → color.ColorSystem()
+  → errors.ConsoleError()
 ## CORE_MODULES
 
 ### `rich/console.py`
@@ -1157,18 +1155,6 @@ __main__.ColorBox()
 
 **Notes:** decorator-heavy (9 decorators)
 
-### `rich/errors.py`
-
-**Purpose:** Implements errors.
-
-**Types:**
-- `ConsoleError` (bases: `Exception`) - An error in console operation.
-- `LiveError` (bases: `ConsoleError`) - Error related to Live display.
-- `MarkupError` (bases: `ConsoleError`) - Markup was badly formatted.
-- `MissingStyle` (bases: `StyleError`) - No such style.
-- `NoAltScreen` (bases: `ConsoleError`) - Alt screen mode was required.
-- `NotRenderableError` (bases: `ConsoleError`) - Object is not renderable.
-
 ### `rich/traceback.py`
 
 **Purpose:** Implements traceback.
@@ -1188,6 +1174,18 @@ __main__.ColorBox()
 
 **Notes:** decorator-heavy (10 decorators); large file (925 lines)
 
+### `rich/errors.py`
+
+**Purpose:** Implements errors.
+
+**Types:**
+- `ConsoleError` (bases: `Exception`) - An error in console operation.
+- `LiveError` (bases: `ConsoleError`) - Error related to Live display.
+- `MarkupError` (bases: `ConsoleError`) - Markup was badly formatted.
+- `MissingStyle` (bases: `StyleError`) - No such style.
+- `NoAltScreen` (bases: `ConsoleError`) - Alt screen mode was required.
+- `NotRenderableError` (bases: `ConsoleError`) - Object is not renderable.
+
 ### `rich/spinner.py`
 
 **Purpose:** Implements spinner.
@@ -1195,15 +1193,6 @@ __main__.ColorBox()
 
 **Types:**
 - `Spinner` - A spinner animation. methods: `__init__`, `render`, `update`
-
-### `rich/containers.py`
-
-**Purpose:** Implements containers.
-**Depends on:** `cells`, `console`, `measure`, `text`
-
-**Types:**
-- `Lines` - A list subclass which can render to the console. methods: `__init__`, `__repr__`, `append`, `extend`, `justify`, `pop`
-- `Renderables` - A list subclass which renders its contents to the console. methods: `__init__`, `append`
 
 ### `rich/terminal_theme.py`
 
@@ -1220,13 +1209,14 @@ __main__.ColorBox()
 **Types:**
 - `ColorTriplet` (bases: `NamedTuple`) - The red, green, and blue components of a color.
 
-### `rich/styled.py`
+### `rich/containers.py`
 
-**Purpose:** Implements styled.
-**Depends on:** `console`, `measure`, `panel`, `segment`, `style`
+**Purpose:** Implements containers.
+**Depends on:** `cells`, `console`, `measure`, `text`
 
 **Types:**
-- `Styled` - Apply a style to a renderable. methods: `__init__`
+- `Lines` - A list subclass which can render to the console. methods: `__init__`, `__repr__`, `append`, `extend`, `justify`, `pop`
+- `Renderables` - A list subclass which renders its contents to the console. methods: `__init__`, `append`
 
 ### `rich/_win32_console.py`
 
@@ -1242,6 +1232,14 @@ __main__.ColorBox()
 - `def GetConsoleCursorInfo(     std_handle: wintypes.HANDLE, cursor_info: CONSOLE_CURSOR_INFO ) -> bool`
 - `def GetConsoleMode(std_handle: wintypes.HANDLE) -> int`
 
+### `rich/styled.py`
+
+**Purpose:** Implements styled.
+**Depends on:** `console`, `measure`, `panel`, `segment`, `style`
+
+**Types:**
+- `Styled` - Apply a style to a renderable. methods: `__init__`
+
 ### `rich/markup.py`
 
 **Purpose:** Implements markup.
@@ -1254,23 +1252,6 @@ __main__.ColorBox()
 - `def _parse(markup: str) -> Iterable[Tuple[int, Optional[str], Optional[Tag]]]`
 - `def escape(     markup: str,     _escape: _EscapeSubMethod = re.compile(r"(\\*)(\[[a-z#/@][^[]*?])").sub, ) -> str`
 - `def render(markup: str, style: Union[str, Style] = "", emoji: bool = True, ...) -> Text`
-
-### `rich/constrain.py`
-
-**Purpose:** Implements constrain.
-**Depends on:** `console`, `jupyter`, `measure`
-
-**Types:**
-- `Constrain` (bases: `JupyterMixin`) - Constrain the width of a renderable to a given number of characters. methods: `__init__`
-
-### `rich/emoji.py`
-
-**Purpose:** Implements emoji.
-**Depends on:** `_emoji_codes`, `_emoji_replace`, `columns`, `console`, `jupyter`, `segment`, `style`
-
-**Types:**
-- `Emoji` (bases: `JupyterMixin`) methods: `__init__`, `__repr__`, `__str__`
-- `NoEmoji` (bases: `Exception`) - No emoji by that name.
 
 ### `rich/tree.py`
 
@@ -1290,21 +1271,22 @@ __main__.ColorBox()
 
 **Notes:** large file (475 lines)
 
-### `rich/status.py`
+### `rich/constrain.py`
 
-**Purpose:** Implements status.
-**Depends on:** `console`, `jupyter`, `live`, `spinner`, `style`
-
-**Types:**
-- `Status` (bases: `JupyterMixin`) - Displays a status indicator with a 'spinner' animation. methods: `__init__`, `start`, `stop`, `update`
-
-### `rich/screen.py`
-
-**Purpose:** Implements screen.
-**Depends on:** `_loop`, `console`, `segment`, `style`
+**Purpose:** Implements constrain.
+**Depends on:** `console`, `jupyter`, `measure`
 
 **Types:**
-- `Screen` - A renderable that fills the terminal screen and crops excess. methods: `__init__`
+- `Constrain` (bases: `JupyterMixin`) - Constrain the width of a renderable to a given number of characters. methods: `__init__`
+
+### `rich/emoji.py`
+
+**Purpose:** Implements emoji.
+**Depends on:** `_emoji_codes`, `_emoji_replace`, `columns`, `console`, `jupyter`, `segment`, `style`
+
+**Types:**
+- `Emoji` (bases: `JupyterMixin`) methods: `__init__`, `__repr__`, `__str__`
+- `NoEmoji` (bases: `Exception`) - No emoji by that name.
 
 ### `rich/cells.py`
 
@@ -1348,6 +1330,35 @@ __main__.ColorBox()
 **Types:**
 - `Region` (bases: `NamedTuple`) - Defines a rectangular region of the screen.
 
+### `rich/screen.py`
+
+**Purpose:** Implements screen.
+**Depends on:** `_loop`, `console`, `segment`, `style`
+
+**Types:**
+- `Screen` - A renderable that fills the terminal screen and crops excess. methods: `__init__`
+
+### `rich/status.py`
+
+**Purpose:** Implements status.
+**Depends on:** `console`, `jupyter`, `live`, `spinner`, `style`
+
+**Types:**
+- `Status` (bases: `JupyterMixin`) - Displays a status indicator with a 'spinner' animation. methods: `__init__`, `start`, `stop`, `update`
+
+### `rich/layout.py`
+
+**Purpose:** Implements layout.
+**Depends on:** `_ratio`, `align`, `console`, `highlighter`, `panel`, `pretty`, +7 more
+
+**Types:**
+- `ColumnSplitter` (bases: `Splitter`) - Split a layout region in to columns. methods: `divide`, `get_tree_icon`
+- `Layout` - A renderable to divide a fixed height in to rows or columns. methods: `__init__`, `add_split`, `get`, `refresh_screen` (+6 more)
+- `LayoutError` (bases: `Exception`) - Layout related error.
+- `LayoutRender` (bases: `NamedTuple`) - An individual layout render.
+
+**Notes:** decorator-heavy (7 decorators); large file (443 lines)
+
 ### `rich/_null_file.py`
 
 **Purpose:** Implements null file.
@@ -1378,19 +1389,6 @@ __main__.ColorBox()
 - `def ratio_resolve(total: int, edges: Sequence[Edge]) -> List[int]`
   - Divide total space to satisfy size, ratio, and minimum_size, constraints.
 
-### `rich/layout.py`
-
-**Purpose:** Implements layout.
-**Depends on:** `_ratio`, `align`, `console`, `highlighter`, `panel`, `pretty`, +7 more
-
-**Types:**
-- `ColumnSplitter` (bases: `Splitter`) - Split a layout region in to columns. methods: `divide`, `get_tree_icon`
-- `Layout` - A renderable to divide a fixed height in to rows or columns. methods: `__init__`, `add_split`, `get`, `refresh_screen` (+6 more)
-- `LayoutError` (bases: `Exception`) - Layout related error.
-- `LayoutRender` (bases: `NamedTuple`) - An individual layout render.
-
-**Notes:** decorator-heavy (7 decorators); large file (443 lines)
-
 ### `rich/ansi.py`
 
 **Purpose:** Implements ansi.
@@ -1413,13 +1411,13 @@ __main__.ColorBox()
 - `def render_scope(scope: "Mapping[str, Any]", *, title: Optional[TextType] = None, ...) -> "ConsoleRenderable"`
   - Render python variables in a given scope.
 
-### `rich/palette.py`
+### `rich/json.py`
 
-**Purpose:** Implements palette.
-**Depends on:** `color`, `color_triplet`, `console`, `segment`, `style`, `table`, `text`
+**Purpose:** Implements json.
+**Depends on:** `console`, `highlighter`, `text`
 
 **Types:**
-- `Palette` - A palette of available colors. methods: `__init__`
+- `JSON` - A renderable which pretty prints JSON. methods: `__init__`
 
 ### `rich/live_render.py`
 
@@ -1428,6 +1426,14 @@ __main__.ColorBox()
 
 **Types:**
 - `LiveRender` - Creates a renderable that may be updated. methods: `__init__`, `position_cursor`, `restore_cursor`, `set_renderable`
+
+### `rich/palette.py`
+
+**Purpose:** Implements palette.
+**Depends on:** `color`, `color_triplet`, `console`, `segment`, `style`, `table`, `text`
+
+**Types:**
+- `Palette` - A palette of available colors. methods: `__init__`
 
 ### `tools/profile_divide.py`
 
@@ -1450,6 +1456,11 @@ __main__.ColorBox()
 - `def _emoji_replace(text: str, default_variant: Optional[str] = None, ...)(?:(?:\-)(emoji|text))?:)").sub, ) -> str`
   - Replace emoji code in text.
 
+### `rich/default_styles.py`
+
+**Purpose:** Implements default styles.
+**Depends on:** `console`, `style`, `table`, `text`
+
 ### `rich/file_proxy.py`
 
 **Purpose:** Implements file proxy.
@@ -1457,27 +1468,6 @@ __main__.ColorBox()
 
 **Types:**
 - `FileProxy` (bases: `io.TextIOBase`) - Wraps a file (e.g. sys.stdout) and redirects writes to a console. methods: `__init__`, `fileno`, `flush`, `write`
-
-### `rich/json.py`
-
-**Purpose:** Implements json.
-**Depends on:** `console`, `highlighter`, `text`
-
-**Types:**
-- `JSON` - A renderable which pretty prints JSON. methods: `__init__`
-
-### `rich/default_styles.py`
-
-**Purpose:** Implements default styles.
-**Depends on:** `console`, `style`, `table`, `text`
-
-### `rich/bar.py`
-
-**Purpose:** Implements bar.
-**Depends on:** `color`, `console`, `jupyter`, `measure`, `segment`, `style`
-
-**Types:**
-- `Bar` (bases: `JupyterMixin`) - Renders a solid block bar. methods: `__init__`, `__repr__`
 
 ## SUPPORTING_MODULES
 
@@ -1504,6 +1494,22 @@ class RichRenderable(ABC)
 
         if isinstance(my_object, RichRenderable):
             console.print(my_object)"""
+
+```
+
+### `rich/bar.py`
+
+```python
+class Bar(JupyterMixin)
+    """Renders a solid block bar.
+
+    Args:
+        size (float): Value for the end of the bar.
+        begin (float): Begin point (between 0 and size, inclusive).
+        end (float): End point (between 0 and size, inclusive).
+        width (int, optional): Width of the bar, or ``None`` for maximum width. Defaults to None.
+        color (Union[Color, str], optional): Color of the bar. Defaults to "default".
+        bgcolor (Union[Color, str], optional): Color of bar background. Defaults to "default"."""
 
 ```
 
@@ -1557,27 +1563,6 @@ class Confirm(PromptBase[bool])
     Example:
         >>> if Confirm.ask("Continue"):
                 run_job()"""
-
-```
-
-### `rich/_stack.py`
-
-```python
-class Stack(List[T])
-    """A small shim over builtin list."""
-
-```
-
-### `rich/_timer.py`
-
-> 
-Timer context manager, only used in debug.
-
-
-
-```python
-def timer(subject: str = "time") -> Generator[None, None, None]
-    """print the elapsed time. (only used in debugging)"""
 
 ```
 
@@ -1645,6 +1630,27 @@ class LogRender
 
 *310 lines, 1 imports*
 
+### `rich/_stack.py`
+
+```python
+class Stack(List[T])
+    """A small shim over builtin list."""
+
+```
+
+### `rich/_timer.py`
+
+> 
+Timer context manager, only used in debug.
+
+
+
+```python
+def timer(subject: str = "time") -> Generator[None, None, None]
+    """print the elapsed time. (only used in debugging)"""
+
+```
+
 ### `rich/_windows.py`
 
 ```python
@@ -1675,6 +1681,10 @@ def divide_line(text: str, width: int, fold: bool = True) -> list[int]
         A list of indices to break the line at."""
 
 ```
+
+### `rich/_export_format.py`
+
+*77 lines, 0 imports*
 
 ### `rich/_extension.py`
 
@@ -1720,10 +1730,6 @@ def is_object_one_of_types(
     fully qualified names in its MRO."""
 
 ```
-
-### `rich/_export_format.py`
-
-*77 lines, 0 imports*
 
 ### `rich/diagnose.py`
 
@@ -1803,46 +1809,6 @@ def decimal(
 
 *6 lines, 2 imports*
 
-### `rich/_unicode_data/unicode4-1-0.py`
-
-*426 lines, 1 imports*
-
-### `rich/_unicode_data/unicode5-0-0.py`
-
-*431 lines, 1 imports*
-
-### `rich/_unicode_data/unicode5-1-0.py`
-
-*434 lines, 1 imports*
-
-### `rich/_unicode_data/unicode5-2-0.py`
-
-*462 lines, 1 imports*
-
-### `rich/_unicode_data/unicode6-0-0.py`
-
-*470 lines, 1 imports*
-
-### `rich/_unicode_data/unicode6-1-0.py`
-
-*481 lines, 1 imports*
-
-### `rich/_unicode_data/unicode6-2-0.py`
-
-*481 lines, 1 imports*
-
-### `rich/_unicode_data/unicode6-3-0.py`
-
-*482 lines, 1 imports*
-
-### `rich/_unicode_data/unicode7-0-0.py`
-
-*508 lines, 1 imports*
-
-### `rich/_unicode_data/unicode9-0-0.py`
-
-*599 lines, 1 imports*
-
 ### `rich/_unicode_data/unicode10-0-0.py`
 
 *612 lines, 1 imports*
@@ -1883,13 +1849,49 @@ def decimal(
 
 *692 lines, 1 imports*
 
+### `rich/_unicode_data/unicode4-1-0.py`
+
+*426 lines, 1 imports*
+
+### `rich/_unicode_data/unicode5-0-0.py`
+
+*431 lines, 1 imports*
+
+### `rich/_unicode_data/unicode5-1-0.py`
+
+*434 lines, 1 imports*
+
+### `rich/_unicode_data/unicode5-2-0.py`
+
+*462 lines, 1 imports*
+
+### `rich/_unicode_data/unicode6-0-0.py`
+
+*470 lines, 1 imports*
+
+### `rich/_unicode_data/unicode6-1-0.py`
+
+*481 lines, 1 imports*
+
+### `rich/_unicode_data/unicode6-2-0.py`
+
+*481 lines, 1 imports*
+
+### `rich/_unicode_data/unicode6-3-0.py`
+
+*482 lines, 1 imports*
+
+### `rich/_unicode_data/unicode7-0-0.py`
+
+*508 lines, 1 imports*
+
+### `rich/_unicode_data/unicode9-0-0.py`
+
+*599 lines, 1 imports*
+
 ### `rich/_unicode_data/_versions.py`
 
 *24 lines, 0 imports*
-
-### `tox.ini`
-
-*52 lines, 0 imports*
 
 ### `tools/cats.json`
 
@@ -1902,6 +1904,10 @@ def decimal(
 ### `tools/movies.md`
 
 *45 lines, 0 imports*
+
+### `tox.ini`
+
+*52 lines, 0 imports*
 
 ### `tools/README.md`
 
@@ -1955,13 +1961,17 @@ def decimal(
 
 *10 lines, 0 imports*
 
-### `questions/README.md`
-
-*7 lines, 0 imports*
-
 ### `make.bat`
 
 *36 lines, 0 imports*
+
+### `pyproject.toml`
+
+*70 lines, 0 imports*
+
+### `questions/README.md`
+
+*7 lines, 0 imports*
 
 ### `imgs/logo.svg`
 
@@ -2159,15 +2169,15 @@ graph LR
 | `rich/text.py` | 0.340 | structured summary | 155 |
 | `rich/style.py` | 0.309 | structured summary | 134 |
 | `rich/segment.py` | 0.250 | structured summary | 157 |
-| `rich/__init__.py` | 0.249 | structured summary | 170 |
+| `rich/__init__.py` | 0.248 | structured summary | 170 |
 | `rich/table.py` | 0.244 | structured summary | 158 |
-| `rich/panel.py` | 0.243 | structured summary | 92 |
+| `rich/panel.py` | 0.242 | structured summary | 92 |
 | `rich/measure.py` | 0.239 | structured summary | 115 |
 | `rich/__main__.py` | 0.196 | full source | 2029 |
 | `rich/jupyter.py` | 0.195 | structured summary | 150 |
 | `rich/color.py` | 0.190 | structured summary | 197 |
 | `rich/pretty.py` | 0.188 | structured summary | 176 |
-| `rich/highlighter.py` | 0.181 | structured summary | 165 |
+| `rich/highlighter.py` | 0.180 | structured summary | 165 |
 | `rich/syntax.py` | 0.179 | structured summary | 186 |
 | `rich/align.py` | 0.176 | structured summary | 127 |
 | `rich/live.py` | 0.168 | structured summary | 155 |
@@ -2179,43 +2189,34 @@ graph LR
 | `rich/repr.py` | 0.152 | structured summary | 195 |
 | `rich/rule.py` | 0.152 | structured summary | 81 |
 | `rich/padding.py` | 0.151 | structured summary | 68 |
-| `rich/pager.py` | 0.151 | structured summary | 72 |
-| `rich/control.py` | 0.150 | structured summary | 158 |
+| `rich/pager.py` | 0.150 | structured summary | 72 |
+| `rich/control.py` | 0.149 | structured summary | 158 |
 | `tests/render.py` | 0.147 | one-liner | 19 |
-| `tests/test_card.py` | 0.146 | one-liner | 20 |
-| `rich/errors.py` | 0.146 | structured summary | 129 |
+| `tests/test_card.py` | 0.147 | one-liner | 20 |
 | `rich/traceback.py` | 0.146 | structured summary | 176 |
+| `rich/errors.py` | 0.146 | structured summary | 129 |
 | `rich/spinner.py` | 0.145 | structured summary | 66 |
-| `rich/containers.py` | 0.143 | structured summary | 100 |
-| `rich/terminal_theme.py` | 0.142 | structured summary | 54 |
+| `rich/terminal_theme.py` | 0.143 | structured summary | 54 |
 | `rich/color_triplet.py` | 0.142 | structured summary | 45 |
-| `rich/styled.py` | 0.142 | structured summary | 57 |
+| `rich/containers.py` | 0.142 | structured summary | 100 |
 | `rich/_win32_console.py` | 0.142 | structured summary | 172 |
+| `rich/styled.py` | 0.141 | structured summary | 57 |
 | `rich/markup.py` | 0.140 | structured summary | 167 |
-| `rich/constrain.py` | 0.140 | structured summary | 68 |
-| `rich/emoji.py` | 0.140 | structured summary | 93 |
 | `rich/tree.py` | 0.139 | structured summary | 81 |
+| `rich/box.py` | 0.139 | structured summary | 99 |
+| `rich/constrain.py` | 0.139 | structured summary | 68 |
 
 ## PERIPHERY
 
 - `tests/render.py` — 2 functions, 3 imports, 25 lines
 - `tests/test_card.py` — 3 functions, 5 imports, 42 lines
 - `tests/_card_render.py` — 2 lines
+- `tests/test_theme.py` — 5 functions, 6 imports, 54 lines
 - `tests/test_traceback.py` — 23 functions, 8 imports, 400 lines
 - `tests/test_tree.py` — 9 functions, 5 imports, 146 lines
 - `tests/test_win32_console.py` — 8 imports, 413 lines
 - `tests/test_windows_renderer.py` — 13 functions, 7 imports, 142 lines
-- `tests/test_syntax.py` — 25 functions, 14 imports, 454 lines
-- `tests/test_table.py` — 14 functions, 9 imports, 413 lines
-- `tests/test_text.py` — 91 functions, 8 imports, 1130 lines
-- `tests/test_theme.py` — 5 functions, 6 imports, 54 lines
-- `tests/test_rule_in_table.py` — 3 functions, 7 imports, 77 lines
-- `tests/test_screen.py` — 1 function, 2 imports, 13 lines
-- `tests/test_segment.py` — 31 functions, 7 imports, 396 lines
-- `tests/test_spinner.py` — 5 functions, 6 imports, 73 lines
-- `tests/test_status.py` — 2 functions, 4 imports, 35 lines
-- `tests/test_style.py` — 27 functions, 4 imports, 268 lines
-- `tests/test_styled.py` — 1 function, 4 imports, 16 lines
+- `tests/test_panel.py` — 8 functions, 7 imports, 184 lines
 - `tests/test_pretty.py` — 3 classs, 52 functions, 14 imports, 760 lines
 - `tests/test_progress.py` — 1 class, 37 functions, 13 imports, 691 lines
 - `tests/test_prompt.py` — 8 functions, 3 imports, 127 lines
@@ -2223,19 +2224,18 @@ graph LR
 - `tests/test_repr.py` — 8 classs, 8 functions, 5 imports, 153 lines
 - `tests/test_rich_print.py` — 7 functions, 4 imports, 75 lines
 - `tests/test_rule.py` — 11 functions, 5 imports, 131 lines
-- `tests/test_markdown.py` — 9 functions, 4 imports, 207 lines
-- `tests/test_markdown_no_hyperlinks.py` — 3 functions, 4 imports, 105 lines
-- `tests/test_markup.py` — 21 functions, 5 imports, 220 lines
-- `tests/test_measure.py` — 4 functions, 5 imports, 37 lines
-- `tests/test_padding.py` — 5 functions, 5 imports, 61 lines
-- `tests/test_palette.py` — 1 function, 2 imports, 9 lines
-- `tests/test_panel.py` — 8 functions, 7 imports, 184 lines
-- `tests/test_jupyter.py` — 3 functions, 1 imports, 33 lines
-- `tests/test_layout.py` — 6 functions, 5 imports, 101 lines
-- `tests/test_live.py` — 12 functions, 6 imports, 188 lines
-- `tests/test_live_render.py` — 5 functions, 5 imports, 46 lines
-- `tests/test_log.py` — 5 functions, 3 imports, 66 lines
-- `tests/test_logging.py` — 4 functions, 7 imports, 163 lines
+- `tests/test_rule_in_table.py` — 3 functions, 7 imports, 77 lines
+- `tests/test_screen.py` — 1 function, 2 imports, 13 lines
+- `tests/test_segment.py` — 31 functions, 7 imports, 396 lines
+- `tests/test_spinner.py` — 5 functions, 6 imports, 73 lines
+- `tests/test_status.py` — 2 functions, 4 imports, 35 lines
+- `tests/test_style.py` — 27 functions, 4 imports, 268 lines
+- `tests/test_styled.py` — 1 function, 4 imports, 16 lines
+- `tests/test_syntax.py` — 25 functions, 14 imports, 454 lines
+- `tests/test_table.py` — 14 functions, 9 imports, 413 lines
+- `tests/test_text.py` — 91 functions, 8 imports, 1130 lines
+- `tests/test_columns.py` — 2 functions, 3 imports, 78 lines
+- `tests/test_columns_align.py` — 2 functions, 5 imports, 44 lines
 - `tests/test_console.py` — 1 class, 96 functions, 24 imports, 1130 lines
 - `tests/test_constrain.py` — 1 function, 3 imports, 14 lines
 - `tests/test_containers.py` — 4 functions, 4 imports, 58 lines
@@ -2243,31 +2243,38 @@ graph LR
 - `tests/test_file_proxy.py` — 3 functions, 5 imports, 38 lines
 - `tests/test_filesize.py` — 2 functions, 1 imports, 21 lines
 - `tests/test_highlighter.py` — Tests for the highlighter classes.
-- `tests/test_cells.py` — 15 functions, 4 imports, 255 lines
-- `tests/test_color.py` — 17 functions, 4 imports, 188 lines
-- `tests/test_columns.py` — 2 functions, 3 imports, 78 lines
-- `tests/test_columns_align.py` — 2 functions, 5 imports, 44 lines
+- `tests/test_jupyter.py` — 3 functions, 1 imports, 33 lines
+- `tests/test_layout.py` — 6 functions, 5 imports, 101 lines
+- `tests/test_live.py` — 12 functions, 6 imports, 188 lines
+- `tests/test_live_render.py` — 5 functions, 5 imports, 46 lines
+- `tests/test_log.py` — 5 functions, 3 imports, 66 lines
+- `tests/test_logging.py` — 4 functions, 7 imports, 163 lines
+- `tests/test_markdown.py` — 9 functions, 4 imports, 207 lines
+- `tests/test_markdown_no_hyperlinks.py` — 3 functions, 4 imports, 105 lines
+- `tests/test_markup.py` — 21 functions, 5 imports, 220 lines
+- `tests/test_measure.py` — 4 functions, 5 imports, 37 lines
+- `tests/test_padding.py` — 5 functions, 5 imports, 61 lines
+- `tests/test_palette.py` — 1 function, 2 imports, 9 lines
 - `tests/test_align.py` — 16 functions, 5 imports, 152 lines
 - `tests/test_ansi.py` — 4 functions, 5 imports, 85 lines
 - `tests/test_bar.py` — 7 functions, 5 imports, 102 lines
 - `tests/test_block_bar.py` — 4 functions, 3 imports, 56 lines
 - `tests/test_box.py` — 8 functions, 3 imports, 106 lines
+- `tests/test_cells.py` — 15 functions, 4 imports, 255 lines
+- `tests/test_color.py` — 17 functions, 4 imports, 188 lines
 - `tests/test_tools.py` — 4 functions, 2 imports, 39 lines
-- `tests/test_stack.py` — 1 function, 1 imports, 11 lines
-- `tests/test_ratio.py` — 1 class, 2 functions, 3 imports, 59 lines
-- `tests/test_null_file.py` — 1 function, 1 imports, 24 lines
 - `tests/test_pick.py` — 1 function, 1 imports, 15 lines
-- `tests/test_json.py` — 1 function, 2 imports, 9 lines
+- `tests/test_ratio.py` — 1 class, 2 functions, 3 imports, 59 lines
+- `tests/test_stack.py` — 1 function, 1 imports, 11 lines
 - `tests/test_emoji.py` — 6 functions, 3 imports, 38 lines
 - `tests/test_getfileno.py` — 3 functions, 1 imports, 26 lines
+- `tests/test_json.py` — 1 function, 2 imports, 9 lines
+- `tests/test_null_file.py` — 1 function, 1 imports, 24 lines
 - `tests/test_color_triplet.py` — 3 functions, 1 imports, 17 lines
 - `tests/test_unicode_data.py` — 4 functions, 2 imports, 65 lines
 - `tests/conftest.py` — 1 function, 1 imports, 9 lines
 - `tests/pytest.ini` — 3 lines
 - `tests/__init__.py` — 0 lines
-- `examples/tree.py` — 
-- `examples/recursive_error.py` — 
-- `examples/repr.py` — 1 class, 2 imports, 24 lines
 - `examples/save_table_svg.py` — 
 - `examples/screen.py` — 
 - `examples/spinners.py` — 6 imports, 24 lines
@@ -2275,17 +2282,7 @@ graph LR
 - `examples/table.py` — 
 - `examples/table_movie.py` — Same as the table_movie.py but uses Live to update
 - `examples/top_lite_simulator.py` — Lite simulation of the top linux command.
-- `examples/justify.py` — 
-- `examples/justify2.py` — 
-- `examples/layout.py` — 
-- `examples/link.py` — 1 imports, 5 lines
-- `examples/listdir.py` — 
-- `examples/live_progress.py` — 
-- `examples/log.py` — 
-- `examples/overflow.py` — 2 imports, 12 lines
-- `examples/padding.py` — 2 imports, 6 lines
-- `examples/print_calendar.py` — 
-- `examples/rainbow.py` — 
+- `examples/tree.py` — 
 - `examples/attrs.py` — 3 classs, 6 imports, 54 lines
 - `examples/bars.py` — 
 - `examples/columns.py` — 
@@ -2297,38 +2294,27 @@ graph LR
 - `examples/group2.py` — 1 function, 3 imports, 13 lines
 - `examples/highlighter.py` — 
 - `examples/jobs.py` — 3 imports, 32 lines
+- `examples/justify.py` — 
+- `examples/justify2.py` — 
+- `examples/layout.py` — 
+- `examples/link.py` — 1 imports, 5 lines
+- `examples/listdir.py` — 
+- `examples/live_progress.py` — 
+- `examples/log.py` — 
+- `examples/overflow.py` — 2 imports, 12 lines
+- `examples/padding.py` — 2 imports, 6 lines
+- `examples/print_calendar.py` — 
+- `examples/rainbow.py` — 
+- `examples/recursive_error.py` — 
+- `examples/repr.py` — 1 class, 2 imports, 24 lines
 - `examples/suppress.py` — 1 function, 2 imports, 24 lines
 - `examples/cp_progress.py` — 
 - `examples/downloader.py` — 
 - `examples/file_progress.py` — 3 imports, 17 lines
 - `benchmarks/benchmarks.py` — 9 classs, 10 imports, 219 lines
 - `benchmarks/__init__.py` — 0 lines
-- `docs/source/text.rst` — 61 lines
-- `docs/source/traceback.rst` — 99 lines
 - `docs/source/tree.rst` — 46 lines
 - `examples/README.md` — 6 lines
-- `docs/source/reference/styled.rst` — 8 lines
-- `docs/source/reference/syntax.rst` — 6 lines
-- `docs/source/reference/table.rst` — 6 lines
-- `docs/source/reference/text.rst` — 7 lines
-- `docs/source/reference/theme.rst` — 7 lines
-- `docs/source/reference/traceback.rst` — 7 lines
-- `docs/source/reference/tree.rst` — 6 lines
-- `docs/source/style.rst` — 161 lines
-- `docs/source/syntax.rst` — 58 lines
-- `docs/source/tables.rst` — 172 lines
-- `docs/source/reference/padding.rst` — 6 lines
-- `docs/source/reference/panel.rst` — 7 lines
-- `docs/source/reference/pretty.rst` — 7 lines
-- `docs/source/reference/progress.rst` — 6 lines
-- `docs/source/reference/progress_bar.rst` — 8 lines
-- `docs/source/reference/prompt.rst` — 6 lines
-- `docs/source/reference/protocol.rst` — 6 lines
-- `docs/source/reference/rule.rst` — 6 lines
-- `docs/source/reference/segment.rst` — 6 lines
-- `docs/source/reference/spinner.rst` — 6 lines
-- `docs/source/reference/status.rst` — 6 lines
-- `docs/source/reference/style.rst` — 8 lines
 - `docs/source/reference/align.rst` — 8 lines
 - `docs/source/reference/bar.rst` — 8 lines
 - `docs/source/reference/color.rst` — 8 lines
@@ -2345,13 +2331,30 @@ graph LR
 - `docs/source/reference/markdown.rst` — 8 lines
 - `docs/source/reference/markup.rst` — 6 lines
 - `docs/source/reference/measure.rst` — 6 lines
-- `docs/source/panel.rst` — 25 lines
-- `docs/source/pretty.rst` — 243 lines
-- `docs/source/progress.rst` — 299 lines
-- `docs/source/prompt.rst` — 41 lines
-- `docs/source/protocol.rst` — 74 lines
-- `docs/source/reference.rst` — 42 lines
-- `docs/source/reference/abc.rst` — 8 lines
+- `docs/source/reference/padding.rst` — 6 lines
+- `docs/source/reference/panel.rst` — 7 lines
+- `docs/source/reference/pretty.rst` — 7 lines
+- `docs/source/reference/progress.rst` — 6 lines
+- `docs/source/reference/progress_bar.rst` — 8 lines
+- `docs/source/reference/prompt.rst` — 6 lines
+- `docs/source/reference/protocol.rst` — 6 lines
+- `docs/source/reference/rule.rst` — 6 lines
+- `docs/source/reference/segment.rst` — 6 lines
+- `docs/source/reference/spinner.rst` — 6 lines
+- `docs/source/reference/status.rst` — 6 lines
+- `docs/source/reference/style.rst` — 8 lines
+- `docs/source/reference/styled.rst` — 8 lines
+- `docs/source/reference/syntax.rst` — 6 lines
+- `docs/source/reference/table.rst` — 6 lines
+- `docs/source/reference/text.rst` — 7 lines
+- `docs/source/reference/theme.rst` — 7 lines
+- `docs/source/reference/traceback.rst` — 7 lines
+- `docs/source/reference/tree.rst` — 6 lines
+- `docs/source/style.rst` — 161 lines
+- `docs/source/syntax.rst` — 58 lines
+- `docs/source/tables.rst` — 172 lines
+- `docs/source/text.rst` — 61 lines
+- `docs/source/traceback.rst` — 99 lines
 - `docs/source/appendix/colors.rst` — 221 lines
 - `docs/source/columns.rst` — 24 lines
 - `docs/source/conf.py` — 2 imports, 78 lines
@@ -2366,14 +2369,19 @@ graph LR
 - `docs/source/markdown.rst` — 29 lines
 - `docs/source/markup.rst` — 112 lines
 - `docs/source/padding.rst` — 28 lines
+- `docs/source/panel.rst` — 25 lines
+- `docs/source/pretty.rst` — 243 lines
+- `docs/source/progress.rst` — 299 lines
+- `docs/source/prompt.rst` — 41 lines
+- `docs/source/protocol.rst` — 74 lines
+- `docs/source/reference.rst` — 42 lines
+- `docs/source/reference/abc.rst` — 8 lines
 - `docs/source/appendix/box.rst` — 21 lines
 - `docs/images/svg_export.svg` — 546 lines
 - `docs/make.bat` — 36 lines
 - `docs/requirements.txt` — 5 lines
 - `docs/source/appendix.rst` — 9 lines
 - `docs/images/box.svg` — 287 lines
-- `docs/Makefile` — 21 lines
-- `benchmarks/results/darrenburns-2022-mbp/edcb6f9e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/ef80460f-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/f2845e12-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/f2af8c9d-virtualenv-py3.10.json` — 2 lines
@@ -2381,13 +2389,10 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/f82a4ccf-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/f84d5dee-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/machine.json` — 9 lines
-- `benchmarks/results/darrenburns-2022-mbp/e78acae6-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/e7de32a0-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/e9e72000-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/ea049ffc-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/ea2ed337-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/eab3fe8e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/ecf3d7f1-virtualenv-py3.10.json` — 2 lines
+- `docs/Makefile` — 21 lines
+- `benchmarks/results/darrenburns-2022-mbp/d1ea01d0-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/d6e6a762-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/d9d59c6e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/d9d59c6e-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/dc3f0623-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/e0a1fd30-virtualenv-py3.10.json` — 2 lines
@@ -2396,13 +2401,19 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/e34eadb3-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/e5246436-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/e7849495-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/c9afafdd-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/cefafdc1-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/cf606f0a-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/d06540a2-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/d1ea01d0-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/d6e6a762-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/d9d59c6e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/e78acae6-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/e7de32a0-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/e9e72000-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/ea049ffc-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/ea2ed337-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/eab3fe8e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/ecf3d7f1-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/edcb6f9e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `rich/_unicode_data/__init__.py` — 2 functions, 9 imports, 94 lines
+- `benchmarks/results/darrenburns-2022-mbp/b9e0014a-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/b9e0014a-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/ba5d0c2c-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/bd34e0a1-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/bd34e0a1-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/bf728dbc-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/c24ab497-virtualenv-py3.10.json` — 2 lines
@@ -2410,13 +2421,21 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/c3d0e358-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/c3ee3b05-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/c57e1f50-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/ae5865eb-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/b15bc18c-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/b391635e-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/b9e0014a-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/b9e0014a-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/ba5d0c2c-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/bd34e0a1-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/c9afafdd-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/cefafdc1-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/cf606f0a-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/d06540a2-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/99831099-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/9a4fbf83-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/9abc0292-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/9bfb6190-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/9f2a426e-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/a27a3ee2-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/a2f6688e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/a6d1d784-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/a6ea9890-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/a81230bc-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/a81230bc-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/a8d2bb20-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/aa4546ac-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/aa7926c1-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2424,27 +2443,14 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/ac1a33da-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/aca0b60b-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/ad6e3dea-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/a27a3ee2-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/a2f6688e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/a6d1d784-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/a6ea9890-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/a81230bc-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/a81230bc-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/96ea5fed-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/99831099-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/9a4fbf83-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/9abc0292-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/9bfb6190-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/9f2a426e-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/8b47f338-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/8c3e6be4-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/8e649fea-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/911d305f-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/932e26b6-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/949e1f72-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/95d8bf98-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/ae5865eb-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/b15bc18c-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/b391635e-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/7d00fa83-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/7d02d29b-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/7e4a2db4-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/7edd619f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/7ef7ffee-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/83756d62-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/837b6d7e-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/877c53d9-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2452,19 +2458,20 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/8a7f5d82-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/8a7f5d82-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/8b185610-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/79ea1c1d-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/7bad81d5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/7d00fa83-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/7d02d29b-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/7e4a2db4-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/7edd619f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/7ef7ffee-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/666d0cf2-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/690507d4-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/6d7ba589-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/71135d19-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/7441bf27-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/76620730-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/8b47f338-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/8c3e6be4-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/8e649fea-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/911d305f-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/932e26b6-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/949e1f72-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/95d8bf98-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/96ea5fed-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/5f021978-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/5f021978-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/5f03e3ba-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/5f55063b-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/5f82274a-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/5fafb92f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/60dadaf2-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2472,39 +2479,32 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/646d933d-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/64755d41-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/656b7a18-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `rich/_unicode_data/__init__.py` — 2 functions, 9 imports, 94 lines
-- `benchmarks/results/darrenburns-2022-mbp/588f0331-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/58bfa48f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/5f021978-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/5f021978-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/5f03e3ba-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/5f55063b-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/53d9eeaf-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/550d3911-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/55e11902-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/573125e9-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/579a29c8-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/4f8908a6-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/52d159aa-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/52d159aa-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/53cda574-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/666d0cf2-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/690507d4-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/6d7ba589-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/71135d19-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/7441bf27-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/76620730-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/79ea1c1d-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/7bad81d5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/489fafc6-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/48da2791-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/4b123ddf-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/4b3b6531-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/4bf3f19c-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/4d6a6d88-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/4dc1d4cb-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/43d4c4e5-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/44f54dd8-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/464e4e33-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/489fafc6-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/48da2791-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/3f7d3e4e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/3f7d3e4e-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/4020d5a9-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/41279bca-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/416033ff-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/43a26c0a-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/43d4c4e5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/4f8908a6-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/52d159aa-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/52d159aa-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/53cda574-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/53d9eeaf-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/550d3911-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/55e11902-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/573125e9-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/579a29c8-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/588f0331-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/58bfa48f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2ea7e586-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2ea7e586-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/30498f59-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2513,6 +2513,26 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/3827b4ae-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/3be88c08-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/3db6396a-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/3f7d3e4e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/3f7d3e4e-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/4020d5a9-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/41279bca-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/416033ff-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/43a26c0a-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/43d4c4e5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/43d4c4e5-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/44f54dd8-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/464e4e33-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/189a2a3f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/19e26c94-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/1cdcd1ae-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/1daa1771-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/1f3f7f1e-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/1ffbd443-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/20024635-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/21432b4c-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/2356d7c0-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/23aa7177-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/24743154-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/25a1bf06-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/26fe4667-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2522,21 +2542,11 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/2c93dce9-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2d3152a2-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2d3ec69f-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/1cdcd1ae-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/1daa1771-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/1f3f7f1e-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/1ffbd443-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/20024635-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/21432b4c-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/2356d7c0-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/23aa7177-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/11c00224-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/11c305e1-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/1442dd77-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/15623c5a-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/177958c5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/189a2a3f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/19e26c94-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/03392a1b-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/038e22eb-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/03a52134-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/06922006-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/06aa1271-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/07d51ffc-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/0a3fcb9c-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/0ac4e308-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2545,44 +2555,44 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/0db0cbd0-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/0e8df8cd-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/0fd6bc56-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/03392a1b-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/038e22eb-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/03a52134-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/06922006-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/06aa1271-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/11c00224-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/11c305e1-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/1442dd77-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/15623c5a-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/177958c5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/008854c4-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/benchmarks.json` — 515 lines
 - `asv.conf.json` — 35 lines
 - `asvhashfile` — 24 lines
 - `benchmarks/README.md` — 30 lines
-- `README.tr.md` — 452 lines
-- `README.zh-tw.md` — 462 lines
-- `SECURITY.md` — 4 lines
+- `README.pl.md` — 419 lines
 - `README.pt-br.md` — 462 lines
 - `README.ru.md` — 474 lines
 - `README.sv.md` — 459 lines
-- `README.md` — 446 lines
-- `README.pl.md` — 419 lines
-- `README.it.md` — 463 lines
-- `README.kr.md` — 465 lines
+- `README.tr.md` — 452 lines
+- `README.zh-tw.md` — 462 lines
+- `SECURITY.md` — 4 lines
+- `README.de.md` — 460 lines
+- `README.es.md` — 458 lines
+- `README.fa.md` — 496 lines
 - `README.fr.md` — 452 lines
 - `README.hi.md` — 449 lines
 - `README.id.md` — 466 lines
-- `README.es.md` — 458 lines
-- `README.fa.md` — 496 lines
-- `README.cn.md` — 440 lines
-- `README.de-ch.md` — 462 lines
-- `README.de.md` — 460 lines
+- `README.it.md` — 463 lines
+- `README.kr.md` — 465 lines
+- `README.md` — 446 lines
+- `.gitignore` — 122 lines
+- `.pre-commit-config.yaml` — 44 lines
+- `.readthedocs.yml` — 24 lines
+- `AI_POLICY.md` — 8 lines
+- `CHANGELOG.md` — 2386 lines
 - `CODE_OF_CONDUCT.md` — 77 lines
 - `CONTRIBUTING.md` — 150 lines
 - `CONTRIBUTORS.md` — 103 lines
 - `FAQ.md` — 114 lines
 - `Makefile` — 16 lines
-- `CHANGELOG.md` — 2386 lines
-- `.gitignore` — 122 lines
-- `.pre-commit-config.yaml` — 44 lines
-- `.readthedocs.yml` — 24 lines
-- `AI_POLICY.md` — 8 lines
+- `README.cn.md` — 440 lines
+- `README.de-ch.md` — 462 lines
 - `.faq/suggest.md` — 23 lines
 - `.coveragerc` — 13 lines
 - `.faq/FAQ.md` — 21 lines

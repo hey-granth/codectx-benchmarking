@@ -2,10 +2,10 @@
 
 A software project composed of the following subsystems:
 
-- **docs/**: Primary subsystem containing 1432 files
-- **tests/**: Primary subsystem containing 581 files
-- **docs_src/**: Primary subsystem containing 457 files
-- **scripts/**: Primary subsystem containing 69 files
+- **docs/**: Primary subsystem containing 1497 files
+- **tests/**: Primary subsystem containing 582 files
+- **docs_src/**: Primary subsystem containing 458 files
+- **scripts/**: Primary subsystem containing 70 files
 - **fastapi/**: Primary subsystem containing 53 files
 - **Root**: Contains scripts and execution points
 
@@ -410,6 +410,9 @@ async def root():
 - `get_token_header()`
 - `get_query_token()`
 
+**`docs_src/async_tests/app_a_py310/test_main.py`**
+- `test_root()`
+
 **`fastapi/routing.py`**
 - `request_response()`
 - `websocket_session()`
@@ -457,9 +460,6 @@ async def root():
   - `_startup()`
   - `_shutdown()`
   - `add_event_handler()`
-
-**`docs_src/async_tests/app_a_py310/test_main.py`**
-- `test_root()`
 
 **`docs_src/app_testing/app_a_py310/test_main.py`**
 - `test_read_main()`
@@ -553,10 +553,6 @@ async def root():
 - `get_fields_from_routes()`
 - `get_openapi()`
 
-**`fastapi/background.py`**
-- class `BackgroundTasks`
-  - `add_task()`
-
 **`fastapi/_compat/v2.py`**
 - class `GenerateJsonSchema`
   - `bytes_schema()`
@@ -586,6 +582,10 @@ async def root():
 - `get_flat_models_from_fields()`
 - `_regenerate_error_with_loc()`
 
+**`fastapi/background.py`**
+- class `BackgroundTasks`
+  - `add_task()`
+
 **`docs_src/wsgi/tutorial001_py310.py`**
 - `flask_main()`
 
@@ -593,72 +593,6 @@ async def root():
 
 main.read_main()
   → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.Item()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.Item()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.root()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.root()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.info()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.get_settings()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.get_settings()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.get_settings()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main.get_settings()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-__main__()
-  → cli.main()
-
-cli.main()
-
-main.non_operation()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-main()
-  → __init__()
-  → responses.UJSONResponse()
-  → exceptions.EndpointContext()
-
-app.RecursiveItem()
-  → __init__()
-  → responses.UJSONResponse()
   → exceptions.EndpointContext()
 ## CORE_MODULES
 
@@ -766,6 +700,14 @@ app.RecursiveItem()
 
 **Purpose:** Implements init.
 
+### `docs_src/async_tests/app_a_py310/test_main.py`
+
+**Purpose:** Implements test main.
+**Depends on:** `async_tests.app_a_py310.main`
+
+**Functions:**
+- `def test_root()`
+
 ### `fastapi/routing.py`
 
 **Purpose:** Implements routing.
@@ -779,14 +721,6 @@ app.RecursiveItem()
 - `def _extract_endpoint_context(func: Any) -> EndpointContext`
 - `def _merge_lifespan_context(     original_context: Lifespan[Any], nested_context: Lifespan[Any] ) -> Lifespan[Any]`
 - `def _wrap_gen_lifespan_context(...) -> Callable[[Any], AbstractAsyncContextManager[Any]]`
-
-### `docs_src/async_tests/app_a_py310/test_main.py`
-
-**Purpose:** Implements test main.
-**Depends on:** `async_tests.app_a_py310.main`
-
-**Functions:**
-- `def test_root()`
 
 ### `docs_src/app_testing/app_a_py310/test_main.py`
 
@@ -3195,10 +3129,6 @@ def Security(  # noqa: N802
 
 ```
 
-### `fastapi/requests.py`
-
-*3 lines, 2 imports*
-
 ### `fastapi/openapi/utils.py`
 
 ```python
@@ -3271,37 +3201,9 @@ def get_openapi(
 
 ```
 
-### `fastapi/background.py`
+### `fastapi/requests.py`
 
-```python
-class BackgroundTasks(StarletteBackgroundTasks)
-    """A collection of background tasks that will be called after a response has been
-    sent to the client.
-
-    Read more about it in the
-    [FastAPI docs for Background Tasks](https://fastapi.tiangolo.com/tutorial/background-tasks/).
-
-    ## Example
-
-    ```python
-    from fastapi import BackgroundTasks, FastAPI
-
-    app = FastAPI()
-
-
-    def write_notification(email: str, message=""):
-        with open("log.txt", mode="w") as email_file:
-            content = f"notification for {email}: {message}"
-            email_file.write(content)
-
-
-    @app.post("/send-notification/{email}")
-    async def send_notification(email: str, background_tasks: BackgroundTasks):
-        background_tasks.add_task(write_notification, email, message="some notification")
-        return {"message": "Notification sent in the background"}
-    ```"""
-
-```
+*3 lines, 2 imports*
 
 ### `fastapi/_compat/v2.py`
 
@@ -3373,6 +3275,38 @@ def get_flat_models_from_fields(
 def _regenerate_error_with_loc(
     *, errors: Sequence[Any], loc_prefix: tuple[str | int, ...]
 ) -> list[dict[str, Any]]
+
+```
+
+### `fastapi/background.py`
+
+```python
+class BackgroundTasks(StarletteBackgroundTasks)
+    """A collection of background tasks that will be called after a response has been
+    sent to the client.
+
+    Read more about it in the
+    [FastAPI docs for Background Tasks](https://fastapi.tiangolo.com/tutorial/background-tasks/).
+
+    ## Example
+
+    ```python
+    from fastapi import BackgroundTasks, FastAPI
+
+    app = FastAPI()
+
+
+    def write_notification(email: str, message=""):
+        with open("log.txt", mode="w") as email_file:
+            content = f"notification for {email}: {message}"
+            email_file.write(content)
+
+
+    @app.post("/send-notification/{email}")
+    async def send_notification(email: str, background_tasks: BackgroundTasks):
+        background_tasks.add_task(write_notification, email, message="some notification")
+        return {"message": "Notification sent in the background"}
+    ```"""
 
 ```
 
@@ -3474,6 +3408,13 @@ class ConnectionManager
 def get()
 
 def websocket_endpoint(websocket: WebSocket, client_id: int)
+
+```
+
+### `docs_src/vibe/tutorial001_py310.py`
+
+```python
+def ai_vibes(body: Any)
 
 ```
 
@@ -3883,6 +3824,20 @@ def jsonable_encoder(
 
 ```
 
+### `docs_src/response_model/tutorial003_02_py310.py`
+
+```python
+def get_portal(teleport: bool = False) -> Response
+
+```
+
+### `docs_src/response_model/tutorial003_03_py310.py`
+
+```python
+def get_teleport() -> RedirectResponse
+
+```
+
 ### `docs_src/server_sent_events/tutorial001_py310.py`
 
 ```python
@@ -3934,34 +3889,6 @@ def stream_chat(prompt: Prompt) -> AsyncIterable[ServerSentEvent]
 
 ```
 
-### `docs_src/response_model/tutorial003_02_py310.py`
-
-```python
-def get_portal(teleport: bool = False) -> Response
-
-```
-
-### `docs_src/response_model/tutorial003_03_py310.py`
-
-```python
-def get_teleport() -> RedirectResponse
-
-```
-
-### `docs_src/response_headers/tutorial001_py310.py`
-
-```python
-def get_headers()
-
-```
-
-### `docs_src/response_headers/tutorial002_py310.py`
-
-```python
-def get_headers(response: Response)
-
-```
-
 ### `docs_src/separate_openapi_schemas/tutorial001_py310.py`
 
 ```python
@@ -3981,6 +3908,34 @@ class Item(BaseModel)
 def create_item(item: Item)
 
 def read_items() -> list[Item]
+
+```
+
+### `docs_src/response_headers/tutorial001_py310.py`
+
+```python
+def get_headers()
+
+```
+
+### `docs_src/response_headers/tutorial002_py310.py`
+
+```python
+def get_headers(response: Response)
+
+```
+
+### `docs_src/response_cookies/tutorial001_py310.py`
+
+```python
+def create_cookie()
+
+```
+
+### `docs_src/response_cookies/tutorial002_py310.py`
+
+```python
+def create_cookie(response: Response)
 
 ```
 
@@ -4069,29 +4024,6 @@ class OpenAPI(BaseModelWithConfig)
 
 ```
 
-### `docs_src/response_cookies/tutorial001_py310.py`
-
-```python
-def create_cookie()
-
-```
-
-### `docs_src/response_cookies/tutorial002_py310.py`
-
-```python
-def create_cookie(response: Response)
-
-```
-
-### `docs_src/security/tutorial007_py310.py`
-
-```python
-def get_current_username(credentials: HTTPBasicCredentials = Depends(security))
-
-def read_current_user(username: str = Depends(get_current_username))
-
-```
-
 ### `docs_src/response_change_status_code/tutorial001_py310.py`
 
 ```python
@@ -4099,9 +4031,45 @@ def get_or_create_task(task_id: str, response: Response)
 
 ```
 
-### `fastapi/types.py`
+### `docs_src/security/tutorial001_an_py310.py`
 
-*13 lines, 6 imports*
+```python
+def read_items(token: Annotated[str, Depends(oauth2_scheme)])
+
+```
+
+### `docs_src/security/tutorial001_py310.py`
+
+```python
+def read_items(token: str = Depends(oauth2_scheme))
+
+```
+
+### `docs_src/security/tutorial002_an_py310.py`
+
+```python
+class User(BaseModel)
+
+def fake_decode_token(token)
+
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)])
+
+def read_users_me(current_user: Annotated[User, Depends(get_current_user)])
+
+```
+
+### `docs_src/security/tutorial002_py310.py`
+
+```python
+class User(BaseModel)
+
+def fake_decode_token(token)
+
+def get_current_user(token: str = Depends(oauth2_scheme))
+
+def read_users_me(current_user: User = Depends(get_current_user))
+
+```
 
 ### `docs_src/security/tutorial003_an_py310.py`
 
@@ -4342,43 +4310,12 @@ def read_current_user(username: Annotated[str, Depends(get_current_username)])
 
 ```
 
-### `docs_src/security/tutorial001_an_py310.py`
+### `docs_src/security/tutorial007_py310.py`
 
 ```python
-def read_items(token: Annotated[str, Depends(oauth2_scheme)])
+def get_current_username(credentials: HTTPBasicCredentials = Depends(security))
 
-```
-
-### `docs_src/security/tutorial001_py310.py`
-
-```python
-def read_items(token: str = Depends(oauth2_scheme))
-
-```
-
-### `docs_src/security/tutorial002_an_py310.py`
-
-```python
-class User(BaseModel)
-
-def fake_decode_token(token)
-
-def get_current_user(token: Annotated[str, Depends(oauth2_scheme)])
-
-def read_users_me(current_user: Annotated[User, Depends(get_current_user)])
-
-```
-
-### `docs_src/security/tutorial002_py310.py`
-
-```python
-class User(BaseModel)
-
-def fake_decode_token(token)
-
-def get_current_user(token: str = Depends(oauth2_scheme))
-
-def read_users_me(current_user: User = Depends(get_current_user))
+def read_current_user(username: str = Depends(get_current_username))
 
 ```
 
@@ -4593,6 +4530,10 @@ def update_item(
 
 ```
 
+### `fastapi/types.py`
+
+*13 lines, 6 imports*
+
 ### `docs_src/response_status_code/tutorial001_py310.py`
 
 ```python
@@ -4604,20 +4545,6 @@ def create_item(name: str)
 
 ```python
 def create_item(name: str)
-
-```
-
-### `docs_src/response_model/tutorial003_04_py310.py`
-
-```python
-def get_portal(teleport: bool = False) -> Response | dict
-
-```
-
-### `docs_src/response_model/tutorial003_05_py310.py`
-
-```python
-def get_portal(teleport: bool = False) -> Response | dict
 
 ```
 
@@ -4705,6 +4632,20 @@ def create_user(user: UserIn) -> BaseUser
 
 ```
 
+### `docs_src/response_model/tutorial003_04_py310.py`
+
+```python
+def get_portal(teleport: bool = False) -> Response | dict
+
+```
+
+### `docs_src/response_model/tutorial003_05_py310.py`
+
+```python
+def get_portal(teleport: bool = False) -> Response | dict
+
+```
+
 ### `docs_src/response_directly/tutorial001_py310.py`
 
 ```python
@@ -4755,6 +4696,13 @@ def login(username: str = Form(), password: str = Form())
 
 ```
 
+### `docs_src/query_params/tutorial005_py310.py`
+
+```python
+def read_user_item(item_id: str, needy: str)
+
+```
+
 ### `docs_src/request_form_models/tutorial001_an_py310.py`
 
 ```python
@@ -4791,10 +4739,32 @@ def login(data: FormData = Form())
 
 ```
 
-### `docs_src/query_params/tutorial005_py310.py`
+### `docs_src/request_files/tutorial001_02_an_py310.py`
 
 ```python
-def read_user_item(item_id: str, needy: str)
+def create_file(file: Annotated[bytes | None, File()] = None)
+
+def create_upload_file(file: UploadFile | None = None)
+
+```
+
+### `docs_src/request_files/tutorial001_02_py310.py`
+
+```python
+def create_file(file: bytes | None = File(default=None))
+
+def create_upload_file(file: UploadFile | None = None)
+
+```
+
+### `docs_src/request_files/tutorial001_03_an_py310.py`
+
+```python
+def create_file(file: Annotated[bytes, File(description="A file read as bytes")])
+
+def create_upload_file(
+    file: Annotated[UploadFile, File(description="A file read as UploadFile")],
+)
 
 ```
 
@@ -4881,89 +4851,90 @@ def main()
 
 ```
 
-### `docs_src/request_files/tutorial001_02_an_py310.py`
+### `docs_src/query_params_str_validations/tutorial001_py310.py`
 
 ```python
-def create_file(file: Annotated[bytes | None, File()] = None)
-
-def create_upload_file(file: UploadFile | None = None)
+def read_items(q: str | None = None)
 
 ```
 
-### `docs_src/request_files/tutorial001_02_py310.py`
+### `docs_src/query_params_str_validations/tutorial002_an_py310.py`
 
 ```python
-def create_file(file: bytes | None = File(default=None))
-
-def create_upload_file(file: UploadFile | None = None)
+def read_items(q: Annotated[str | None, Query(max_length=50)] = None)
 
 ```
 
-### `docs_src/request_files/tutorial001_03_an_py310.py`
+### `docs_src/query_params_str_validations/tutorial002_py310.py`
 
 ```python
-def create_file(file: Annotated[bytes, File(description="A file read as bytes")])
-
-def create_upload_file(
-    file: Annotated[UploadFile, File(description="A file read as UploadFile")],
-)
+def read_items(q: str | None = Query(default=None, max_length=50))
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial012_an_py310.py`
-
-```python
-def read_items(q: Annotated[list[str], Query()] = ["foo", "bar"])
-
-```
-
-### `docs_src/query_params_str_validations/tutorial012_py310.py`
-
-```python
-def read_items(q: list[str] = Query(default=["foo", "bar"]))
-
-```
-
-### `docs_src/query_params_str_validations/tutorial013_an_py310.py`
-
-```python
-def read_items(q: Annotated[list, Query()] = [])
-
-```
-
-### `docs_src/query_params_str_validations/tutorial013_py310.py`
-
-```python
-def read_items(q: list = Query(default=[]))
-
-```
-
-### `docs_src/query_params_str_validations/tutorial014_an_py310.py`
+### `docs_src/query_params_str_validations/tutorial003_an_py310.py`
 
 ```python
 def read_items(
-    hidden_query: Annotated[str | None, Query(include_in_schema=False)] = None,
+    q: Annotated[str | None, Query(min_length=3, max_length=50)] = None,
 )
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial014_py310.py`
+### `docs_src/query_params_str_validations/tutorial003_py310.py`
+
+```python
+def read_items(q: str | None = Query(default=None, min_length=3, max_length=50))
+
+```
+
+### `docs_src/query_params_str_validations/tutorial004_an_py310.py`
 
 ```python
 def read_items(
-    hidden_query: str | None = Query(default=None, include_in_schema=False),
+    q: Annotated[
+        str | None, Query(min_length=3, max_length=50, pattern="^fixedquery$")
+    ] = None,
 )
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial015_an_py310.py`
+### `docs_src/query_params_str_validations/tutorial004_py310.py`
 
 ```python
-def check_valid_id(id: str)
-
 def read_items(
-    id: Annotated[str | None, AfterValidator(check_valid_id)] = None,
+    q: str | None = Query(
+        default=None, min_length=3, max_length=50, pattern="^fixedquery$"
+    ),
 )
+
+```
+
+### `docs_src/query_params_str_validations/tutorial005_an_py310.py`
+
+```python
+def read_items(q: Annotated[str, Query(min_length=3)] = "fixedquery")
+
+```
+
+### `docs_src/query_params_str_validations/tutorial005_py310.py`
+
+```python
+def read_items(q: str = Query(default="fixedquery", min_length=3))
+
+```
+
+### `docs_src/query_params_str_validations/tutorial006_an_py310.py`
+
+```python
+def read_items(q: Annotated[str, Query(min_length=3)])
+
+```
+
+### `docs_src/query_params_str_validations/tutorial006_py310.py`
+
+```python
+def read_items(q: str = Query(min_length=3))
 
 ```
 
@@ -5095,90 +5066,60 @@ def read_items(q: list[str] | None = Query(default=None))
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial001_py310.py`
+### `docs_src/query_params_str_validations/tutorial012_an_py310.py`
 
 ```python
-def read_items(q: str | None = None)
+def read_items(q: Annotated[list[str], Query()] = ["foo", "bar"])
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial002_an_py310.py`
+### `docs_src/query_params_str_validations/tutorial012_py310.py`
 
 ```python
-def read_items(q: Annotated[str | None, Query(max_length=50)] = None)
+def read_items(q: list[str] = Query(default=["foo", "bar"]))
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial002_py310.py`
+### `docs_src/query_params_str_validations/tutorial013_an_py310.py`
 
 ```python
-def read_items(q: str | None = Query(default=None, max_length=50))
+def read_items(q: Annotated[list, Query()] = [])
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial003_an_py310.py`
+### `docs_src/query_params_str_validations/tutorial013_py310.py`
+
+```python
+def read_items(q: list = Query(default=[]))
+
+```
+
+### `docs_src/query_params_str_validations/tutorial014_an_py310.py`
 
 ```python
 def read_items(
-    q: Annotated[str | None, Query(min_length=3, max_length=50)] = None,
+    hidden_query: Annotated[str | None, Query(include_in_schema=False)] = None,
 )
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial003_py310.py`
-
-```python
-def read_items(q: str | None = Query(default=None, min_length=3, max_length=50))
-
-```
-
-### `docs_src/query_params_str_validations/tutorial004_an_py310.py`
+### `docs_src/query_params_str_validations/tutorial014_py310.py`
 
 ```python
 def read_items(
-    q: Annotated[
-        str | None, Query(min_length=3, max_length=50, pattern="^fixedquery$")
-    ] = None,
+    hidden_query: str | None = Query(default=None, include_in_schema=False),
 )
 
 ```
 
-### `docs_src/query_params_str_validations/tutorial004_py310.py`
+### `docs_src/query_params_str_validations/tutorial015_an_py310.py`
 
 ```python
+def check_valid_id(id: str)
+
 def read_items(
-    q: str | None = Query(
-        default=None, min_length=3, max_length=50, pattern="^fixedquery$"
-    ),
+    id: Annotated[str | None, AfterValidator(check_valid_id)] = None,
 )
-
-```
-
-### `docs_src/query_params_str_validations/tutorial005_an_py310.py`
-
-```python
-def read_items(q: Annotated[str, Query(min_length=3)] = "fixedquery")
-
-```
-
-### `docs_src/query_params_str_validations/tutorial005_py310.py`
-
-```python
-def read_items(q: str = Query(default="fixedquery", min_length=3))
-
-```
-
-### `docs_src/query_params_str_validations/tutorial006_an_py310.py`
-
-```python
-def read_items(q: Annotated[str, Query(min_length=3)])
-
-```
-
-### `docs_src/query_params_str_validations/tutorial006_py310.py`
-
-```python
-def read_items(q: str = Query(min_length=3))
 
 ```
 
@@ -5269,6 +5210,28 @@ def read_user_item(
 
 ```
 
+### `docs_src/path_operation_configuration/tutorial002b_py310.py`
+
+```python
+class Tags(Enum)
+
+def get_items()
+
+def read_users()
+
+```
+
+### `docs_src/path_operation_configuration/tutorial006_py310.py`
+
+```python
+def read_items()
+
+def read_users()
+
+def read_elements()
+
+```
+
 ### `docs_src/query_param_models/tutorial001_an_py310.py`
 
 ```python
@@ -5302,28 +5265,6 @@ def read_items(filter_query: Annotated[FilterParams, Query()])
 class FilterParams(BaseModel)
 
 def read_items(filter_query: FilterParams = Query())
-
-```
-
-### `docs_src/path_operation_configuration/tutorial002b_py310.py`
-
-```python
-class Tags(Enum)
-
-def get_items()
-
-def read_users()
-
-```
-
-### `docs_src/path_operation_configuration/tutorial006_py310.py`
-
-```python
-def read_items()
-
-def read_users()
-
-def read_elements()
 
 ```
 
@@ -5383,6 +5324,13 @@ def read_users()
 
 ```
 
+### `docs_src/middleware/tutorial001_py310.py`
+
+```python
+def add_process_time_header(request: Request, call_next)
+
+```
+
 ### `docs_src/pydantic_v1_in_v2/tutorial002_an_py310.py`
 
 ```python
@@ -5412,45 +5360,40 @@ def create_item(item: Annotated[Item, Body(embed=True)]) -> Item
 
 ```
 
-### `docs_src/middleware/tutorial001_py310.py`
+### `docs_src/metadata/tutorial001_1_py310.py`
 
 ```python
-def add_process_time_header(request: Request, call_next)
+def read_items()
 
 ```
 
-### `docs_src/path_params_numeric_validations/tutorial003_py310.py`
+### `docs_src/metadata/tutorial001_py310.py`
 
 ```python
-def read_items(*, item_id: int = Path(title="The ID of the item to get"), q: str)
+def read_items()
 
 ```
 
-### `docs_src/path_params_numeric_validations/tutorial004_an_py310.py`
+### `docs_src/metadata/tutorial002_py310.py`
 
 ```python
-def read_items(
-    item_id: Annotated[int, Path(title="The ID of the item to get", ge=1)], q: str
-)
+def read_items()
 
 ```
 
-### `docs_src/path_params_numeric_validations/tutorial004_py310.py`
+### `docs_src/metadata/tutorial003_py310.py`
 
 ```python
-def read_items(
-    *, item_id: int = Path(title="The ID of the item to get", ge=1), q: str
-)
+def read_items()
 
 ```
 
-### `docs_src/path_params_numeric_validations/tutorial005_an_py310.py`
+### `docs_src/metadata/tutorial004_py310.py`
 
 ```python
-def read_items(
-    item_id: Annotated[int, Path(title="The ID of the item to get", gt=0, le=1000)],
-    q: str,
-)
+def get_users()
+
+def get_items()
 
 ```
 
@@ -5486,22 +5429,6 @@ def read_items(
     q: str,
     size: float = Query(gt=0, lt=10.5),
 )
-
-```
-
-### `docs_src/metadata/tutorial003_py310.py`
-
-```python
-def read_items()
-
-```
-
-### `docs_src/metadata/tutorial004_py310.py`
-
-```python
-def get_users()
-
-def get_items()
 
 ```
 
@@ -5550,24 +5477,38 @@ def read_items(
 
 ```
 
-### `docs_src/metadata/tutorial001_1_py310.py`
+### `docs_src/path_params_numeric_validations/tutorial003_py310.py`
 
 ```python
-def read_items()
+def read_items(*, item_id: int = Path(title="The ID of the item to get"), q: str)
 
 ```
 
-### `docs_src/metadata/tutorial001_py310.py`
+### `docs_src/path_params_numeric_validations/tutorial004_an_py310.py`
 
 ```python
-def read_items()
+def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=1)], q: str
+)
 
 ```
 
-### `docs_src/metadata/tutorial002_py310.py`
+### `docs_src/path_params_numeric_validations/tutorial004_py310.py`
 
 ```python
-def read_items()
+def read_items(
+    *, item_id: int = Path(title="The ID of the item to get", ge=1), q: str
+)
+
+```
+
+### `docs_src/path_params_numeric_validations/tutorial005_an_py310.py`
+
+```python
+def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get", gt=0, le=1000)],
+    q: str,
+)
 
 ```
 
@@ -5792,6 +5733,32 @@ def create_invoice(invoice: Invoice, callback_url: HttpUrl | None = None)
 
 ```
 
+### `docs_src/json_base64_bytes/tutorial001_py310.py`
+
+```python
+class DataInput(BaseModel)
+
+class DataOutput(BaseModel)
+
+class DataInputOutput(BaseModel)
+
+def post_data(body: DataInput)
+
+def get_data() -> DataOutput
+
+def post_data_in_out(body: DataInputOutput) -> DataInputOutput
+
+```
+
+### `docs_src/extending_openapi/tutorial001_py310.py`
+
+```python
+def read_items()
+
+def custom_openapi()
+
+```
+
 ### `fastapi/openapi/docs.py`
 
 ```python
@@ -5980,29 +5947,134 @@ def get_swagger_ui_oauth2_redirect_html() -> HTMLResponse
 
 ```
 
-### `docs_src/extending_openapi/tutorial001_py310.py`
+### `docs_src/events/tutorial001_py310.py`
 
 ```python
-def read_items()
+def startup_event()
 
-def custom_openapi()
+def read_items(item_id: str)
 
 ```
 
-### `docs_src/json_base64_bytes/tutorial001_py310.py`
+### `docs_src/events/tutorial002_py310.py`
 
 ```python
-class DataInput(BaseModel)
+def shutdown_event()
 
-class DataOutput(BaseModel)
+def read_items()
 
-class DataInputOutput(BaseModel)
+```
 
-def post_data(body: DataInput)
+### `docs_src/events/tutorial003_py310.py`
 
-def get_data() -> DataOutput
+```python
+def fake_answer_to_everything_ml_model(x: float)
 
-def post_data_in_out(body: DataInputOutput) -> DataInputOutput
+def lifespan(app: FastAPI)
+
+def predict(x: float)
+
+```
+
+### `docs_src/header_params/tutorial001_an_py310.py`
+
+```python
+def read_items(user_agent: Annotated[str | None, Header()] = None)
+
+```
+
+### `docs_src/header_params/tutorial001_py310.py`
+
+```python
+def read_items(user_agent: str | None = Header(default=None))
+
+```
+
+### `docs_src/header_params/tutorial002_an_py310.py`
+
+```python
+def read_items(
+    strange_header: Annotated[str | None, Header(convert_underscores=False)] = None,
+)
+
+```
+
+### `docs_src/header_params/tutorial002_py310.py`
+
+```python
+def read_items(
+    strange_header: str | None = Header(default=None, convert_underscores=False),
+)
+
+```
+
+### `docs_src/header_params/tutorial003_an_py310.py`
+
+```python
+def read_items(x_token: Annotated[list[str] | None, Header()] = None)
+
+```
+
+### `docs_src/header_params/tutorial003_py310.py`
+
+```python
+def read_items(x_token: list[str] | None = Header(default=None))
+
+```
+
+### `docs_src/header_param_models/tutorial001_an_py310.py`
+
+```python
+class CommonHeaders(BaseModel)
+
+def read_items(headers: Annotated[CommonHeaders, Header()])
+
+```
+
+### `docs_src/header_param_models/tutorial001_py310.py`
+
+```python
+class CommonHeaders(BaseModel)
+
+def read_items(headers: CommonHeaders = Header())
+
+```
+
+### `docs_src/header_param_models/tutorial002_an_py310.py`
+
+```python
+class CommonHeaders(BaseModel)
+
+def read_items(headers: Annotated[CommonHeaders, Header()])
+
+```
+
+### `docs_src/header_param_models/tutorial002_py310.py`
+
+```python
+class CommonHeaders(BaseModel)
+
+def read_items(headers: CommonHeaders = Header())
+
+```
+
+### `docs_src/header_param_models/tutorial003_an_py310.py`
+
+```python
+class CommonHeaders(BaseModel)
+
+def read_items(
+    headers: Annotated[CommonHeaders, Header(convert_underscores=False)],
+)
+
+```
+
+### `docs_src/header_param_models/tutorial003_py310.py`
+
+```python
+class CommonHeaders(BaseModel)
+
+def read_items(headers: CommonHeaders = Header(convert_underscores=False))
 
 ```
 
@@ -6153,137 +6225,6 @@ class OpenIdConnect(SecurityBase)
 
 ```
 
-### `docs_src/events/tutorial001_py310.py`
-
-```python
-def startup_event()
-
-def read_items(item_id: str)
-
-```
-
-### `docs_src/events/tutorial002_py310.py`
-
-```python
-def shutdown_event()
-
-def read_items()
-
-```
-
-### `docs_src/events/tutorial003_py310.py`
-
-```python
-def fake_answer_to_everything_ml_model(x: float)
-
-def lifespan(app: FastAPI)
-
-def predict(x: float)
-
-```
-
-### `docs_src/header_params/tutorial002_py310.py`
-
-```python
-def read_items(
-    strange_header: str | None = Header(default=None, convert_underscores=False),
-)
-
-```
-
-### `docs_src/header_params/tutorial003_an_py310.py`
-
-```python
-def read_items(x_token: Annotated[list[str] | None, Header()] = None)
-
-```
-
-### `docs_src/header_params/tutorial003_py310.py`
-
-```python
-def read_items(x_token: list[str] | None = Header(default=None))
-
-```
-
-### `docs_src/header_params/tutorial001_an_py310.py`
-
-```python
-def read_items(user_agent: Annotated[str | None, Header()] = None)
-
-```
-
-### `docs_src/header_params/tutorial001_py310.py`
-
-```python
-def read_items(user_agent: str | None = Header(default=None))
-
-```
-
-### `docs_src/header_params/tutorial002_an_py310.py`
-
-```python
-def read_items(
-    strange_header: Annotated[str | None, Header(convert_underscores=False)] = None,
-)
-
-```
-
-### `docs_src/header_param_models/tutorial001_an_py310.py`
-
-```python
-class CommonHeaders(BaseModel)
-
-def read_items(headers: Annotated[CommonHeaders, Header()])
-
-```
-
-### `docs_src/header_param_models/tutorial001_py310.py`
-
-```python
-class CommonHeaders(BaseModel)
-
-def read_items(headers: CommonHeaders = Header())
-
-```
-
-### `docs_src/header_param_models/tutorial002_an_py310.py`
-
-```python
-class CommonHeaders(BaseModel)
-
-def read_items(headers: Annotated[CommonHeaders, Header()])
-
-```
-
-### `docs_src/header_param_models/tutorial002_py310.py`
-
-```python
-class CommonHeaders(BaseModel)
-
-def read_items(headers: CommonHeaders = Header())
-
-```
-
-### `docs_src/header_param_models/tutorial003_an_py310.py`
-
-```python
-class CommonHeaders(BaseModel)
-
-def read_items(
-    headers: Annotated[CommonHeaders, Header(convert_underscores=False)],
-)
-
-```
-
-### `docs_src/header_param_models/tutorial003_py310.py`
-
-```python
-class CommonHeaders(BaseModel)
-
-def read_items(headers: CommonHeaders = Header(convert_underscores=False))
-
-```
-
 ### `docs_src/generate_clients/tutorial001_py310.py`
 
 ```python
@@ -6308,33 +6249,6 @@ def root()
 
 ```python
 def root()
-
-```
-
-### `fastapi/params.py`
-
-```python
-class ParamTypes(Enum)
-
-class Param(FieldInfo)
-
-class Path(Param)
-
-class Query(Param)
-
-class Header(Param)
-
-class Cookie(Param)
-
-class Body(FieldInfo)
-
-class Form(Body)
-
-class File(Form)
-
-class Depends
-
-class Security(Depends)
 
 ```
 
@@ -6429,9 +6343,32 @@ def read_items(
 
 ```
 
-### `fastapi/staticfiles.py`
+### `fastapi/params.py`
 
-*2 lines, 1 imports*
+```python
+class ParamTypes(Enum)
+
+class Param(FieldInfo)
+
+class Path(Param)
+
+class Query(Param)
+
+class Header(Param)
+
+class Cookie(Param)
+
+class Body(FieldInfo)
+
+class Form(Body)
+
+class File(Form)
+
+class Depends
+
+class Security(Depends)
+
+```
 
 ### `docs_src/encoder/tutorial001_py310.py`
 
@@ -6480,33 +6417,14 @@ def test_override_in_items_with_params()
 
 ```
 
-### `docs_src/dependencies/tutorial013_an_py310.py`
+### `fastapi/staticfiles.py`
+
+*2 lines, 1 imports*
+
+### `docs_src/custom_response/tutorial001b_py310.py`
 
 ```python
-class User(SQLModel, table=True)
-
-def get_session()
-
-def get_user(user_id: int, session: Annotated[Session, Depends(get_session)])
-
-def generate_stream(query: str)
-
-def generate(query: str)
-
-```
-
-### `docs_src/dependencies/tutorial014_an_py310.py`
-
-```python
-class User(SQLModel, table=True)
-
-def get_session()
-
-def get_user(user_id: int, session: Annotated[Session, Depends(get_session)])
-
-def generate_stream(query: str)
-
-def generate(query: str)
+def read_items()
 
 ```
 
@@ -6577,13 +6495,6 @@ def main()
 
 ```
 
-### `docs_src/custom_response/tutorial001b_py310.py`
-
-```python
-def read_items()
-
-```
-
 ### `docs_src/custom_docs_ui/tutorial001_py310.py`
 
 ```python
@@ -6610,127 +6521,52 @@ def read_user(username: str)
 
 ```
 
-### `docs_src/dependencies/tutorial008b_py310.py`
-
-```python
-class OwnerError(Exception)
-
-def get_username()
-
-def get_item(item_id: str, username: str = Depends(get_username))
-
-```
-
-### `docs_src/dependencies/tutorial008c_an_py310.py`
-
-```python
-class InternalError(Exception)
-
-def get_username()
-
-def get_item(item_id: str, username: Annotated[str, Depends(get_username)])
-
-```
-
-### `docs_src/dependencies/tutorial008c_py310.py`
-
-```python
-class InternalError(Exception)
-
-def get_username()
-
-def get_item(item_id: str, username: str = Depends(get_username))
-
-```
-
-### `docs_src/dependencies/tutorial008d_an_py310.py`
-
-```python
-class InternalError(Exception)
-
-def get_username()
-
-def get_item(item_id: str, username: Annotated[str, Depends(get_username)])
-
-```
-
-### `docs_src/dependencies/tutorial008d_py310.py`
-
-```python
-class InternalError(Exception)
-
-def get_username()
-
-def get_item(item_id: str, username: str = Depends(get_username))
-
-```
-
-### `docs_src/dependencies/tutorial008e_an_py310.py`
-
-```python
-def get_username()
-
-def get_user_me(username: Annotated[str, Depends(get_username, scope="function")])
-
-```
-
-### `docs_src/dependencies/tutorial008e_py310.py`
-
-```python
-def get_username()
-
-def get_user_me(username: str = Depends(get_username, scope="function"))
-
-```
-
-### `docs_src/dependencies/tutorial011_an_py310.py`
-
-```python
-class FixedContentQueryChecker
-
-def read_query_check(fixed_content_included: Annotated[bool, Depends(checker)])
-
-```
-
-### `docs_src/dependencies/tutorial011_py310.py`
-
-```python
-class FixedContentQueryChecker
-
-def read_query_check(fixed_content_included: bool = Depends(checker))
-
-```
-
-### `docs_src/dependencies/tutorial012_an_py310.py`
-
-```python
-def verify_token(x_token: Annotated[str, Header()])
-
-def verify_key(x_key: Annotated[str, Header()])
-
-def read_items()
-
-def read_users()
-
-```
-
-### `docs_src/dependencies/tutorial012_py310.py`
-
-```python
-def verify_token(x_token: str = Header())
-
-def verify_key(x_key: str = Header())
-
-def read_items()
-
-def read_users()
-
-```
-
 ### `docs_src/cors/tutorial001_py310.py`
 
 ```python
 def main()
+
+```
+
+### `docs_src/dependencies/tutorial001_02_an_py310.py`
+
+```python
+def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100)
+
+def read_items(commons: CommonsDep)
+
+def read_users(commons: CommonsDep)
+
+```
+
+### `docs_src/dependencies/tutorial001_an_py310.py`
+
+```python
+def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100)
+
+def read_items(commons: Annotated[dict, Depends(common_parameters)])
+
+def read_users(commons: Annotated[dict, Depends(common_parameters)])
+
+```
+
+### `docs_src/dependencies/tutorial001_py310.py`
+
+```python
+def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100)
+
+def read_items(commons: dict = Depends(common_parameters))
+
+def read_users(commons: dict = Depends(common_parameters))
+
+```
+
+### `docs_src/dependencies/tutorial002_an_py310.py`
+
+```python
+class CommonQueryParams
+
+def read_items(commons: Annotated[CommonQueryParams, Depends(CommonQueryParams)])
 
 ```
 
@@ -6863,45 +6699,157 @@ def get_item(item_id: str, username: Annotated[str, Depends(get_username)])
 
 ```
 
-### `docs_src/dependencies/tutorial001_02_an_py310.py`
+### `docs_src/dependencies/tutorial008b_py310.py`
 
 ```python
-def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100)
+class OwnerError(Exception)
 
-def read_items(commons: CommonsDep)
+def get_username()
 
-def read_users(commons: CommonsDep)
+def get_item(item_id: str, username: str = Depends(get_username))
 
 ```
 
-### `docs_src/dependencies/tutorial001_an_py310.py`
+### `docs_src/dependencies/tutorial008c_an_py310.py`
 
 ```python
-def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100)
+class InternalError(Exception)
 
-def read_items(commons: Annotated[dict, Depends(common_parameters)])
+def get_username()
 
-def read_users(commons: Annotated[dict, Depends(common_parameters)])
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)])
 
 ```
 
-### `docs_src/dependencies/tutorial001_py310.py`
+### `docs_src/dependencies/tutorial008c_py310.py`
 
 ```python
-def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100)
+class InternalError(Exception)
 
-def read_items(commons: dict = Depends(common_parameters))
+def get_username()
 
-def read_users(commons: dict = Depends(common_parameters))
+def get_item(item_id: str, username: str = Depends(get_username))
 
 ```
 
-### `docs_src/dependencies/tutorial002_an_py310.py`
+### `docs_src/dependencies/tutorial008d_an_py310.py`
 
 ```python
-class CommonQueryParams
+class InternalError(Exception)
 
-def read_items(commons: Annotated[CommonQueryParams, Depends(CommonQueryParams)])
+def get_username()
+
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)])
+
+```
+
+### `docs_src/dependencies/tutorial008d_py310.py`
+
+```python
+class InternalError(Exception)
+
+def get_username()
+
+def get_item(item_id: str, username: str = Depends(get_username))
+
+```
+
+### `docs_src/dependencies/tutorial008e_an_py310.py`
+
+```python
+def get_username()
+
+def get_user_me(username: Annotated[str, Depends(get_username, scope="function")])
+
+```
+
+### `docs_src/dependencies/tutorial008e_py310.py`
+
+```python
+def get_username()
+
+def get_user_me(username: str = Depends(get_username, scope="function"))
+
+```
+
+### `docs_src/dependencies/tutorial011_an_py310.py`
+
+```python
+class FixedContentQueryChecker
+
+def read_query_check(fixed_content_included: Annotated[bool, Depends(checker)])
+
+```
+
+### `docs_src/dependencies/tutorial011_py310.py`
+
+```python
+class FixedContentQueryChecker
+
+def read_query_check(fixed_content_included: bool = Depends(checker))
+
+```
+
+### `docs_src/dependencies/tutorial012_an_py310.py`
+
+```python
+def verify_token(x_token: Annotated[str, Header()])
+
+def verify_key(x_key: Annotated[str, Header()])
+
+def read_items()
+
+def read_users()
+
+```
+
+### `docs_src/dependencies/tutorial012_py310.py`
+
+```python
+def verify_token(x_token: str = Header())
+
+def verify_key(x_key: str = Header())
+
+def read_items()
+
+def read_users()
+
+```
+
+### `docs_src/dependencies/tutorial013_an_py310.py`
+
+```python
+class User(SQLModel, table=True)
+
+def get_session()
+
+def get_user(user_id: int, session: Annotated[Session, Depends(get_session)])
+
+def generate_stream(query: str)
+
+def generate(query: str)
+
+```
+
+### `docs_src/dependencies/tutorial014_an_py310.py`
+
+```python
+class User(SQLModel, table=True)
+
+def get_session()
+
+def get_user(user_id: int, session: Annotated[Session, Depends(get_session)])
+
+def generate_stream(query: str)
+
+def generate(query: str)
+
+```
+
+### `docs_src/debugging/tutorial001_py310.py`
+
+```python
+def root()
 
 ```
 
@@ -6926,10 +6874,34 @@ def read_user(username: str)
 
 ```
 
-### `docs_src/debugging/tutorial001_py310.py`
+### `docs_src/dataclasses_/tutorial001_py310.py`
 
 ```python
-def root()
+class Item
+
+def create_item(item: Item)
+
+```
+
+### `docs_src/dataclasses_/tutorial002_py310.py`
+
+```python
+class Item
+
+def read_next_item()
+
+```
+
+### `docs_src/dataclasses_/tutorial003_py310.py`
+
+```python
+class Item
+
+class Author
+
+def create_author_items(author_id: str, items: list[Item])
+
+def get_authors()
 
 ```
 
@@ -7076,51 +7048,19 @@ class SecurityScopes
 
 ```
 
-### `docs_src/dataclasses_/tutorial001_py310.py`
+### `docs_src/custom_response/tutorial001_py310.py`
 
 ```python
-class Item
-
-def create_item(item: Item)
+def read_items()
 
 ```
 
-### `docs_src/dataclasses_/tutorial002_py310.py`
+### `docs_src/custom_response/tutorial002_py310.py`
 
 ```python
-class Item
-
-def read_next_item()
+def read_items()
 
 ```
-
-### `docs_src/dataclasses_/tutorial003_py310.py`
-
-```python
-class Item
-
-class Author
-
-def create_author_items(author_id: str, items: list[Item])
-
-def get_authors()
-
-```
-
-### `fastapi/dependencies/models.py`
-
-```python
-def _unwrapped_call(call: Callable[..., Any] | None) -> Any
-
-def _impartial(func: Callable[..., Any]) -> Callable[..., Any]
-
-class Dependant
-
-```
-
-### `fastapi/logger.py`
-
-*4 lines, 1 imports*
 
 ### `docs_src/custom_response/tutorial003_py310.py`
 
@@ -7145,17 +7085,18 @@ def read_items()
 
 ```
 
-### `docs_src/custom_response/tutorial001_py310.py`
+### `fastapi/logger.py`
+
+*4 lines, 1 imports*
+
+### `fastapi/dependencies/models.py`
 
 ```python
-def read_items()
+def _unwrapped_call(call: Callable[..., Any] | None) -> Any
 
-```
+def _impartial(func: Callable[..., Any]) -> Callable[..., Any]
 
-### `docs_src/custom_response/tutorial002_py310.py`
-
-```python
-def read_items()
+class Dependant
 
 ```
 
@@ -7224,10 +7165,6 @@ def read_items(ads_id: str | None = Cookie(default=None))
 
 ```
 
-### `fastapi/openapi/constants.py`
-
-*4 lines, 0 imports*
-
 ### `docs_src/cookie_param_models/tutorial001_an_py310.py`
 
 ```python
@@ -7264,9 +7201,9 @@ def read_items(cookies: Cookies = Cookie())
 
 ```
 
-### `fastapi/templating.py`
+### `fastapi/openapi/constants.py`
 
-*2 lines, 1 imports*
+*4 lines, 0 imports*
 
 ### `docs_src/conditional_openapi/tutorial001_py310.py`
 
@@ -7296,21 +7233,6 @@ class Item(BaseModel)
 def read_item(item_id: str)
 
 def update_item(item_id: str, item: Item) -> Item
-
-```
-
-### `fastapi/exception_handlers.py`
-
-```python
-def http_exception_handler(request: Request, exc: HTTPException) -> Response
-
-def request_validation_exception_handler(
-    request: Request, exc: RequestValidationError
-) -> JSONResponse
-
-def websocket_request_validation_exception_handler(
-    websocket: WebSocket, exc: WebSocketRequestValidationError
-) -> None
 
 ```
 
@@ -7346,6 +7268,15 @@ def read_main(request: Request)
 
 ```python
 def read_main(request: Request)
+
+```
+
+### `docs_src/background_tasks/tutorial001_py310.py`
+
+```python
+def write_notification(email: str, message="")
+
+def send_notification(email: str, background_tasks: BackgroundTasks)
 
 ```
 
@@ -7438,39 +7369,22 @@ def create_index_weights(weights: dict[int, float])
 
 ```
 
-### `docs_src/background_tasks/tutorial001_py310.py`
+### `fastapi/templating.py`
+
+*2 lines, 1 imports*
+
+### `fastapi/exception_handlers.py`
 
 ```python
-def write_notification(email: str, message="")
+def http_exception_handler(request: Request, exc: HTTPException) -> Response
 
-def send_notification(email: str, background_tasks: BackgroundTasks)
+def request_validation_exception_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse
 
-```
-
-### `docs_src/body_multiple_params/tutorial005_an_py310.py`
-
-```python
-class Item(BaseModel)
-
-def update_item(item_id: int, item: Annotated[Item, Body(embed=True)])
-
-```
-
-### `docs_src/body_multiple_params/tutorial005_py310.py`
-
-```python
-class Item(BaseModel)
-
-def update_item(item_id: int, item: Item = Body(embed=True))
-
-```
-
-### `fastapi/concurrency.py`
-
-```python
-def contextmanager_in_threadpool(
-    cm: AbstractContextManager[_T],
-) -> AsyncGenerator[_T, None]
+def websocket_request_validation_exception_handler(
+    websocket: WebSocket, exc: WebSocketRequestValidationError
+) -> None
 
 ```
 
@@ -7572,7 +7486,7 @@ def update_item(
 
 ```
 
-### `docs_src/body_fields/tutorial001_an_py310.py`
+### `docs_src/body_multiple_params/tutorial005_an_py310.py`
 
 ```python
 class Item(BaseModel)
@@ -7581,49 +7495,12 @@ def update_item(item_id: int, item: Annotated[Item, Body(embed=True)])
 
 ```
 
-### `docs_src/body_fields/tutorial001_py310.py`
+### `docs_src/body_multiple_params/tutorial005_py310.py`
 
 ```python
 class Item(BaseModel)
 
 def update_item(item_id: int, item: Item = Body(embed=True))
-
-```
-
-### `fastapi/_compat/shared.py`
-
-```python
-def lenient_issubclass(
-    cls: Any, class_or_tuple: type[_T] | tuple[type[_T], ...] | None
-) -> TypeGuard[type[_T]]
-
-def _annotation_is_sequence(annotation: type[Any] | None) -> bool
-
-def field_annotation_is_sequence(annotation: type[Any] | None) -> bool
-
-def value_is_sequence(value: Any) -> bool
-
-def _annotation_is_complex(annotation: type[Any] | None) -> bool
-
-def field_annotation_is_complex(annotation: type[Any] | None) -> bool
-
-def field_annotation_is_scalar(annotation: Any) -> bool
-
-def field_annotation_is_scalar_sequence(annotation: type[Any] | None) -> bool
-
-def is_bytes_or_nonable_bytes_annotation(annotation: Any) -> bool
-
-def is_uploadfile_or_nonable_uploadfile_annotation(annotation: Any) -> bool
-
-def is_bytes_sequence_annotation(annotation: Any) -> bool
-
-def is_uploadfile_sequence_annotation(annotation: Any) -> bool
-
-def is_pydantic_v1_model_instance(obj: Any) -> bool
-
-def is_pydantic_v1_model_class(cls: Any) -> bool
-
-def annotation_is_pydantic_v1(annotation: Any) -> bool
 
 ```
 
@@ -7671,6 +7548,24 @@ def test_read_items()
 
 ```
 
+### `docs_src/body_fields/tutorial001_an_py310.py`
+
+```python
+class Item(BaseModel)
+
+def update_item(item_id: int, item: Annotated[Item, Body(embed=True)])
+
+```
+
+### `docs_src/body_fields/tutorial001_py310.py`
+
+```python
+class Item(BaseModel)
+
+def update_item(item_id: int, item: Item = Body(embed=True))
+
+```
+
 ### `docs_src/body/tutorial001_py310.py`
 
 ```python
@@ -7707,29 +7602,6 @@ def update_item(item_id: int, item: Item, q: str | None = None)
 
 ```
 
-### `fastapi/middleware/asyncexitstack.py`
-
-```python
-class AsyncExitStackMiddleware
-
-```
-
-### `fastapi/middleware/cors.py`
-
-*2 lines, 1 imports*
-
-### `fastapi/middleware/gzip.py`
-
-*2 lines, 1 imports*
-
-### `fastapi/middleware/httpsredirect.py`
-
-*4 lines, 1 imports*
-
-### `fastapi/middleware/trustedhost.py`
-
-*4 lines, 1 imports*
-
 ### `docs_src/bigger_applications/app_an_py310/routers/items.py`
 
 ```python
@@ -7749,6 +7621,52 @@ def read_users()
 def read_user_me()
 
 def read_user(username: str)
+
+```
+
+### `fastapi/_compat/shared.py`
+
+```python
+def lenient_issubclass(
+    cls: Any, class_or_tuple: type[_T] | tuple[type[_T], ...] | None
+) -> TypeGuard[type[_T]]
+
+def _annotation_is_sequence(annotation: type[Any] | None) -> bool
+
+def field_annotation_is_sequence(annotation: type[Any] | None) -> bool
+
+def value_is_sequence(value: Any) -> bool
+
+def _annotation_is_complex(annotation: type[Any] | None) -> bool
+
+def field_annotation_is_complex(annotation: type[Any] | None) -> bool
+
+def field_annotation_is_scalar(annotation: Any) -> bool
+
+def field_annotation_is_scalar_sequence(annotation: type[Any] | None) -> bool
+
+def is_bytes_or_nonable_bytes_annotation(annotation: Any) -> bool
+
+def is_uploadfile_or_nonable_uploadfile_annotation(annotation: Any) -> bool
+
+def is_bytes_sequence_annotation(annotation: Any) -> bool
+
+def is_uploadfile_sequence_annotation(annotation: Any) -> bool
+
+def is_pydantic_v1_model_instance(obj: Any) -> bool
+
+def is_pydantic_v1_model_class(cls: Any) -> bool
+
+def annotation_is_pydantic_v1(annotation: Any) -> bool
+
+```
+
+### `fastapi/concurrency.py`
+
+```python
+def contextmanager_in_threadpool(
+    cm: AbstractContextManager[_T],
+) -> AsyncGenerator[_T, None]
 
 ```
 
@@ -7780,10 +7698,6 @@ def update_admin()
 
 ```
 
-### `fastapi/middleware/__init__.py`
-
-*2 lines, 1 imports*
-
 ### `docs_src/additional_responses/tutorial001_py310.py`
 
 ```python
@@ -7805,6 +7719,29 @@ class Message(BaseModel)
 def read_item(item_id: str)
 
 ```
+
+### `fastapi/middleware/asyncexitstack.py`
+
+```python
+class AsyncExitStackMiddleware
+
+```
+
+### `fastapi/middleware/cors.py`
+
+*2 lines, 1 imports*
+
+### `fastapi/middleware/gzip.py`
+
+*2 lines, 1 imports*
+
+### `fastapi/middleware/httpsredirect.py`
+
+*4 lines, 1 imports*
+
+### `fastapi/middleware/trustedhost.py`
+
+*4 lines, 1 imports*
 
 ### `docs_src/background_tasks/tutorial002_an_py310.py`
 
@@ -7840,6 +7777,10 @@ class HTTPBearer403(HTTPBearer)
 def read_me(credentials: CredentialsDep)
 
 ```
+
+### `fastapi/middleware/__init__.py`
+
+*2 lines, 1 imports*
 
 ### `docs_src/additional_status_codes/tutorial001_an_py310.py`
 
@@ -8010,6 +7951,10 @@ def get_db()
 ### `docs_src/conditional_openapi/__init__.py`
 
 *0 lines, 0 imports*
+
+### `pyproject.toml`
+
+*342 lines, 0 imports*
 
 ### `fastapi/py.typed`
 
@@ -8249,10 +8194,6 @@ def say_hello(name: Annotated[str, "this is just metadata"]) -> str
 
 *0 lines, 0 imports*
 
-### `docs_src/query_param_models/__init__.py`
-
-*0 lines, 0 imports*
-
 ### `docs_src/python_types/tutorial001_py310.py`
 
 ```python
@@ -8288,7 +8229,7 @@ class User(BaseModel)
 
 ```
 
-### `docs_src/python_types/__init__.py`
+### `docs_src/query_param_models/__init__.py`
 
 *0 lines, 0 imports*
 
@@ -8298,6 +8239,10 @@ class User(BaseModel)
 class Item(BaseModel)
 
 ```
+
+### `docs_src/python_types/__init__.py`
+
+*0 lines, 0 imports*
 
 ### `docs_src/pydantic_v1_in_v2/__init__.py`
 
@@ -8587,45 +8532,45 @@ graph LR
 | File | Score | Tier | Tokens |
 |------|-------|------|--------|
 | `fastapi/__init__.py` | 0.434 | structured summary | 66 |
-| `fastapi/testclient.py` | 0.429 | structured summary | 15 |
+| `fastapi/testclient.py` | 0.428 | structured summary | 15 |
 | `tests/utils.py` | 0.203 | one-liner | 19 |
 | `tests/test_validate_response_recursive/app.py` | 0.201 | one-liner | 28 |
 | `tests/test_modules_same_name_body/app/main.py` | 0.190 | one-liner | 21 |
 | `tests/main.py` | 0.189 | one-liner | 19 |
-| `fastapi/cli.py` | 0.186 | full source | 135 |
+| `fastapi/cli.py` | 0.185 | full source | 135 |
 | `fastapi/__main__.py` | 0.184 | full source | 23 |
-| `docs_src/settings/app02_py310/main.py` | 0.184 | full source | 107 |
-| `docs_src/settings/app02_an_py310/main.py` | 0.184 | full source | 118 |
+| `docs_src/settings/app02_py310/main.py` | 0.183 | full source | 107 |
+| `docs_src/settings/app02_an_py310/main.py` | 0.183 | full source | 118 |
 | `docs_src/settings/app03_py310/main.py` | 0.183 | full source | 108 |
 | `docs_src/settings/app03_an_py310/main.py` | 0.183 | full source | 119 |
 | `docs_src/settings/app01_py310/main.py` | 0.183 | full source | 78 |
-| `docs_src/async_tests/app_a_py310/main.py` | 0.178 | full source | 47 |
+| `docs_src/async_tests/app_a_py310/main.py` | 0.177 | full source | 47 |
 | `docs_src/app_testing/app_b_py310/main.py` | 0.177 | full source | 301 |
 | `docs_src/app_testing/app_b_an_py310/main.py` | 0.177 | full source | 314 |
 | `docs_src/app_testing/app_a_py310/main.py` | 0.177 | full source | 47 |
 | `docs_src/bigger_applications/app_an_py310/main.py` | 0.177 | full source | 144 |
-| `fastapi/responses.py` | 0.164 | structured summary | 93 |
+| `fastapi/responses.py` | 0.163 | structured summary | 93 |
 | `tests/test_validate_response_recursive/test_validate_response_recursive.py` | 0.150 | one-liner | 26 |
 | `fastapi/exceptions.py` | 0.145 | structured summary | 189 |
-| `fastapi/security/__init__.py` | 0.144 | structured summary | 42 |
+| `fastapi/security/__init__.py` | 0.143 | structured summary | 42 |
 | `tests/test_modules_same_name_body/app/a.py` | 0.140 | one-liner | 25 |
-| `tests/test_path.py` | 0.140 | one-liner | 20 |
 | `tests/test_query.py` | 0.140 | one-liner | 20 |
-| `tests/test_modules_same_name_body/test_main.py` | 0.140 | one-liner | 25 |
-| `tests/test_fastapi_cli.py` | 0.139 | one-liner | 22 |
-| `tests/test_application.py` | 0.138 | one-liner | 21 |
-| `docs_src/settings/app02_py310/config.py` | 0.135 | structured summary | 33 |
-| `docs_src/settings/app02_an_py310/config.py` | 0.135 | structured summary | 34 |
-| `docs_src/settings/app03_py310/config.py` | 0.134 | structured summary | 33 |
-| `docs_src/settings/app03_an_py310/config.py` | 0.134 | structured summary | 34 |
-| `docs_src/settings/app01_py310/config.py` | 0.134 | structured summary | 33 |
-| `docs_src/settings/app02_py310/test_main.py` | 0.133 | structured summary | 60 |
+| `tests/test_path.py` | 0.139 | one-liner | 20 |
+| `tests/test_modules_same_name_body/test_main.py` | 0.139 | one-liner | 25 |
+| `tests/test_fastapi_cli.py` | 0.138 | one-liner | 22 |
+| `tests/test_application.py` | 0.137 | one-liner | 21 |
+| `docs_src/settings/app02_py310/config.py` | 0.134 | structured summary | 33 |
+| `docs_src/settings/app02_an_py310/config.py` | 0.134 | structured summary | 34 |
+| `docs_src/settings/app03_py310/config.py` | 0.133 | structured summary | 33 |
+| `docs_src/settings/app03_an_py310/config.py` | 0.133 | structured summary | 34 |
+| `tests/test_validation_error_context.py` | 0.133 | one-liner | 27 |
+| `tests/test_vibe.py` | 0.133 | one-liner | 21 |
+| `tests/test_webhooks_security.py` | 0.133 | one-liner | 26 |
 | `tests/test_wrapped_method_forward_reference.py` | 0.133 | one-liner | 24 |
 | `tests/test_ws_dependencies.py` | 0.133 | one-liner | 21 |
 | `tests/test_ws_router.py` | 0.133 | one-liner | 25 |
-| `tests/test_validation_error_context.py` | 0.133 | one-liner | 27 |
-| `tests/test_webhooks_security.py` | 0.133 | one-liner | 26 |
-| `docs_src/settings/app02_an_py310/test_main.py` | 0.133 | structured summary | 63 |
+| `docs_src/settings/app01_py310/config.py` | 0.133 | structured summary | 33 |
+| `tests/test_validate_response_dataclass.py` | 0.133 | one-liner | 27 |
 
 ## PERIPHERY
 
@@ -8635,24 +8580,25 @@ graph LR
 - `tests/main.py` — 38 functions, 2 imports, 209 lines
 - `tests/test_validate_response_recursive/test_validate_response_recursive.py` — 1 function, 2 imports, 31 lines
 - `tests/test_modules_same_name_body/app/a.py` — 1 function, 1 imports, 9 lines
-- `tests/test_path.py` — 75 functions, 2 imports, 781 lines
 - `tests/test_query.py` — 29 functions, 2 imports, 278 lines
+- `tests/test_path.py` — 75 functions, 2 imports, 781 lines
 - `tests/test_modules_same_name_body/test_main.py` — 3 functions, 4 imports, 157 lines
 - `tests/test_fastapi_cli.py` — 2 functions, 6 imports, 35 lines
 - `tests/test_application.py` — 6 functions, 4 imports, 1286 lines
+- `tests/test_validation_error_context.py` — 2 classs, 15 functions, 4 imports, 169 lines
+- `tests/test_vibe.py` — 1 function, 4 imports, 18 lines
+- `tests/test_webhooks_security.py` — 1 class, 3 functions, 7 imports, 135 lines
 - `tests/test_wrapped_method_forward_reference.py` — 2 functions, 4 imports, 32 lines
 - `tests/test_ws_dependencies.py` — 8 functions, 4 imports, 73 lines
 - `tests/test_ws_router.py` — 1 class, 27 functions, 5 imports, 272 lines
-- `tests/test_validation_error_context.py` — 2 classs, 15 functions, 4 imports, 169 lines
-- `tests/test_webhooks_security.py` — 1 class, 3 functions, 7 imports, 135 lines
-- `tests/test_union_forms.py` — 2 classs, 6 functions, 5 imports, 164 lines
-- `tests/test_union_inherited_body.py` — 2 classs, 4 functions, 4 imports, 143 lines
-- `tests/test_validate_response.py` — 1 class, 11 functions, 5 imports, 83 lines
 - `tests/test_validate_response_dataclass.py` — 1 class, 6 functions, 5 imports, 52 lines
 - `tests/test_typing_python39.py` — 1 function, 3 imports, 25 lines
 - `tests/test_union_body.py` — 2 classs, 4 functions, 4 imports, 135 lines
-- `tests/test_union_body_discriminator.py` — 1 function, 6 imports, 176 lines
+- `tests/test_union_body_discriminator.py` — 1 function, 7 imports, 205 lines
 - `tests/test_union_body_discriminator_annotated.py` — 4 functions, 8 imports, 204 lines
+- `tests/test_union_forms.py` — 2 classs, 6 functions, 5 imports, 164 lines
+- `tests/test_union_inherited_body.py` — 2 classs, 4 functions, 4 imports, 143 lines
+- `tests/test_validate_response.py` — 1 class, 11 functions, 5 imports, 83 lines
 - `tests/test_tutorial/test_websockets/test_tutorial002.py` — 7 functions, 6 imports, 105 lines
 - `tests/test_tutorial/test_testing/test_main_a.py` — 2 functions, 2 imports, 33 lines
 - `tests/test_tutorial/test_request_forms_and_files/test_tutorial001.py` — 8 functions, 5 imports, 246 lines
@@ -8664,23 +8610,14 @@ graph LR
 - `tests/test_tutorial/test_dependencies/test_tutorial010.py` — 1 function, 5 imports, 30 lines
 - `tests/test_tutorial/test_custom_request_and_route/test_tutorial001.py` — 3 functions, 7 imports, 47 lines
 - `tests/test_tutorial/test_async_tests/test_main_a.py` — 1 function, 2 imports, 9 lines
-- `tests/test_top_level_security_scheme_in_openapi.py` — 4 functions, 4 imports, 61 lines
-- `tests/test_tuples.py` — 2 classs, 10 functions, 4 imports, 277 lines
-- `tests/test_strict_content_type_nested.py` — 12 functions, 2 imports, 92 lines
-- `tests/test_strict_content_type_router_level.py` — 9 functions, 2 imports, 62 lines
-- `tests/test_stringified_annotation_dependency.py` — 1 class, 4 functions, 6 imports, 80 lines
-- `tests/test_stringified_annotation_dependency_py314.py` — 1 function, 4 imports, 31 lines
-- `tests/test_stringified_annotations_simple.py` — 1 class, 1 function, 4 imports, 28 lines
 - `tests/test_sub_callbacks.py` — 4 classs, 5 functions, 4 imports, 307 lines
 - `tests/test_swagger_ui_init_oauth.py` — 3 functions, 2 imports, 29 lines
-- `tests/test_skip_defaults.py` — 4 classs, 10 functions, 3 imports, 94 lines
-- `tests/test_sse.py` — 1 class, 32 functions, 10 imports, 319 lines
-- `tests/test_starlette_exception.py` — 11 functions, 4 imports, 210 lines
-- `tests/test_starlette_urlconvertors.py` — 9 functions, 2 imports, 64 lines
-- `tests/test_stream_bare_type.py` — 1 class, 4 functions, 5 imports, 43 lines
-- `tests/test_stream_cancellation.py` — 
-- `tests/test_stream_json_validation_error.py` — 1 class, 4 functions, 6 imports, 41 lines
-- `tests/test_strict_content_type_app_level.py` — 6 functions, 2 imports, 45 lines
+- `tests/test_top_level_security_scheme_in_openapi.py` — 4 functions, 4 imports, 61 lines
+- `tests/test_tuples.py` — 2 classs, 10 functions, 4 imports, 277 lines
+- `tests/test_security_oauth2_optional_description.py` — 1 class, 11 functions, 6 imports, 284 lines
+- `tests/test_security_oauth2_password_bearer_optional.py` — 5 functions, 4 imports, 71 lines
+- `tests/test_security_oauth2_password_bearer_optional_description.py` — 5 functions, 4 imports, 76 lines
+- `tests/test_security_openid_connect.py` — 1 class, 6 functions, 5 imports, 80 lines
 - `tests/test_security_openid_connect_description.py` — 1 class, 6 functions, 5 imports, 83 lines
 - `tests/test_security_openid_connect_optional.py` — 1 class, 6 functions, 5 imports, 83 lines
 - `tests/test_security_scopes.py` — 4 functions, 4 imports, 46 lines
@@ -8689,30 +8626,24 @@ graph LR
 - `tests/test_serialize_response.py` — 1 class, 6 functions, 3 imports, 56 lines
 - `tests/test_serialize_response_dataclass.py` — 1 class, 14 functions, 4 imports, 194 lines
 - `tests/test_serialize_response_model.py` — 1 class, 16 functions, 3 imports, 153 lines
-- `tests/test_security_oauth2_authorization_code_bearer_description.py` — 5 functions, 4 imports, 81 lines
-- `tests/test_security_oauth2_authorization_code_bearer_scopes_openapi.py` — 12 functions, 5 imports, 198 lines
-- `tests/test_security_oauth2_authorization_code_bearer_scopes_openapi_simple.py` — 4 functions, 5 imports, 81 lines
-- `tests/test_security_oauth2_optional.py` — 1 class, 11 functions, 6 imports, 282 lines
-- `tests/test_security_oauth2_optional_description.py` — 1 class, 11 functions, 6 imports, 284 lines
-- `tests/test_security_oauth2_password_bearer_optional.py` — 5 functions, 4 imports, 71 lines
-- `tests/test_security_oauth2_password_bearer_optional_description.py` — 5 functions, 4 imports, 76 lines
-- `tests/test_security_openid_connect.py` — 1 class, 6 functions, 5 imports, 80 lines
-- `tests/test_security_http_bearer.py` — 5 functions, 4 imports, 66 lines
-- `tests/test_security_http_bearer_description.py` — 5 functions, 4 imports, 72 lines
-- `tests/test_security_http_bearer_optional.py` — 5 functions, 4 imports, 68 lines
-- `tests/test_security_http_digest.py` — 5 functions, 4 imports, 68 lines
-- `tests/test_security_http_digest_description.py` — 5 functions, 4 imports, 74 lines
-- `tests/test_security_http_digest_optional.py` — 5 functions, 4 imports, 70 lines
-- `tests/test_security_oauth2.py` — 1 class, 11 functions, 6 imports, 281 lines
-- `tests/test_security_oauth2_authorization_code_bearer.py` — 6 functions, 4 imports, 83 lines
-- `tests/test_security_api_key_query_description.py` — 1 class, 5 functions, 5 imports, 76 lines
-- `tests/test_security_api_key_query_optional.py` — 1 class, 5 functions, 5 imports, 74 lines
-- `tests/test_security_http_base.py` — 5 functions, 4 imports, 65 lines
-- `tests/test_security_http_base_description.py` — 4 functions, 4 imports, 65 lines
-- `tests/test_security_http_base_optional.py` — 4 functions, 4 imports, 62 lines
-- `tests/test_security_http_basic_optional.py` — 6 functions, 5 imports, 80 lines
-- `tests/test_security_http_basic_realm.py` — 6 functions, 5 imports, 79 lines
-- `tests/test_security_http_basic_realm_description.py` — 6 functions, 5 imports, 85 lines
+- `tests/test_skip_defaults.py` — 4 classs, 10 functions, 3 imports, 94 lines
+- `tests/test_sse.py` — 1 class, 32 functions, 10 imports, 319 lines
+- `tests/test_starlette_exception.py` — 11 functions, 4 imports, 210 lines
+- `tests/test_starlette_urlconvertors.py` — 9 functions, 2 imports, 64 lines
+- `tests/test_stream_bare_type.py` — 1 class, 4 functions, 5 imports, 43 lines
+- `tests/test_stream_cancellation.py` — 
+- `tests/test_stream_json_validation_error.py` — 1 class, 4 functions, 6 imports, 41 lines
+- `tests/test_strict_content_type_app_level.py` — 6 functions, 2 imports, 45 lines
+- `tests/test_strict_content_type_nested.py` — 12 functions, 2 imports, 92 lines
+- `tests/test_strict_content_type_router_level.py` — 9 functions, 2 imports, 62 lines
+- `tests/test_stringified_annotation_dependency.py` — 1 class, 4 functions, 6 imports, 80 lines
+- `tests/test_stringified_annotation_dependency_py314.py` — 1 function, 4 imports, 31 lines
+- `tests/test_stringified_annotations_simple.py` — 1 class, 1 function, 4 imports, 28 lines
+- `tests/test_tutorial/test_wsgi/test_tutorial001.py` — 2 functions, 2 imports, 18 lines
+- `tests/test_tutorial/test_websockets/test_tutorial001.py` — 2 functions, 4 imports, 27 lines
+- `tests/test_tutorial/test_websockets/test_tutorial003.py` — 5 functions, 5 imports, 56 lines
+- `tests/test_schema_compat_pydantic_v2.py` — 3 functions, 8 imports, 122 lines
+- `tests/test_schema_extra_examples.py` — 3 functions, 6 imports, 858 lines
 - `tests/test_schema_ref_pydantic_v2.py` — 3 functions, 6 imports, 69 lines
 - `tests/test_security_api_key_cookie.py` — 1 class, 5 functions, 5 imports, 71 lines
 - `tests/test_security_api_key_cookie_description.py` — 1 class, 5 functions, 5 imports, 76 lines
@@ -8721,20 +8652,40 @@ graph LR
 - `tests/test_security_api_key_header_description.py` — 1 class, 5 functions, 5 imports, 76 lines
 - `tests/test_security_api_key_header_optional.py` — 1 class, 5 functions, 5 imports, 74 lines
 - `tests/test_security_api_key_query.py` — 1 class, 5 functions, 5 imports, 71 lines
-- `tests/test_tutorial/test_wsgi/test_tutorial001.py` — 2 functions, 2 imports, 18 lines
-- `tests/test_response_model_invalid.py` — 1 class, 4 functions, 3 imports, 44 lines
-- `tests/test_response_model_sub_types.py` — 1 class, 6 functions, 4 imports, 162 lines
-- `tests/test_return_none_stringified_annotations.py` — 1 function, 3 imports, 18 lines
-- `tests/test_route_scope.py` — 7 functions, 4 imports, 51 lines
-- `tests/test_router_circular_import.py` — 1 function, 2 imports, 13 lines
-- `tests/test_router_events.py` — 1 class, 11 functions, 7 imports, 379 lines
-- `tests/test_router_prefix_with_template.py` — 2 functions, 2 imports, 24 lines
-- `tests/test_router_redirect_slashes.py` — 2 functions, 2 imports, 41 lines
-- `tests/test_schema_compat_pydantic_v2.py` — 3 functions, 7 imports, 91 lines
-- `tests/test_schema_extra_examples.py` — 3 functions, 6 imports, 858 lines
-- `tests/test_tutorial/test_websockets/test_tutorial001.py` — 2 functions, 4 imports, 27 lines
-- `tests/test_tutorial/test_websockets/test_tutorial003.py` — 5 functions, 5 imports, 56 lines
+- `tests/test_security_api_key_query_description.py` — 1 class, 5 functions, 5 imports, 76 lines
+- `tests/test_security_api_key_query_optional.py` — 1 class, 5 functions, 5 imports, 74 lines
+- `tests/test_security_http_base.py` — 5 functions, 4 imports, 65 lines
+- `tests/test_security_http_base_description.py` — 4 functions, 4 imports, 65 lines
+- `tests/test_security_http_base_optional.py` — 4 functions, 4 imports, 62 lines
+- `tests/test_security_http_basic_optional.py` — 6 functions, 5 imports, 80 lines
+- `tests/test_security_http_basic_realm.py` — 6 functions, 5 imports, 79 lines
+- `tests/test_security_http_basic_realm_description.py` — 6 functions, 5 imports, 85 lines
+- `tests/test_security_http_bearer.py` — 5 functions, 4 imports, 66 lines
+- `tests/test_security_http_bearer_description.py` — 5 functions, 4 imports, 72 lines
+- `tests/test_security_http_bearer_optional.py` — 5 functions, 4 imports, 68 lines
+- `tests/test_security_http_digest.py` — 5 functions, 4 imports, 68 lines
+- `tests/test_security_http_digest_description.py` — 5 functions, 4 imports, 74 lines
+- `tests/test_security_http_digest_optional.py` — 5 functions, 4 imports, 70 lines
+- `tests/test_security_oauth2.py` — 1 class, 11 functions, 6 imports, 281 lines
+- `tests/test_security_oauth2_authorization_code_bearer.py` — 6 functions, 4 imports, 83 lines
+- `tests/test_security_oauth2_authorization_code_bearer_description.py` — 5 functions, 4 imports, 81 lines
+- `tests/test_security_oauth2_authorization_code_bearer_scopes_openapi.py` — 12 functions, 5 imports, 198 lines
+- `tests/test_security_oauth2_authorization_code_bearer_scopes_openapi_simple.py` — 4 functions, 5 imports, 81 lines
+- `tests/test_security_oauth2_optional.py` — 1 class, 11 functions, 6 imports, 282 lines
 - `tests/test_tutorial/test_using_request_directly/test_tutorial001.py` — 2 functions, 3 imports, 118 lines
+- `tests/test_tutorial/test_testing/test_tutorial001.py` — 2 functions, 2 imports, 33 lines
+- `tests/test_tutorial/test_testing/test_tutorial002.py` — 2 functions, 1 imports, 10 lines
+- `tests/test_tutorial/test_testing/test_tutorial003.py` — 1 function, 2 imports, 8 lines
+- `tests/test_tutorial/test_testing/test_tutorial004.py` — 1 function, 1 imports, 6 lines
+- `tests/test_tutorial/test_templates/test_tutorial001.py` — 1 function, 5 imports, 31 lines
+- `tests/test_tutorial/test_sub_applications/test_tutorial001.py` — 4 functions, 3 imports, 70 lines
+- `tests/test_tutorial/test_strict_content_type/test_tutorial001.py` — 4 functions, 3 imports, 44 lines
+- `tests/test_tutorial/test_stream_json_lines/test_tutorial001.py` — 3 functions, 5 imports, 144 lines
+- `tests/test_request_params/test_query/test_list.py` — 4 classs, 24 functions, 7 imports, 429 lines
+- `tests/test_request_params/test_query/test_optional_list.py` — 4 classs, 24 functions, 6 imports, 349 lines
+- `tests/test_request_params/test_query/test_optional_str.py` — 4 classs, 24 functions, 6 imports, 329 lines
+- `tests/test_request_params/test_query/test_required_str.py` — 4 classs, 24 functions, 7 imports, 415 lines
+- `tests/test_required_noneable.py` — 10 functions, 2 imports, 61 lines
 - `tests/test_response_by_alias.py` — 2 classs, 19 functions, 4 imports, 331 lines
 - `tests/test_response_change_status_code.py` — 4 functions, 2 imports, 27 lines
 - `tests/test_response_class_no_mediatype.py` — 3 classs, 3 functions, 5 imports, 115 lines
@@ -8745,53 +8696,44 @@ graph LR
 - `tests/test_response_model_data_filter_no_inheritance.py` — 5 classs, 6 functions, 3 imports, 82 lines
 - `tests/test_response_model_default_factory.py` — 1 class, 4 functions, 3 imports, 48 lines
 - `tests/test_response_model_include_exclude.py` — 3 classs, 12 functions, 3 imports, 176 lines
-- `tests/test_tutorial/test_testing/test_tutorial003.py` — 1 function, 2 imports, 8 lines
-- `tests/test_tutorial/test_testing/test_tutorial004.py` — 1 function, 1 imports, 6 lines
-- `tests/test_tutorial/test_testing/test_tutorial001.py` — 2 functions, 2 imports, 33 lines
-- `tests/test_tutorial/test_testing/test_tutorial002.py` — 2 functions, 1 imports, 10 lines
-- `tests/test_request_params/test_query/test_list.py` — 4 classs, 24 functions, 7 imports, 429 lines
-- `tests/test_request_params/test_query/test_optional_list.py` — 4 classs, 24 functions, 6 imports, 349 lines
-- `tests/test_request_params/test_query/test_optional_str.py` — 4 classs, 24 functions, 6 imports, 329 lines
-- `tests/test_request_params/test_query/test_required_str.py` — 4 classs, 24 functions, 7 imports, 415 lines
-- `tests/test_required_noneable.py` — 10 functions, 2 imports, 61 lines
-- `tests/test_tutorial/test_templates/test_tutorial001.py` — 1 function, 5 imports, 31 lines
-- `tests/test_tutorial/test_sub_applications/test_tutorial001.py` — 4 functions, 3 imports, 70 lines
+- `tests/test_response_model_invalid.py` — 1 class, 4 functions, 3 imports, 44 lines
+- `tests/test_response_model_sub_types.py` — 1 class, 6 functions, 4 imports, 162 lines
+- `tests/test_return_none_stringified_annotations.py` — 1 function, 3 imports, 18 lines
+- `tests/test_route_scope.py` — 7 functions, 4 imports, 51 lines
+- `tests/test_router_circular_import.py` — 1 function, 2 imports, 13 lines
+- `tests/test_router_events.py` — 1 class, 11 functions, 7 imports, 379 lines
+- `tests/test_router_prefix_with_template.py` — 2 functions, 2 imports, 24 lines
+- `tests/test_router_redirect_slashes.py` — 2 functions, 2 imports, 41 lines
+- `tests/test_tutorial/test_stream_data/test_tutorial001.py` — 3 functions, 4 imports, 155 lines
+- `tests/test_tutorial/test_stream_data/test_tutorial002.py` — 4 functions, 4 imports, 122 lines
+- `tests/test_tutorial/test_static_files/test_tutorial001.py` — 4 functions, 7 imports, 49 lines
 - `tests/test_request_params/test_path/test_required_str.py` — 6 functions, 5 imports, 89 lines
-- `tests/test_tutorial/test_strict_content_type/test_tutorial001.py` — 4 functions, 3 imports, 44 lines
-- `tests/test_tutorial/test_stream_json_lines/test_tutorial001.py` — 3 functions, 5 imports, 144 lines
+- `tests/test_tutorial/test_sql_databases/test_tutorial001.py` — 4 functions, 10 imports, 356 lines
+- `tests/test_tutorial/test_sql_databases/test_tutorial002.py` — 4 functions, 10 imports, 437 lines
 - `tests/test_request_params/test_header/test_list.py` — 4 classs, 24 functions, 7 imports, 428 lines
 - `tests/test_request_params/test_header/test_optional_list.py` — 4 classs, 24 functions, 6 imports, 353 lines
 - `tests/test_request_params/test_header/test_optional_str.py` — 4 classs, 24 functions, 6 imports, 329 lines
 - `tests/test_request_params/test_header/test_required_str.py` — 4 classs, 24 functions, 7 imports, 412 lines
-- `tests/test_tutorial/test_stream_data/test_tutorial001.py` — 3 functions, 4 imports, 155 lines
-- `tests/test_tutorial/test_stream_data/test_tutorial002.py` — 4 functions, 4 imports, 122 lines
-- `tests/test_tutorial/test_static_files/test_tutorial001.py` — 4 functions, 7 imports, 49 lines
+- `tests/test_tutorial/test_settings/test_app01.py` — 5 functions, 8 imports, 82 lines
+- `tests/test_tutorial/test_settings/test_app03.py` — 4 functions, 5 imports, 45 lines
+- `tests/test_tutorial/test_settings/test_tutorial001.py` — 2 functions, 4 imports, 24 lines
 - `tests/test_request_params/test_form/test_list.py` — 4 classs, 24 functions, 7 imports, 437 lines
 - `tests/test_request_params/test_form/test_optional_list.py` — 4 classs, 24 functions, 6 imports, 359 lines
 - `tests/test_request_params/test_form/test_optional_str.py` — 4 classs, 24 functions, 6 imports, 338 lines
 - `tests/test_request_params/test_form/test_required_str.py` — 4 classs, 24 functions, 7 imports, 416 lines
-- `tests/test_tutorial/test_sql_databases/test_tutorial001.py` — 4 functions, 10 imports, 356 lines
-- `tests/test_tutorial/test_sql_databases/test_tutorial002.py` — 4 functions, 10 imports, 437 lines
-- `tests/test_tutorial/test_settings/test_app01.py` — 5 functions, 8 imports, 82 lines
-- `tests/test_tutorial/test_settings/test_app03.py` — 4 functions, 5 imports, 45 lines
-- `tests/test_tutorial/test_settings/test_tutorial001.py` — 2 functions, 4 imports, 24 lines
-- `tests/test_request_params/test_file/test_list.py` — 24 functions, 5 imports, 454 lines
-- `tests/test_request_params/test_file/test_optional.py` — 24 functions, 5 imports, 364 lines
-- `tests/test_request_params/test_file/test_optional_list.py` — 24 functions, 5 imports, 384 lines
-- `tests/test_request_params/test_file/test_required.py` — 24 functions, 5 imports, 438 lines
 - `tests/test_tutorial/test_server_sent_events/test_tutorial001.py` — 3 functions, 4 imports, 192 lines
 - `tests/test_tutorial/test_server_sent_events/test_tutorial002.py` — 3 functions, 4 imports, 84 lines
 - `tests/test_tutorial/test_server_sent_events/test_tutorial003.py` — 3 functions, 4 imports, 74 lines
 - `tests/test_tutorial/test_server_sent_events/test_tutorial004.py` — 5 functions, 4 imports, 165 lines
 - `tests/test_tutorial/test_server_sent_events/test_tutorial005.py` — 3 functions, 4 imports, 142 lines
-- `tests/test_request_params/test_cookie/test_optional_str.py` — 4 classs, 24 functions, 6 imports, 337 lines
-- `tests/test_request_params/test_cookie/test_required_str.py` — 4 classs, 24 functions, 7 imports, 423 lines
 - `tests/test_tutorial/test_separate_openapi_schemas/test_tutorial001.py` — 4 functions, 5 imports, 149 lines
 - `tests/test_tutorial/test_separate_openapi_schemas/test_tutorial002.py` — 4 functions, 5 imports, 149 lines
-- `tests/test_request_params/test_body/test_list.py` — 4 classs, 24 functions, 7 imports, 434 lines
-- `tests/test_request_params/test_body/test_optional_list.py` — 4 classs, 32 functions, 6 imports, 455 lines
-- `tests/test_request_params/test_body/test_optional_str.py` — 4 classs, 32 functions, 6 imports, 430 lines
-- `tests/test_request_params/test_body/test_required_str.py` — 4 classs, 24 functions, 7 imports, 420 lines
+- `tests/test_request_params/test_file/test_list.py` — 24 functions, 5 imports, 454 lines
+- `tests/test_request_params/test_file/test_optional.py` — 24 functions, 5 imports, 364 lines
+- `tests/test_request_params/test_file/test_optional_list.py` — 24 functions, 5 imports, 384 lines
+- `tests/test_request_params/test_file/test_required.py` — 24 functions, 5 imports, 438 lines
+- `tests/test_request_params/test_cookie/test_optional_str.py` — 4 classs, 24 functions, 6 imports, 337 lines
+- `tests/test_request_params/test_cookie/test_required_str.py` — 4 classs, 24 functions, 7 imports, 423 lines
 - `tests/test_tutorial/test_security/test_tutorial001.py` — 5 functions, 4 imports, 74 lines
 - `tests/test_tutorial/test_security/test_tutorial002.py` — 4 functions, 5 imports, 73 lines
 - `tests/test_tutorial/test_security/test_tutorial003.py` — 10 functions, 5 imports, 216 lines
@@ -8799,26 +8741,16 @@ graph LR
 - `tests/test_tutorial/test_security/test_tutorial005.py` — 21 functions, 6 imports, 415 lines
 - `tests/test_tutorial/test_security/test_tutorial006.py` — 6 functions, 5 imports, 81 lines
 - `tests/test_tutorial/test_security/test_tutorial007.py` — 8 functions, 5 imports, 93 lines
-- `tests/test_request_param_model_by_alias.py` — 1 class, 9 functions, 4 imports, 73 lines
+- `tests/test_request_params/test_body/test_required_str.py` — 4 classs, 24 functions, 7 imports, 420 lines
 - `tests/test_tutorial/test_schema_extra_example/test_tutorial001.py` — 3 functions, 5 imports, 145 lines
 - `tests/test_tutorial/test_schema_extra_example/test_tutorial002.py` — 3 functions, 5 imports, 147 lines
 - `tests/test_tutorial/test_schema_extra_example/test_tutorial003.py` — 3 functions, 5 imports, 148 lines
 - `tests/test_tutorial/test_schema_extra_example/test_tutorial004.py` — 3 functions, 5 imports, 153 lines
 - `tests/test_tutorial/test_schema_extra_example/test_tutorial005.py` — 3 functions, 5 imports, 162 lines
+- `tests/test_request_params/test_body/test_list.py` — 4 classs, 24 functions, 7 imports, 434 lines
+- `tests/test_request_params/test_body/test_optional_list.py` — 4 classs, 32 functions, 6 imports, 455 lines
+- `tests/test_request_params/test_body/test_optional_str.py` — 4 classs, 32 functions, 6 imports, 430 lines
 - `tests/test_tutorial/test_response_status_code/test_tutorial001_tutorial002.py` — 3 functions, 4 imports, 104 lines
-- `tests/test_query_cookie_header_model_extra_params.py` — 1 class, 8 functions, 3 imports, 106 lines
-- `tests/test_read_with_orm_mode.py` — 1 function, 4 imports, 44 lines
-- `tests/test_regex_deprecated_body.py` — 5 functions, 7 imports, 155 lines
-- `tests/test_regex_deprecated_params.py` — 5 functions, 7 imports, 147 lines
-- `tests/test_repeated_cookie_headers.py` — 5 functions, 2 imports, 35 lines
-- `tests/test_repeated_dependency_schema.py` — 5 functions, 3 imports, 110 lines
-- `tests/test_repeated_parameter_alias.py` — 3 functions, 3 imports, 107 lines
-- `tests/test_reponse_set_reponse_code_empty.py` — 3 functions, 4 imports, 105 lines
-- `tests/test_request_body_parameters_media_type.py` — 2 classs, 3 functions, 4 imports, 185 lines
-- `tests/test_param_include_in_schema.py` — 9 functions, 4 imports, 247 lines
-- `tests/test_put_no_body.py` — 4 functions, 3 imports, 104 lines
-- `tests/test_pydantic_v1_error.py` — 6 functions, 7 imports, 97 lines
-- `tests/test_pydanticv2_dataclasses_uuid_stringified_annotations.py` — 1 class, 2 functions, 6 imports, 52 lines
 - `tests/test_tutorial/test_response_model/test_tutorial001_tutorial001_01.py` — 5 functions, 5 imports, 201 lines
 - `tests/test_tutorial/test_response_model/test_tutorial002.py` — 3 functions, 5 imports, 138 lines
 - `tests/test_tutorial/test_response_model/test_tutorial003.py` — 3 functions, 5 imports, 158 lines
@@ -8834,17 +8766,26 @@ graph LR
 - `tests/test_tutorial/test_response_headers/test_tutorial002.py` — 1 function, 2 imports, 13 lines
 - `tests/test_tutorial/test_response_directly/test_tutorial001.py` — 3 functions, 5 imports, 157 lines
 - `tests/test_tutorial/test_response_directly/test_tutorial002.py` — 3 functions, 4 imports, 69 lines
-- `tests/test_openapi_route_extensions.py` — 3 functions, 3 imports, 46 lines
-- `tests/test_openapi_separate_input_output_schemas.py` — 3 classs, 8 functions, 4 imports, 677 lines
-- `tests/test_openapi_servers.py` — 3 functions, 3 imports, 61 lines
-- `tests/test_operations_signatures.py` — 1 function, 2 imports, 23 lines
-- `tests/test_optional_file_list.py` — 3 functions, 2 imports, 29 lines
-- `tests/test_orjson_response_class.py` — 2 functions, 6 imports, 29 lines
-- `tests/test_param_class.py` — 3 functions, 3 imports, 26 lines
-- `tests/test_param_in_path_and_dependency.py` — 4 functions, 3 imports, 100 lines
 - `tests/test_tutorial/test_response_cookies/test_tutorial001.py` — 1 function, 2 imports, 13 lines
 - `tests/test_tutorial/test_response_cookies/test_tutorial002.py` — 1 function, 2 imports, 13 lines
 - `tests/test_tutorial/test_response_change_status_code/test_tutorial001.py` — 1 function, 2 imports, 16 lines
+- `tests/test_pydanticv2_dataclasses_uuid_stringified_annotations.py` — 1 class, 2 functions, 6 imports, 52 lines
+- `tests/test_query_cookie_header_model_extra_params.py` — 1 class, 8 functions, 3 imports, 106 lines
+- `tests/test_read_with_orm_mode.py` — 1 function, 4 imports, 44 lines
+- `tests/test_regex_deprecated_body.py` — 5 functions, 7 imports, 155 lines
+- `tests/test_regex_deprecated_params.py` — 5 functions, 7 imports, 147 lines
+- `tests/test_repeated_cookie_headers.py` — 5 functions, 2 imports, 35 lines
+- `tests/test_repeated_dependency_schema.py` — 5 functions, 3 imports, 110 lines
+- `tests/test_repeated_parameter_alias.py` — 3 functions, 3 imports, 107 lines
+- `tests/test_reponse_set_reponse_code_empty.py` — 3 functions, 4 imports, 105 lines
+- `tests/test_request_body_parameters_media_type.py` — 2 classs, 3 functions, 4 imports, 185 lines
+- `tests/test_request_param_model_by_alias.py` — 1 class, 9 functions, 4 imports, 73 lines
+- `tests/test_tutorial/test_request_forms/test_tutorial001.py` — 7 functions, 4 imports, 187 lines
+- `tests/test_tutorial/test_request_form_models/test_tutorial001.py` — 7 functions, 4 imports, 185 lines
+- `tests/test_tutorial/test_request_form_models/test_tutorial002.py` — 8 functions, 4 imports, 203 lines
+- `tests/test_tutorial/test_request_files/test_tutorial001.py` — 7 functions, 4 imports, 217 lines
+- `tests/test_tutorial/test_request_files/test_tutorial001_02.py` — 6 functions, 6 imports, 197 lines
+- `tests/test_tutorial/test_request_files/test_tutorial001_03.py` — 4 functions, 4 imports, 178 lines
 - `tests/test_multi_body_errors.py` — 1 class, 5 functions, 6 imports, 192 lines
 - `tests/test_multi_query_errors.py` — 4 functions, 3 imports, 123 lines
 - `tests/test_multipart_installation.py` — 11 functions, 4 imports, 150 lines
@@ -8854,22 +8795,23 @@ graph LR
 - `tests/test_openapi_examples.py` — 1 class, 7 functions, 4 imports, 423 lines
 - `tests/test_openapi_model_description_trim_on_formfeed.py` — 1 class, 2 functions, 3 imports, 32 lines
 - `tests/test_openapi_query_parameter_extension.py` — 3 functions, 3 imports, 132 lines
-- `tests/test_tutorial/test_request_forms/test_tutorial001.py` — 7 functions, 4 imports, 187 lines
+- `tests/test_openapi_route_extensions.py` — 3 functions, 3 imports, 46 lines
+- `tests/test_openapi_separate_input_output_schemas.py` — 3 classs, 8 functions, 4 imports, 677 lines
+- `tests/test_openapi_servers.py` — 3 functions, 3 imports, 61 lines
+- `tests/test_operations_signatures.py` — 1 function, 2 imports, 23 lines
+- `tests/test_optional_file_list.py` — 3 functions, 2 imports, 29 lines
+- `tests/test_orjson_response_class.py` — 2 functions, 6 imports, 29 lines
+- `tests/test_param_class.py` — 3 functions, 3 imports, 26 lines
+- `tests/test_param_in_path_and_dependency.py` — 4 functions, 3 imports, 100 lines
+- `tests/test_param_include_in_schema.py` — 9 functions, 4 imports, 247 lines
+- `tests/test_put_no_body.py` — 4 functions, 3 imports, 104 lines
+- `tests/test_pydantic_v1_error.py` — 6 functions, 7 imports, 97 lines
 - `tests/test_modules_same_name_body/app/b.py` — 1 function, 1 imports, 9 lines
-- `tests/test_tutorial/test_request_form_models/test_tutorial001.py` — 7 functions, 4 imports, 185 lines
-- `tests/test_tutorial/test_request_form_models/test_tutorial002.py` — 8 functions, 4 imports, 203 lines
-- `tests/test_list_bytes_file_order_preserved_issue_14811.py` — 
-- `tests/test_tutorial/test_request_files/test_tutorial001.py` — 7 functions, 4 imports, 217 lines
-- `tests/test_tutorial/test_request_files/test_tutorial001_02.py` — 6 functions, 6 imports, 197 lines
-- `tests/test_tutorial/test_request_files/test_tutorial001_03.py` — 4 functions, 4 imports, 178 lines
-- `tests/test_include_router_defaults_overrides.py` — 6 classs, 27 functions, 6 imports, 7305 lines
-- `tests/test_infer_param_optionality.py` — 13 functions, 3 imports, 338 lines
-- `tests/test_inherited_custom_class.py` — 1 class, 1 function, 6 imports, 68 lines
-- `tests/test_invalid_path_param.py` — 7 functions, 3 imports, 76 lines
-- `tests/test_invalid_sequence_param.py` — 4 functions, 3 imports, 64 lines
-- `tests/test_json_type.py` — 8 functions, 5 imports, 64 lines
-- `tests/test_tutorial/test_query_params_str_validations/test_tutorial015.py` — 6 functions, 6 imports, 144 lines
-- `tests/test_include_route.py` — 2 functions, 3 imports, 23 lines
+- `tests/test_tutorial/test_query_params_str_validations/test_tutorial001.py` — 5 functions, 5 imports, 128 lines
+- `tests/test_tutorial/test_query_params_str_validations/test_tutorial002.py` — 6 functions, 5 imports, 148 lines
+- `tests/test_tutorial/test_query_params_str_validations/test_tutorial003.py` — 6 functions, 5 imports, 159 lines
+- `tests/test_tutorial/test_query_params_str_validations/test_tutorial004.py` — 5 functions, 5 imports, 144 lines
+- `tests/test_tutorial/test_query_params_str_validations/test_tutorial005.py` — 5 functions, 4 imports, 139 lines
 - `tests/test_tutorial/test_query_params_str_validations/test_tutorial006.py` — 5 functions, 4 imports, 144 lines
 - `tests/test_tutorial/test_query_params_str_validations/test_tutorial006c.py` — 6 functions, 5 imports, 154 lines
 - `tests/test_tutorial/test_query_params_str_validations/test_tutorial007.py` — 5 functions, 5 imports, 142 lines
@@ -8880,16 +8822,7 @@ graph LR
 - `tests/test_tutorial/test_query_params_str_validations/test_tutorial012.py` — 4 functions, 4 imports, 119 lines
 - `tests/test_tutorial/test_query_params_str_validations/test_tutorial013.py` — 4 functions, 4 imports, 119 lines
 - `tests/test_tutorial/test_query_params_str_validations/test_tutorial014.py` — 4 functions, 5 imports, 106 lines
-- `tests/test_tutorial/test_query_params_str_validations/test_tutorial001.py` — 5 functions, 5 imports, 128 lines
-- `tests/test_tutorial/test_query_params_str_validations/test_tutorial002.py` — 6 functions, 5 imports, 148 lines
-- `tests/test_tutorial/test_query_params_str_validations/test_tutorial003.py` — 6 functions, 5 imports, 159 lines
-- `tests/test_tutorial/test_query_params_str_validations/test_tutorial004.py` — 5 functions, 5 imports, 144 lines
-- `tests/test_tutorial/test_query_params_str_validations/test_tutorial005.py` — 5 functions, 4 imports, 139 lines
-- `tests/test_generate_unique_id_function.py` — 2 classs, 11 functions, 6 imports, 1700 lines
-- `tests/test_generic_parameterless_depends.py` — 2 classs, 4 functions, 4 imports, 80 lines
-- `tests/test_get_model_definitions_formfeed_escape.py` — 3 functions, 5 imports, 161 lines
-- `tests/test_get_request_body.py` — 1 class, 3 functions, 4 imports, 115 lines
-- `tests/test_http_connection_injection.py` — 5 functions, 4 imports, 40 lines
+- `tests/test_tutorial/test_query_params_str_validations/test_tutorial015.py` — 6 functions, 6 imports, 144 lines
 - `tests/test_tutorial/test_query_params/test_tutorial001.py` — 3 functions, 4 imports, 134 lines
 - `tests/test_tutorial/test_query_params/test_tutorial002.py` — 3 functions, 5 imports, 134 lines
 - `tests/test_tutorial/test_query_params/test_tutorial003.py` — 3 functions, 5 imports, 155 lines
@@ -8898,13 +8831,40 @@ graph LR
 - `tests/test_tutorial/test_query_params/test_tutorial006.py` — 4 functions, 5 imports, 162 lines
 - `tests/test_tutorial/test_query_param_models/test_tutorial001.py` — 6 functions, 5 imports, 228 lines
 - `tests/test_tutorial/test_query_param_models/test_tutorial002.py` — 6 functions, 5 imports, 234 lines
-- `tests/test_extra_routes.py` — 1 class, 15 functions, 5 imports, 371 lines
-- `tests/test_file_and_form_order_issue_9116.py` — 
-- `tests/test_filter_pydantic_sub_model_pv2.py` — 4 functions, 7 imports, 183 lines
-- `tests/test_form_default.py` — 4 functions, 3 imports, 35 lines
-- `tests/test_forms_from_non_typing_sequences.py` — 6 functions, 2 imports, 47 lines
-- `tests/test_forms_single_model.py` — 2 classs, 8 functions, 4 imports, 142 lines
-- `tests/test_forms_single_param.py` — 3 functions, 4 imports, 110 lines
+- `tests/test_http_connection_injection.py` — 5 functions, 4 imports, 40 lines
+- `tests/test_include_route.py` — 2 functions, 3 imports, 23 lines
+- `tests/test_include_router_defaults_overrides.py` — 6 classs, 27 functions, 6 imports, 7305 lines
+- `tests/test_infer_param_optionality.py` — 13 functions, 3 imports, 338 lines
+- `tests/test_inherited_custom_class.py` — 1 class, 1 function, 6 imports, 68 lines
+- `tests/test_invalid_path_param.py` — 7 functions, 3 imports, 76 lines
+- `tests/test_invalid_sequence_param.py` — 4 functions, 3 imports, 64 lines
+- `tests/test_json_type.py` — 8 functions, 5 imports, 64 lines
+- `tests/test_list_bytes_file_order_preserved_issue_14811.py` — 
+- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial001.py` — 4 functions, 5 imports, 168 lines
+- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial002_tutorial003.py` — 5 functions, 4 imports, 176 lines
+- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial004.py` — 6 functions, 4 imports, 191 lines
+- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial005.py` — 7 functions, 4 imports, 208 lines
+- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial006.py` — 7 functions, 4 imports, 227 lines
+- `tests/test_tutorial/test_path_params/test_tutorial004.py` — 3 functions, 3 imports, 99 lines
+- `tests/test_tutorial/test_path_params/test_tutorial005.py` — 5 functions, 3 imports, 124 lines
+- `tests/test_tutorial/test_path_params/test_tutorial001.py` — 2 functions, 4 imports, 122 lines
+- `tests/test_tutorial/test_path_params/test_tutorial002.py` — 3 functions, 3 imports, 130 lines
+- `tests/test_tutorial/test_path_params/test_tutorial003.py` — 2 functions, 4 imports, 139 lines
+- `tests/test_tutorial/test_path_params/test_tutorial003b.py` — 3 functions, 4 imports, 48 lines
+- `tests/test_tutorial/test_path_operation_configurations/test_tutorial001.py` — 3 functions, 6 imports, 191 lines
+- `tests/test_tutorial/test_path_operation_configurations/test_tutorial002.py` — 5 functions, 6 imports, 228 lines
+- `tests/test_tutorial/test_path_operation_configurations/test_tutorial002b.py` — 3 functions, 3 imports, 58 lines
+- `tests/test_tutorial/test_path_operation_configurations/test_tutorial003_tutorial004.py` — 4 functions, 7 imports, 212 lines
+- `tests/test_tutorial/test_path_operation_configurations/test_tutorial005.py` — 3 functions, 5 imports, 142 lines
+- `tests/test_tutorial/test_path_operation_configurations/test_tutorial006.py` — 2 functions, 4 imports, 75 lines
+- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial001.py` — 2 functions, 3 imports, 38 lines
+- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial002.py` — 2 functions, 3 imports, 38 lines
+- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial003.py` — 2 functions, 3 imports, 25 lines
+- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial004.py` — 3 functions, 5 imports, 143 lines
+- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial005.py` — 2 functions, 3 imports, 38 lines
+- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial006.py` — 2 functions, 3 imports, 61 lines
+- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial007.py` — 5 functions, 4 imports, 119 lines
+- `tests/test_tutorial/test_openapi_webhooks/test_tutorial001.py` — 3 functions, 3 imports, 127 lines
 - `tests/test_depends_hashable.py` — 2 functions, 1 imports, 26 lines
 - `tests/test_deprecated_openapi_prefix.py` — 3 functions, 3 imports, 46 lines
 - `tests/test_deprecated_responses.py` — 1 class, 6 functions, 7 imports, 74 lines
@@ -8913,51 +8873,31 @@ graph LR
 - `tests/test_empty_router.py` — 3 functions, 4 imports, 37 lines
 - `tests/test_enforce_once_required_parameter.py` — 6 functions, 3 imports, 116 lines
 - `tests/test_exception_handlers.py` — 14 functions, 5 imports, 89 lines
-- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial001.py` — 4 functions, 5 imports, 168 lines
-- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial002_tutorial003.py` — 5 functions, 4 imports, 176 lines
-- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial004.py` — 6 functions, 4 imports, 191 lines
-- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial005.py` — 7 functions, 4 imports, 208 lines
-- `tests/test_tutorial/test_path_params_numeric_validations/test_tutorial006.py` — 7 functions, 4 imports, 227 lines
-- `tests/test_tutorial/test_path_params/test_tutorial001.py` — 2 functions, 4 imports, 122 lines
-- `tests/test_tutorial/test_path_params/test_tutorial002.py` — 3 functions, 3 imports, 130 lines
-- `tests/test_tutorial/test_path_params/test_tutorial003.py` — 2 functions, 4 imports, 139 lines
-- `tests/test_tutorial/test_path_params/test_tutorial003b.py` — 3 functions, 4 imports, 48 lines
-- `tests/test_tutorial/test_path_params/test_tutorial004.py` — 3 functions, 3 imports, 99 lines
-- `tests/test_tutorial/test_path_params/test_tutorial005.py` — 5 functions, 3 imports, 124 lines
-- `tests/test_dependency_duplicates.py` — 1 class, 11 functions, 4 imports, 238 lines
-- `tests/test_dependency_overrides.py` — 33 functions, 3 imports, 390 lines
-- `tests/test_dependency_paramless.py` — 8 functions, 4 imports, 78 lines
-- `tests/test_dependency_partial.py` — 5 classs, 17 functions, 6 imports, 252 lines
-- `tests/test_dependency_pep695.py` — 2 functions, 4 imports, 28 lines
-- `tests/test_dependency_security_overrides.py` — 8 functions, 3 imports, 64 lines
-- `tests/test_dependency_wrapped.py` — 13 classs, 39 functions, 10 imports, 450 lines
-- `tests/test_dependency_yield_except_httpexception.py` — 6 functions, 3 imports, 73 lines
-- `tests/test_dependency_yield_scope.py` — 2 classs, 23 functions, 7 imports, 246 lines
-- `tests/test_dependency_yield_scope_websockets.py` — 2 classs, 17 functions, 6 imports, 201 lines
-- `tests/test_tutorial/test_path_operation_configurations/test_tutorial001.py` — 3 functions, 6 imports, 191 lines
-- `tests/test_tutorial/test_path_operation_configurations/test_tutorial002.py` — 5 functions, 6 imports, 228 lines
-- `tests/test_tutorial/test_path_operation_configurations/test_tutorial002b.py` — 3 functions, 3 imports, 58 lines
-- `tests/test_tutorial/test_path_operation_configurations/test_tutorial003_tutorial004.py` — 4 functions, 7 imports, 212 lines
-- `tests/test_tutorial/test_path_operation_configurations/test_tutorial005.py` — 3 functions, 5 imports, 142 lines
-- `tests/test_tutorial/test_path_operation_configurations/test_tutorial006.py` — 2 functions, 4 imports, 75 lines
-- `tests/test_default_response_class_router.py` — 1 class, 28 functions, 3 imports, 207 lines
-- `tests/test_dependency_after_yield_raise.py` — 1 class, 8 functions, 4 imports, 69 lines
-- `tests/test_dependency_after_yield_streaming.py` — 1 class, 15 functions, 7 imports, 131 lines
-- `tests/test_dependency_after_yield_websockets.py` — 1 class, 7 functions, 6 imports, 80 lines
-- `tests/test_dependency_cache.py` — 10 functions, 2 imports, 92 lines
-- `tests/test_dependency_class.py` — 5 classs, 13 functions, 4 imports, 155 lines
-- `tests/test_dependency_contextmanager.py` — 3 classs, 48 functions, 5 imports, 400 lines
-- `tests/test_dependency_contextvars.py` — 4 functions, 5 imports, 53 lines
-- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial007.py` — 5 functions, 4 imports, 119 lines
-- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial001.py` — 2 functions, 3 imports, 38 lines
-- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial002.py` — 2 functions, 3 imports, 38 lines
-- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial003.py` — 2 functions, 3 imports, 25 lines
-- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial004.py` — 3 functions, 5 imports, 143 lines
-- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial005.py` — 2 functions, 3 imports, 38 lines
-- `tests/test_tutorial/test_path_operation_advanced_configurations/test_tutorial006.py` — 2 functions, 3 imports, 61 lines
-- `tests/test_tutorial/test_openapi_webhooks/test_tutorial001.py` — 3 functions, 3 imports, 127 lines
+- `tests/test_extra_routes.py` — 1 class, 15 functions, 5 imports, 371 lines
+- `tests/test_file_and_form_order_issue_9116.py` — 
+- `tests/test_filter_pydantic_sub_model_pv2.py` — 4 functions, 7 imports, 183 lines
+- `tests/test_form_default.py` — 4 functions, 3 imports, 35 lines
+- `tests/test_forms_from_non_typing_sequences.py` — 6 functions, 2 imports, 47 lines
+- `tests/test_forms_single_model.py` — 2 classs, 8 functions, 4 imports, 142 lines
+- `tests/test_forms_single_param.py` — 3 functions, 4 imports, 110 lines
+- `tests/test_generate_unique_id_function.py` — 2 classs, 11 functions, 6 imports, 1700 lines
+- `tests/test_generic_parameterless_depends.py` — 2 classs, 4 functions, 4 imports, 80 lines
+- `tests/test_get_model_definitions_formfeed_escape.py` — 3 functions, 5 imports, 161 lines
+- `tests/test_get_request_body.py` — 1 class, 3 functions, 4 imports, 115 lines
 - `tests/test_tutorial/test_openapi_callbacks/test_tutorial001.py` — 5 functions, 6 imports, 209 lines
-- `tests/test_arbitrary_types.py` — 4 functions, 7 imports, 136 lines
+- `tests/test_tutorial/test_middleware/test_tutorial001.py` — 2 functions, 3 imports, 28 lines
+- `tests/test_tutorial/test_metadata/test_tutorial004.py` — 2 functions, 3 imports, 67 lines
+- `tests/test_tutorial/test_metadata/test_tutorial001.py` — 2 functions, 3 imports, 53 lines
+- `tests/test_tutorial/test_metadata/test_tutorial001_1.py` — 2 functions, 3 imports, 53 lines
+- `tests/test_tutorial/test_metadata/test_tutorial002.py` — 3 functions, 3 imports, 46 lines
+- `tests/test_tutorial/test_metadata/test_tutorial003.py` — 5 functions, 3 imports, 57 lines
+- `tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py` — 5 functions, 5 imports, 226 lines
+- `tests/test_tutorial/test_header_params/test_tutorial001.py` — 3 functions, 5 imports, 117 lines
+- `tests/test_tutorial/test_header_params/test_tutorial002.py` — 3 functions, 5 imports, 128 lines
+- `tests/test_tutorial/test_header_params/test_tutorial003.py` — 3 functions, 5 imports, 125 lines
+- `tests/test_tutorial/test_header_param_models/test_tutorial001.py` — 6 functions, 5 imports, 208 lines
+- `tests/test_tutorial/test_header_param_models/test_tutorial002.py` — 6 functions, 5 imports, 205 lines
+- `tests/test_tutorial/test_header_param_models/test_tutorial003.py` — 7 functions, 5 imports, 245 lines
 - `tests/test_callable_endpoint.py` — 2 functions, 3 imports, 25 lines
 - `tests/test_compat.py` — 8 functions, 11 imports, 133 lines
 - `tests/test_computed_fields.py` — 3 functions, 5 imports, 109 lines
@@ -8968,25 +8908,24 @@ graph LR
 - `tests/test_datastructures.py` — 5 functions, 6 imports, 66 lines
 - `tests/test_datetime_custom_encoder.py` — 1 function, 5 imports, 29 lines
 - `tests/test_default_response_class.py` — 2 classs, 28 functions, 5 imports, 217 lines
-- `tests/test_tutorial/test_middleware/test_tutorial001.py` — 2 functions, 3 imports, 28 lines
-- `tests/test_tutorial/test_metadata/test_tutorial001.py` — 2 functions, 3 imports, 53 lines
-- `tests/test_tutorial/test_metadata/test_tutorial001_1.py` — 2 functions, 3 imports, 53 lines
-- `tests/test_tutorial/test_metadata/test_tutorial002.py` — 3 functions, 3 imports, 46 lines
-- `tests/test_tutorial/test_metadata/test_tutorial003.py` — 5 functions, 3 imports, 57 lines
-- `tests/test_tutorial/test_metadata/test_tutorial004.py` — 2 functions, 3 imports, 67 lines
-- `tests/test_annotated.py` — 8 functions, 5 imports, 299 lines
-- `tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py` — 5 functions, 5 imports, 226 lines
-- `tests/test_tutorial/test_header_params/test_tutorial001.py` — 3 functions, 5 imports, 117 lines
-- `tests/test_tutorial/test_header_params/test_tutorial002.py` — 3 functions, 5 imports, 128 lines
-- `tests/test_tutorial/test_header_params/test_tutorial003.py` — 3 functions, 5 imports, 125 lines
-- `tests/test_additional_responses_response_class.py` — 3 classs, 3 functions, 5 imports, 118 lines
-- `tests/test_additional_responses_router.py` — 1 class, 9 functions, 4 imports, 183 lines
-- `tests/test_additional_responses_union_duplicate_anyof.py` — 
-- `tests/test_allow_inf_nan_in_enforcing.py` — 5 functions, 4 imports, 85 lines
-- `tests/test_ambiguous_params.py` — 2 functions, 5 imports, 75 lines
-- `tests/test_tutorial/test_header_param_models/test_tutorial001.py` — 6 functions, 5 imports, 208 lines
-- `tests/test_tutorial/test_header_param_models/test_tutorial002.py` — 6 functions, 5 imports, 205 lines
-- `tests/test_tutorial/test_header_param_models/test_tutorial003.py` — 7 functions, 5 imports, 245 lines
+- `tests/test_default_response_class_router.py` — 1 class, 28 functions, 3 imports, 207 lines
+- `tests/test_dependency_after_yield_raise.py` — 1 class, 8 functions, 4 imports, 69 lines
+- `tests/test_dependency_after_yield_streaming.py` — 1 class, 15 functions, 7 imports, 131 lines
+- `tests/test_dependency_after_yield_websockets.py` — 1 class, 7 functions, 6 imports, 80 lines
+- `tests/test_dependency_cache.py` — 10 functions, 2 imports, 92 lines
+- `tests/test_dependency_class.py` — 5 classs, 13 functions, 4 imports, 155 lines
+- `tests/test_dependency_contextmanager.py` — 3 classs, 48 functions, 5 imports, 400 lines
+- `tests/test_dependency_contextvars.py` — 4 functions, 5 imports, 53 lines
+- `tests/test_dependency_duplicates.py` — 1 class, 11 functions, 4 imports, 238 lines
+- `tests/test_dependency_overrides.py` — 33 functions, 3 imports, 390 lines
+- `tests/test_dependency_paramless.py` — 8 functions, 4 imports, 78 lines
+- `tests/test_dependency_partial.py` — 5 classs, 17 functions, 6 imports, 252 lines
+- `tests/test_dependency_pep695.py` — 2 functions, 4 imports, 28 lines
+- `tests/test_dependency_security_overrides.py` — 8 functions, 3 imports, 64 lines
+- `tests/test_dependency_wrapped.py` — 13 classs, 39 functions, 10 imports, 450 lines
+- `tests/test_dependency_yield_except_httpexception.py` — 6 functions, 3 imports, 73 lines
+- `tests/test_dependency_yield_scope.py` — 2 classs, 23 functions, 7 imports, 246 lines
+- `tests/test_dependency_yield_scope_websockets.py` — 2 classs, 17 functions, 6 imports, 201 lines
 - `tests/test_tutorial/test_handling_errors/test_tutorial001.py` — 3 functions, 3 imports, 98 lines
 - `tests/test_tutorial/test_handling_errors/test_tutorial002.py` — 3 functions, 3 imports, 98 lines
 - `tests/test_tutorial/test_handling_errors/test_tutorial003.py` — 3 functions, 3 imports, 99 lines
@@ -8994,14 +8933,6 @@ graph LR
 - `tests/test_tutorial/test_handling_errors/test_tutorial005.py` — 3 functions, 3 imports, 117 lines
 - `tests/test_tutorial/test_handling_errors/test_tutorial006.py` — 4 functions, 3 imports, 112 lines
 - `tests/test_tutorial/test_graphql/test_tutorial001.py` — 3 functions, 5 imports, 74 lines
-- `tests/test_additional_properties_bool.py` — 2 classs, 4 functions, 4 imports, 126 lines
-- `tests/test_additional_response_extra.py` — 3 functions, 3 imports, 53 lines
-- `tests/test_additional_responses_bad.py` — 2 functions, 3 imports, 41 lines
-- `tests/test_additional_responses_custom_model_in_callback.py` — 1 class, 3 functions, 5 imports, 148 lines
-- `tests/test_additional_responses_custom_validationerror.py` — 3 classs, 2 functions, 5 imports, 101 lines
-- `tests/test_additional_responses_default_validationerror.py` — 2 functions, 3 imports, 92 lines
-- `tests/benchmarks/test_general_performance.py` — 4 classs, 46 functions, 8 imports, 400 lines
-- `tests/test_additional_properties.py` — 1 class, 3 functions, 4 imports, 115 lines
 - `tests/test_tutorial/test_generate_clients/test_tutorial001.py` — 4 functions, 4 imports, 154 lines
 - `tests/test_tutorial/test_generate_clients/test_tutorial002.py` — 4 functions, 3 imports, 199 lines
 - `tests/test_tutorial/test_generate_clients/test_tutorial003.py` — 4 functions, 3 imports, 199 lines
@@ -9013,21 +8944,42 @@ graph LR
 - `tests/test_tutorial/test_extra_data_types/test_tutorial001.py` — 3 functions, 5 imports, 164 lines
 - `tests/test_tutorial/test_extending_openapi/test_tutorial001.py` — 2 functions, 3 imports, 51 lines
 - `tests/test_tutorial/test_events/test_tutorial003.py` — 2 functions, 3 imports, 101 lines
+- `tests/test_additional_properties_bool.py` — 2 classs, 4 functions, 4 imports, 126 lines
+- `tests/test_additional_response_extra.py` — 3 functions, 3 imports, 53 lines
+- `tests/test_additional_responses_bad.py` — 2 functions, 3 imports, 41 lines
+- `tests/test_additional_responses_custom_model_in_callback.py` — 1 class, 3 functions, 5 imports, 148 lines
+- `tests/test_additional_responses_custom_validationerror.py` — 3 classs, 2 functions, 5 imports, 101 lines
+- `tests/test_additional_responses_default_validationerror.py` — 2 functions, 3 imports, 92 lines
+- `tests/test_additional_responses_response_class.py` — 3 classs, 3 functions, 5 imports, 118 lines
+- `tests/test_additional_responses_router.py` — 1 class, 9 functions, 4 imports, 183 lines
+- `tests/test_additional_responses_union_duplicate_anyof.py` — 
+- `tests/test_allow_inf_nan_in_enforcing.py` — 5 functions, 4 imports, 85 lines
+- `tests/test_ambiguous_params.py` — 2 functions, 5 imports, 75 lines
+- `tests/test_annotated.py` — 8 functions, 5 imports, 299 lines
+- `tests/test_arbitrary_types.py` — 4 functions, 7 imports, 136 lines
 - `tests/test_tutorial/test_encoder/test_tutorial001.py` — 5 functions, 6 imports, 213 lines
+- `tests/benchmarks/test_general_performance.py` — 4 classs, 46 functions, 8 imports, 400 lines
+- `tests/test_additional_properties.py` — 1 class, 3 functions, 4 imports, 115 lines
 - `tests/test_tutorial/test_dependencies/test_tutorial012.py` — 10 functions, 4 imports, 234 lines
+- `tests/test_tutorial/test_dependencies/test_tutorial001_tutorial001_02.py` — 3 functions, 5 imports, 193 lines
+- `tests/test_tutorial/test_dependencies/test_tutorial002_tutorial003_tutorial004.py` — 3 functions, 5 imports, 181 lines
+- `tests/test_tutorial/test_dependencies/test_tutorial005.py` — 3 functions, 5 imports, 145 lines
+- `tests/test_tutorial/test_dependencies/test_tutorial006.py` — 6 functions, 4 imports, 151 lines
 - `tests/test_tutorial/test_dependencies/test_tutorial008b.py` — 4 functions, 3 imports, 37 lines
 - `tests/test_tutorial/test_dependencies/test_tutorial008c.py` — 5 functions, 5 imports, 48 lines
 - `tests/test_tutorial/test_dependencies/test_tutorial008d.py` — 5 functions, 4 imports, 49 lines
 - `tests/test_tutorial/test_dependencies/test_tutorial008e.py` — 2 functions, 3 imports, 25 lines
 - `tests/test_tutorial/test_dependencies/test_tutorial011.py` — 3 functions, 4 imports, 128 lines
-- `tests/test_tutorial/test_dependencies/test_tutorial001_tutorial001_02.py` — 3 functions, 5 imports, 193 lines
-- `tests/test_tutorial/test_dependencies/test_tutorial002_tutorial003_tutorial004.py` — 3 functions, 5 imports, 181 lines
-- `tests/test_tutorial/test_dependencies/test_tutorial005.py` — 3 functions, 5 imports, 145 lines
-- `tests/test_tutorial/test_dependencies/test_tutorial006.py` — 6 functions, 4 imports, 151 lines
 - `tests/test_tutorial/test_debugging/test_tutorial001.py` — 5 functions, 7 imports, 68 lines
 - `tests/test_tutorial/test_dataclasses/test_tutorial001.py` — 4 functions, 5 imports, 143 lines
 - `tests/test_tutorial/test_dataclasses/test_tutorial002.py` — 3 functions, 5 imports, 89 lines
 - `tests/test_tutorial/test_dataclasses/test_tutorial003.py` — 4 functions, 5 imports, 211 lines
+- `tests/test_tutorial/test_custom_response/test_tutorial005.py` — 2 functions, 3 imports, 40 lines
+- `tests/test_tutorial/test_custom_response/test_tutorial006.py` — 2 functions, 3 imports, 38 lines
+- `tests/test_tutorial/test_custom_response/test_tutorial006b.py` — 2 functions, 3 imports, 33 lines
+- `tests/test_tutorial/test_custom_response/test_tutorial006c.py` — 2 functions, 3 imports, 33 lines
+- `tests/test_tutorial/test_custom_response/test_tutorial007.py` — 1 function, 2 imports, 12 lines
+- `tests/test_tutorial/test_custom_response/test_tutorial008.py` — 1 function, 4 imports, 18 lines
 - `tests/test_tutorial/test_custom_response/test_tutorial009.py` — 1 function, 4 imports, 18 lines
 - `tests/test_tutorial/test_custom_response/test_tutorial009b.py` — 1 function, 4 imports, 18 lines
 - `tests/test_tutorial/test_custom_response/test_tutorial009c.py` — 1 function, 2 imports, 11 lines
@@ -9036,12 +8988,6 @@ graph LR
 - `tests/test_tutorial/test_custom_response/test_tutorial001.py` — 3 functions, 4 imports, 51 lines
 - `tests/test_tutorial/test_custom_response/test_tutorial001b.py` — 2 functions, 6 imports, 46 lines
 - `tests/test_tutorial/test_custom_response/test_tutorial002_tutorial003_tutorial004.py` — 4 functions, 4 imports, 72 lines
-- `tests/test_tutorial/test_custom_response/test_tutorial005.py` — 2 functions, 3 imports, 40 lines
-- `tests/test_tutorial/test_custom_response/test_tutorial006.py` — 2 functions, 3 imports, 38 lines
-- `tests/test_tutorial/test_custom_response/test_tutorial006b.py` — 2 functions, 3 imports, 33 lines
-- `tests/test_tutorial/test_custom_response/test_tutorial006c.py` — 2 functions, 3 imports, 33 lines
-- `tests/test_tutorial/test_custom_response/test_tutorial007.py` — 1 function, 2 imports, 12 lines
-- `tests/test_tutorial/test_custom_response/test_tutorial008.py` — 1 function, 4 imports, 18 lines
 - `tests/test_tutorial/test_custom_request_and_route/test_tutorial002.py` — 3 functions, 5 imports, 45 lines
 - `tests/test_tutorial/test_custom_request_and_route/test_tutorial003.py` — 3 functions, 4 imports, 33 lines
 - `tests/test_tutorial/test_testing/test_main_b.py` — 2 functions, 4 imports, 29 lines
@@ -9057,52 +9003,52 @@ graph LR
 - `tests/test_tutorial/test_conditional_openapi/test_tutorial001.py` — 4 functions, 4 imports, 62 lines
 - `tests/test_tutorial/test_body_updates/test_tutorial001.py` — 4 functions, 5 imports, 193 lines
 - `tests/test_tutorial/test_body_updates/test_tutorial002.py` — 5 functions, 5 imports, 214 lines
-- `tests/test_tutorial/test_body_nested_models/test_tutorial009.py` — 4 functions, 4 imports, 124 lines
 - `tests/test_tutorial/test_body_nested_models/test_tutorial001_tutorial002_tutorial003.py` — 7 functions, 6 imports, 256 lines
 - `tests/test_tutorial/test_body_nested_models/test_tutorial004.py` — 7 functions, 6 imports, 282 lines
 - `tests/test_tutorial/test_body_nested_models/test_tutorial005.py` — 8 functions, 6 imports, 308 lines
 - `tests/test_tutorial/test_body_nested_models/test_tutorial006.py` — 6 functions, 6 imports, 276 lines
 - `tests/test_tutorial/test_body_nested_models/test_tutorial007.py` — 7 functions, 5 imports, 351 lines
 - `tests/test_tutorial/test_body_nested_models/test_tutorial008.py` — 5 functions, 4 imports, 165 lines
+- `tests/test_tutorial/test_body_nested_models/test_tutorial009.py` — 4 functions, 4 imports, 124 lines
+- `tests/test_tutorial/test_body_multiple_params/test_tutorial005.py` — 7 functions, 5 imports, 276 lines
 - `tests/test_tutorial/test_body_multiple_params/test_tutorial001.py` — 6 functions, 5 imports, 186 lines
 - `tests/test_tutorial/test_body_multiple_params/test_tutorial002.py` — 10 functions, 5 imports, 366 lines
 - `tests/test_tutorial/test_body_multiple_params/test_tutorial003.py` — 5 functions, 5 imports, 226 lines
 - `tests/test_tutorial/test_body_multiple_params/test_tutorial004.py` — 7 functions, 5 imports, 296 lines
-- `tests/test_tutorial/test_body_multiple_params/test_tutorial005.py` — 7 functions, 5 imports, 276 lines
-- `tests/test_tutorial/test_body_fields/test_tutorial001.py` — 5 functions, 5 imports, 190 lines
 - `tests/test_request_params/test_form/utils.py` — 1 function, 1 imports, 8 lines
+- `tests/test_tutorial/test_body_fields/test_tutorial001.py` — 5 functions, 5 imports, 190 lines
+- `tests/test_request_params/test_file/utils.py` — 1 function, 1 imports, 8 lines
 - `tests/test_tutorial/test_body/test_tutorial001.py` — 17 functions, 6 imports, 347 lines
 - `tests/test_tutorial/test_body/test_tutorial002.py` — 5 functions, 5 imports, 167 lines
 - `tests/test_tutorial/test_body/test_tutorial003.py` — 5 functions, 5 imports, 178 lines
 - `tests/test_tutorial/test_body/test_tutorial004.py` — 5 functions, 5 imports, 189 lines
 - `tests/test_tutorial/test_bigger_applications/test_main.py` — 26 functions, 4 imports, 607 lines
-- `tests/test_request_params/test_file/utils.py` — 1 function, 1 imports, 8 lines
 - `tests/test_tutorial/test_behind_a_proxy/test_tutorial001.py` — 2 functions, 3 imports, 39 lines
 - `tests/test_tutorial/test_behind_a_proxy/test_tutorial001_01.py` — 2 functions, 2 imports, 22 lines
 - `tests/test_tutorial/test_behind_a_proxy/test_tutorial002.py` — 2 functions, 3 imports, 39 lines
 - `tests/test_tutorial/test_behind_a_proxy/test_tutorial003.py` — 2 functions, 3 imports, 49 lines
 - `tests/test_tutorial/test_behind_a_proxy/test_tutorial004.py` — 2 functions, 3 imports, 48 lines
+- `tests/test_request_params/test_body/utils.py` — 1 function, 1 imports, 8 lines
 - `tests/test_tutorial/test_background_tasks/test_tutorial001.py` — 1 function, 5 imports, 22 lines
 - `tests/test_tutorial/test_background_tasks/test_tutorial002.py` — 2 functions, 6 imports, 35 lines
-- `tests/test_request_params/test_body/utils.py` — 1 function, 1 imports, 8 lines
 - `tests/test_tutorial/test_authentication_error_status_code/test_tutorial001.py` — 4 functions, 4 imports, 67 lines
 - `tests/test_tutorial/test_advanced_middleware/test_tutorial001.py` — 1 function, 2 imports, 15 lines
 - `tests/test_tutorial/test_advanced_middleware/test_tutorial002.py` — 1 function, 2 imports, 16 lines
 - `tests/test_tutorial/test_advanced_middleware/test_tutorial003.py` — 2 functions, 3 imports, 23 lines
 - `tests/test_tutorial/test_additional_status_codes/test_tutorial001.py` — 3 functions, 4 imports, 33 lines
-- `tests/test_tutorial/test_additional_responses/test_tutorial003.py` — 3 functions, 3 imports, 132 lines
-- `tests/test_tutorial/test_additional_responses/test_tutorial004.py` — 4 functions, 7 imports, 144 lines
 - `tests/test_tutorial/test_additional_responses/test_tutorial001.py` — 3 functions, 3 imports, 128 lines
 - `tests/test_tutorial/test_additional_responses/test_tutorial002.py` — 4 functions, 7 imports, 141 lines
+- `tests/test_tutorial/test_additional_responses/test_tutorial003.py` — 3 functions, 3 imports, 132 lines
+- `tests/test_tutorial/test_additional_responses/test_tutorial004.py` — 4 functions, 7 imports, 144 lines
 - `tests/test_tutorial/test_python_types/test_tutorial008b.py` — 2 functions, 5 imports, 28 lines
 - `tests/test_tutorial/test_python_types/test_tutorial009_tutorial009b.py` — 2 functions, 5 imports, 33 lines
 - `tests/test_tutorial/test_python_types/test_tutorial011.py` — 1 function, 4 imports, 25 lines
 - `tests/test_jsonable_encoder.py` — 10 classs, 24 functions, 16 imports, 314 lines
-- `tests/test_dependencies_utils.py` — 1 function, 1 imports, 9 lines
 - `tests/forward_reference_type.py` — 1 class, 1 function, 1 imports, 10 lines
+- `tests/test_dependencies_utils.py` — 1 function, 1 imports, 9 lines
 - `tests/test_swagger_ui_escape.py` — 3 functions, 1 imports, 38 lines
-- `tests/test_params_repr.py` — 27 functions, 2 imports, 115 lines
 - `tests/test_openapi_schema_type.py` — 2 functions, 2 imports, 25 lines
+- `tests/test_params_repr.py` — 27 functions, 2 imports, 115 lines
 - `tests/test_local_docs.py` — 5 functions, 2 imports, 68 lines
 - `tests/test_validate_response_recursive/__init__.py` — 0 lines
 - `tests/test_tutorial/test_wsgi/__init__.py` — 0 lines
@@ -9135,9 +9081,6 @@ graph LR
 - `tests/test_tutorial/test_request_files/__init__.py` — 0 lines
 - `tests/test_tutorial/test_query_params_str_validations/__init__.py` — 0 lines
 - `tests/test_tutorial/test_query_params/__init__.py` — 0 lines
-- `tests/test_tutorial/test_python_types/test_tutorial010.py` — 1 function, 1 imports, 6 lines
-- `tests/test_tutorial/test_python_types/test_tutorial013.py` — 1 function, 1 imports, 6 lines
-- `tests/test_tutorial/test_query_param_models/__init__.py` — 0 lines
 - `tests/test_tutorial/test_python_types/test_tutorial001_tutorial002.py` — 1 function, 3 imports, 19 lines
 - `tests/test_tutorial/test_python_types/test_tutorial003.py` — 2 functions, 2 imports, 13 lines
 - `tests/test_tutorial/test_python_types/test_tutorial004.py` — 1 function, 1 imports, 6 lines
@@ -9145,6 +9088,9 @@ graph LR
 - `tests/test_tutorial/test_python_types/test_tutorial006.py` — 1 function, 2 imports, 17 lines
 - `tests/test_tutorial/test_python_types/test_tutorial007.py` — 1 function, 1 imports, 9 lines
 - `tests/test_tutorial/test_python_types/test_tutorial008.py` — 1 function, 2 imports, 18 lines
+- `tests/test_tutorial/test_python_types/test_tutorial010.py` — 1 function, 1 imports, 6 lines
+- `tests/test_tutorial/test_python_types/test_tutorial013.py` — 1 function, 1 imports, 6 lines
+- `tests/test_tutorial/test_query_param_models/__init__.py` — 0 lines
 - `tests/test_tutorial/test_python_types/__init__.py` — 0 lines
 - `tests/test_tutorial/test_path_params_numeric_validations/__init__.py` — 0 lines
 - `tests/test_tutorial/test_path_params/__init__.py` — 0 lines
@@ -9158,8 +9104,8 @@ graph LR
 - `tests/test_tutorial/test_header_params/__init__.py` — 0 lines
 - `tests/test_tutorial/test_header_param_models/__init__.py` — 0 lines
 - `tests/test_tutorial/test_handling_errors/__init__.py` — 0 lines
-- `tests/test_tutorial/test_generate_clients/test_tutorial004.py` — 1 function, 6 imports, 237 lines
 - `tests/test_tutorial/test_graphql/__init__.py` — 0 lines
+- `tests/test_tutorial/test_generate_clients/test_tutorial004.py` — 1 function, 6 imports, 237 lines
 - `tests/test_tutorial/test_generate_clients/__init__.py` — 0 lines
 - `tests/test_tutorial/test_first_steps/__init__.py` — 0 lines
 - `tests/test_tutorial/test_extra_models/__init__.py` — 0 lines
@@ -9175,11 +9121,11 @@ graph LR
 - `tests/test_tutorial/test_custom_request_and_route/__init__.py` — 0 lines
 - `tests/test_tutorial/test_custom_docs_ui/__init__.py` — 0 lines
 - `tests/test_tutorial/test_cors/__init__.py` — 0 lines
-- `scripts/translation_fixer.py` — 6 functions, 6 imports, 133 lines
 - `tests/test_tutorial/test_cookie_params/__init__.py` — 0 lines
 - `tests/test_tutorial/test_cookie_param_models/__init__.py` — 0 lines
 - `tests/test_tutorial/test_configure_swagger_ui/__init__.py` — 0 lines
 - `tests/test_tutorial/test_conditional_openapi/__init__.py` — 0 lines
+- `scripts/translation_fixer.py` — 6 functions, 6 imports, 133 lines
 - `tests/test_tutorial/test_body_updates/__init__.py` — 0 lines
 - `tests/test_tutorial/test_body_nested_models/__init__.py` — 0 lines
 - `tests/test_tutorial/test_body_multiple_params/__init__.py` — 0 lines
@@ -9210,13 +9156,13 @@ graph LR
 - `tests/test_modules_same_name_body/app/__init__.py` — 0 lines
 - `tests/test_modules_same_name_body/__init__.py` — 0 lines
 - `tests/benchmarks/__init__.py` — 0 lines
-- `scripts/translate.py` — 21 functions, 15 imports, 456 lines
-- `tests/__init__.py` — 0 lines
 - `scripts/tests/test_translation_fixer/test_markdown_links/data/translated_doc.md` — 20 lines
 - `scripts/tests/test_translation_fixer/test_markdown_links/data/translated_doc_number_gt.md` — 22 lines
 - `scripts/tests/test_translation_fixer/test_markdown_links/data/translated_doc_number_lt.md` — 20 lines
 - `scripts/tests/test_translation_fixer/test_markdown_links/test_mkd_links_number_mismatch.py` — 2 functions, 4 imports, 61 lines
 - `scripts/topic_repos.py` — 2 classs, 1 function, 8 imports, 82 lines
+- `scripts/translate.py` — 21 functions, 15 imports, 455 lines
+- `tests/__init__.py` — 0 lines
 - `scripts/tests/test_translation_fixer/test_markdown_links/data/en_doc.md` — 20 lines
 - `scripts/tests/test_translation_fixer/test_html_links/data/translated_doc_number_gt.md` — 22 lines
 - `scripts/tests/test_translation_fixer/test_html_links/data/translated_doc_number_lt.md` — 20 lines
@@ -9250,65 +9196,54 @@ graph LR
 - `scripts/tests/test_translation_fixer/test_code_blocks/test_code_blocks_number_mismatch.py` — 2 functions, 4 imports, 61 lines
 - `scripts/tests/test_translation_fixer/test_code_blocks/test_code_blocks_wrong_lang_code.py` — 2 functions, 4 imports, 59 lines
 - `scripts/tests/test_translation_fixer/test_code_blocks/data/en_doc.md` — 45 lines
+- `scripts/doc_parsing_utils.py` — 6 classs, 20 functions, 2 imports, 734 lines
 - `scripts/tests/test_translation_fixer/conftest.py` — 4 functions, 5 imports, 51 lines
 - `scripts/playwright/sql_databases/image02.py` — 1 function, 4 imports, 38 lines
 - `scripts/sponsors.py` — 9 classs, 5 functions, 11 imports, 223 lines
 - `scripts/test-cov-html.sh` — 7 lines
 - `scripts/test-cov.sh` — 7 lines
 - `scripts/test.sh` — 8 lines
-- `scripts/doc_parsing_utils.py` — 6 classs, 20 functions, 2 imports, 734 lines
 - `scripts/playwright/separate_openapi_schemas/image02.py` — 1 function, 2 imports, 34 lines
 - `scripts/playwright/separate_openapi_schemas/image03.py` — 1 function, 2 imports, 34 lines
 - `scripts/playwright/separate_openapi_schemas/image04.py` — 1 function, 2 imports, 33 lines
 - `scripts/playwright/separate_openapi_schemas/image05.py` — 1 function, 2 imports, 33 lines
 - `scripts/playwright/sql_databases/image01.py` — 1 function, 4 imports, 38 lines
-- `scripts/playwright/request_form_models/image01.py` — 1 function, 4 imports, 39 lines
-- `scripts/playwright/separate_openapi_schemas/image01.py` — 1 function, 2 imports, 33 lines
 - `scripts/playwright/cookie_param_models/image01.py` — 1 function, 4 imports, 40 lines
 - `scripts/playwright/header_param_models/image01.py` — 1 function, 4 imports, 39 lines
 - `scripts/playwright/json_base64_bytes/image01.py` — 1 function, 4 imports, 38 lines
 - `scripts/playwright/query_param_models/image01.py` — 1 function, 4 imports, 42 lines
-- `scripts/people.py` — 14 classs, 8 functions, 15 imports, 468 lines
-- `scripts/general-llm-prompt.md` — 513 lines
+- `scripts/playwright/request_form_models/image01.py` — 1 function, 4 imports, 39 lines
+- `scripts/playwright/separate_openapi_schemas/image01.py` — 1 function, 2 imports, 33 lines
+- `scripts/docs.py` — 1 class, 27 functions, 17 imports, 742 lines
+- `scripts/format.sh` — 6 lines
+- `scripts/general-llm-prompt.md` — 515 lines
 - `scripts/label_approved.py` — 2 classs, 6 imports, 61 lines
-- `scripts/lint.sh` — 9 lines
+- `scripts/lint.sh` — 10 lines
 - `scripts/mkdocs_hooks.py` — 1 class, 11 functions, 8 imports, 183 lines
 - `scripts/notify_translations.py` — 24 classs, 7 functions, 10 imports, 433 lines
+- `scripts/people.py` — 14 classs, 8 functions, 15 imports, 484 lines
 - `scripts/contributors.py` — 13 classs, 7 functions, 12 imports, 317 lines
 - `scripts/coverage.sh` — 9 lines
 - `scripts/deploy_docs_status.py` — 2 classs, 1 function, 6 imports, 150 lines
-- `scripts/docs.py` — 1 class, 27 functions, 17 imports, 742 lines
-- `scripts/format.sh` — 6 lines
-- `docs/zh/docs/tutorial/static-files.md` — 41 lines
-- `docs/zh/docs/tutorial/testing.md` — 192 lines
-- `docs/zh/llm-prompt.md` — 47 lines
+- `scripts/add_latest_release_date.py` — Check release-notes.md and add today's date to the latest release header if miss
 - `docs/zh/mkdocs.yml` — 2 lines
 - `docs/zh/docs/tutorial/security/get-current-user.md` — 108 lines
 - `docs/zh/docs/tutorial/security/index.md` — 107 lines
-- `docs/zh/docs/tutorial/security/oauth2-jwt.md` — 278 lines
 - `docs/zh/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/zh/docs/tutorial/security/first-steps.md` — 204 lines
-- `docs/zh/docs/tutorial/request-files.md` — 177 lines
+- `docs/zh/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/zh/docs/tutorial/sql-databases.md` — 358 lines
+- `docs/zh/docs/tutorial/static-files.md` — 41 lines
+- `docs/zh/docs/tutorial/stream-json-lines.md` — 112 lines
+- `docs/zh/docs/tutorial/testing.md` — 192 lines
+- `docs/zh/docs/virtual-environments.md` — 865 lines
+- `docs/zh/llm-prompt.md` — 47 lines
 - `docs/zh/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/zh/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/zh/docs/tutorial/request-forms.md` — 74 lines
-- `docs/zh/docs/tutorial/response-model.md` — 344 lines
+- `docs/zh/docs/tutorial/response-model.md` — 345 lines
 - `docs/zh/docs/tutorial/response-status-code.md` — 102 lines
 - `docs/zh/docs/tutorial/schema-extra-example.md` — 203 lines
-- `docs/zh/docs/tutorial/middleware.md` — 96 lines
-- `docs/zh/docs/tutorial/path-operation-configuration.md` — 108 lines
-- `docs/zh/docs/tutorial/path-params-numeric-validations.md` — 155 lines
-- `docs/zh/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/zh/docs/tutorial/query-params-str-validations.md` — 450 lines
-- `docs/zh/docs/tutorial/query-params.md` — 189 lines
-- `docs/zh/docs/tutorial/extra-models.md` — 212 lines
-- `docs/zh/docs/tutorial/first-steps.md` — 381 lines
-- `docs/zh/docs/tutorial/handling-errors.md` — 245 lines
-- `docs/zh/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/zh/docs/tutorial/header-params.md` — 92 lines
-- `docs/zh/docs/tutorial/index.md` — 96 lines
-- `docs/zh/docs/tutorial/metadata.md` — 121 lines
-- `docs/zh/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
+- `docs/zh/docs/tutorial/security/first-steps.md` — 204 lines
 - `docs/zh/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/zh/docs/tutorial/dependencies/dependencies-with-yield.md` — 288 lines
 - `docs/zh/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
@@ -9316,6 +9251,22 @@ graph LR
 - `docs/zh/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
 - `docs/zh/docs/tutorial/encoder.md` — 36 lines
 - `docs/zh/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/zh/docs/tutorial/extra-models.md` — 212 lines
+- `docs/zh/docs/tutorial/first-steps.md` — 430 lines
+- `docs/zh/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/zh/docs/tutorial/header-params.md` — 92 lines
+- `docs/zh/docs/tutorial/index.md` — 102 lines
+- `docs/zh/docs/tutorial/metadata.md` — 121 lines
+- `docs/zh/docs/tutorial/middleware.md` — 96 lines
+- `docs/zh/docs/tutorial/path-operation-configuration.md` — 108 lines
+- `docs/zh/docs/tutorial/path-params-numeric-validations.md` — 155 lines
+- `docs/zh/docs/tutorial/path-params.md` — 252 lines
+- `docs/zh/docs/tutorial/query-param-models.md` — 69 lines
+- `docs/zh/docs/tutorial/query-params.md` — 189 lines
+- `docs/zh/docs/tutorial/request-files.md` — 177 lines
+- `docs/zh/docs/tutorial/bigger-applications.md` — 536 lines
+- `docs/zh/docs/tutorial/body-fields.md` — 61 lines
+- `docs/zh/docs/tutorial/body-multiple-params.md` — 166 lines
 - `docs/zh/docs/tutorial/body-nested-models.md` — 221 lines
 - `docs/zh/docs/tutorial/body-updates.md` — 101 lines
 - `docs/zh/docs/tutorial/body.md` — 165 lines
@@ -9323,100 +9274,110 @@ graph LR
 - `docs/zh/docs/tutorial/cookie-params.md` — 46 lines
 - `docs/zh/docs/tutorial/cors.md` — 89 lines
 - `docs/zh/docs/tutorial/debugging.md` — 110 lines
-- `docs/zh/docs/tutorial/bigger-applications.md` — 505 lines
-- `docs/zh/docs/tutorial/body-fields.md` — 61 lines
-- `docs/zh/docs/tutorial/body-multiple-params.md` — 166 lines
+- `docs/zh/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
+- `docs/zh/docs/index.md` — 546 lines
+- `docs/zh/docs/learn/index.md` — 6 lines
+- `docs/zh/docs/project-generation.md` — 29 lines
+- `docs/zh/docs/python-types.md` — 349 lines
 - `docs/zh/docs/resources/index.md` — 4 lines
 - `docs/zh/docs/translation-banner.md` — 12 lines
 - `docs/zh/docs/tutorial/background-tasks.md` — 85 lines
-- `docs/zh/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/zh/docs/how-to/testing-database.md` — 8 lines
-- `docs/zh/docs/index.md` — 560 lines
-- `docs/zh/docs/learn/index.md` — 6 lines
-- `docs/zh/docs/project-generation.md` — 29 lines
+- `docs/zh/docs/how-to/conditional-openapi.md` — 57 lines
+- `docs/zh/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/zh/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/zh/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/zh/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/zh/docs/how-to/general.md` — 40 lines
+- `docs/zh/docs/how-to/general.md` — 44 lines
 - `docs/zh/docs/how-to/graphql.md` — 61 lines
 - `docs/zh/docs/how-to/index.md` — 14 lines
 - `docs/zh/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/zh/docs/how-to/conditional-openapi.md` — 57 lines
-- `docs/zh/docs/how-to/configure-swagger-ui.md` — 71 lines
-- `docs/zh/docs/help-fastapi.md` — 256 lines
+- `docs/zh/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/zh/docs/how-to/testing-database.md` — 8 lines
+- `docs/zh/docs/editor-support.md` — 24 lines
+- `docs/zh/docs/environment-variables.md` — 299 lines
+- `docs/zh/docs/fastapi-cli.md` — 129 lines
+- `docs/zh/docs/features.md` — 201 lines
 - `docs/zh/docs/history-design-future.md` — 78 lines
 - `docs/zh/docs/how-to/authentication-error-status-code.md` — 18 lines
-- `docs/zh/docs/deployment/versions.md` — 94 lines
-- `docs/zh/docs/environment-variables.md` — 299 lines
-- `docs/zh/docs/fastapi-cli.md` — 76 lines
-- `docs/zh/docs/deployment/https.md` — 233 lines
+- `docs/zh/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/zh/docs/deployment/index.md` — 24 lines
 - `docs/zh/docs/deployment/manually.md` — 158 lines
-- `docs/zh/docs/deployment/docker.md` — 619 lines
-- `docs/zh/docs/deployment/fastapicloud.md` — 66 lines
-- `docs/zh/docs/deployment/concepts.md` — 322 lines
+- `docs/zh/docs/deployment/server-workers.md` — 140 lines
+- `docs/zh/docs/deployment/versions.md` — 94 lines
+- `docs/zh/docs/alternatives.md` — 483 lines
 - `docs/zh/docs/benchmarks.md` — 35 lines
 - `docs/zh/docs/deployment/cloud.md` — 25 lines
+- `docs/zh/docs/advanced/security/index.md` — 20 lines
+- `docs/zh/docs/advanced/settings.md` — 303 lines
+- `docs/zh/docs/advanced/stream-data.md` — 118 lines
+- `docs/zh/docs/advanced/strict-content-type.md` — 89 lines
+- `docs/zh/docs/advanced/sub-applications.md` — 68 lines
+- `docs/zh/docs/advanced/templates.md` — 126 lines
+- `docs/zh/docs/advanced/testing-dependencies.md` — 54 lines
 - `docs/zh/docs/advanced/testing-events.md` — 12 lines
 - `docs/zh/docs/advanced/testing-websockets.md` — 14 lines
 - `docs/zh/docs/advanced/using-request-directly.md` — 57 lines
 - `docs/zh/docs/advanced/websockets.md` — 187 lines
 - `docs/zh/docs/advanced/wsgi.md` — 52 lines
-- `docs/zh/docs/alternatives.md` — 483 lines
-- `docs/zh/docs/advanced/security/index.md` — 20 lines
-- `docs/zh/docs/advanced/sub-applications.md` — 68 lines
-- `docs/zh/docs/advanced/templates.md` — 126 lines
-- `docs/zh/docs/advanced/testing-dependencies.md` — 54 lines
-- `docs/zh/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/zh/docs/advanced/index.md` — 22 lines
+- `docs/zh/docs/advanced/json-base64-bytes.md` — 64 lines
 - `docs/zh/docs/advanced/middleware.md` — 98 lines
 - `docs/zh/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/zh/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/zh/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/zh/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/zh/docs/advanced/response-cookies.md` — 50 lines
-- `docs/zh/docs/advanced/response-directly.md` — 66 lines
+- `docs/zh/docs/advanced/response-directly.md` — 85 lines
 - `docs/zh/docs/advanced/response-headers.md` — 42 lines
+- `docs/zh/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/zh/docs/advanced/additional-status-codes.md` — 42 lines
+- `docs/zh/docs/advanced/advanced-python-types.md` — 62 lines
+- `docs/zh/docs/advanced/async-tests.md` — 100 lines
 - `docs/zh/docs/advanced/behind-a-proxy.md` — 467 lines
 - `docs/zh/docs/advanced/dataclasses.md` — 88 lines
 - `docs/zh/docs/advanced/events.md` — 166 lines
-- `docs/zh/docs/advanced/generate-clients.md` — 209 lines
-- `docs/zh/docs/advanced/index.md` — 22 lines
-- `docs/zh/docs/advanced/additional-status-codes.md` — 42 lines
-- `docs/zh/docs/advanced/advanced-dependencies.md` — 164 lines
-- `docs/zh/docs/advanced/advanced-python-types.md` — 62 lines
-- `docs/zh/docs/advanced/async-tests.md` — 100 lines
 - `docs/zh/docs/about/index.md` — 4 lines
 - `docs/zh/docs/advanced/additional-responses.md` — 248 lines
-- `docs/zh/docs/_llm-test.md` — 756 lines
+- `docs/zh/docs/_llm-test.md` — 504 lines
 - `docs/zh-hant/docs/tutorial/static-files.md` — 41 lines
+- `docs/zh-hant/docs/tutorial/stream-json-lines.md` — 112 lines
 - `docs/zh-hant/docs/tutorial/testing.md` — 194 lines
+- `docs/zh-hant/docs/virtual-environments.md` — 865 lines
 - `docs/zh-hant/llm-prompt.md` — 61 lines
 - `docs/zh-hant/mkdocs.yml` — 2 lines
 - `docs/zh-hant/docs/tutorial/security/get-current-user.md` — 106 lines
 - `docs/zh-hant/docs/tutorial/security/index.md` — 102 lines
+- `docs/zh-hant/docs/tutorial/security/oauth2-jwt.md` — 278 lines
 - `docs/zh-hant/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/zh-hant/docs/tutorial/schema-extra-example.md` — 203 lines
-- `docs/zh-hant/docs/tutorial/security/first-steps.md` — 204 lines
+- `docs/zh-hant/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/zh-hant/docs/tutorial/middleware.md` — 96 lines
+- `docs/zh-hant/docs/tutorial/path-operation-configuration.md` — 108 lines
+- `docs/zh-hant/docs/tutorial/path-params-numeric-validations.md` — 155 lines
+- `docs/zh-hant/docs/tutorial/path-params.md` — 252 lines
+- `docs/zh-hant/docs/tutorial/query-param-models.md` — 69 lines
+- `docs/zh-hant/docs/tutorial/query-params-str-validations.md` — 450 lines
 - `docs/zh-hant/docs/tutorial/query-params.md` — 188 lines
 - `docs/zh-hant/docs/tutorial/request-files.md` — 177 lines
 - `docs/zh-hant/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/zh-hant/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/zh-hant/docs/tutorial/request-forms.md` — 74 lines
+- `docs/zh-hant/docs/tutorial/response-model.md` — 345 lines
 - `docs/zh-hant/docs/tutorial/response-status-code.md` — 102 lines
-- `docs/zh-hant/docs/tutorial/metadata.md` — 121 lines
-- `docs/zh-hant/docs/tutorial/middleware.md` — 96 lines
-- `docs/zh-hant/docs/tutorial/path-operation-configuration.md` — 108 lines
-- `docs/zh-hant/docs/tutorial/path-params-numeric-validations.md` — 155 lines
-- `docs/zh-hant/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/zh-hant/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/zh-hant/docs/tutorial/header-params.md` — 92 lines
-- `docs/zh-hant/docs/tutorial/index.md` — 96 lines
+- `docs/zh-hant/docs/tutorial/schema-extra-example.md` — 203 lines
+- `docs/zh-hant/docs/tutorial/security/first-steps.md` — 204 lines
 - `docs/zh-hant/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
+- `docs/zh-hant/docs/tutorial/dependencies/dependencies-with-yield.md` — 289 lines
 - `docs/zh-hant/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
 - `docs/zh-hant/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
 - `docs/zh-hant/docs/tutorial/encoder.md` — 36 lines
 - `docs/zh-hant/docs/tutorial/extra-data-types.md` — 63 lines
 - `docs/zh-hant/docs/tutorial/extra-models.md` — 212 lines
+- `docs/zh-hant/docs/tutorial/first-steps.md` — 430 lines
+- `docs/zh-hant/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/zh-hant/docs/tutorial/header-params.md` — 92 lines
+- `docs/zh-hant/docs/tutorial/index.md` — 102 lines
+- `docs/zh-hant/docs/tutorial/metadata.md` — 121 lines
+- `docs/zh-hant/docs/tutorial/body-nested-models.md` — 221 lines
 - `docs/zh-hant/docs/tutorial/body-updates.md` — 101 lines
 - `docs/zh-hant/docs/tutorial/body.md` — 165 lines
 - `docs/zh-hant/docs/tutorial/cookie-param-models.md` — 77 lines
@@ -9424,216 +9385,223 @@ graph LR
 - `docs/zh-hant/docs/tutorial/cors.md` — 89 lines
 - `docs/zh-hant/docs/tutorial/debugging.md` — 114 lines
 - `docs/zh-hant/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
-- `docs/zh-hant/docs/tutorial/background-tasks.md` — 85 lines
+- `docs/zh-hant/docs/tutorial/bigger-applications.md` — 536 lines
 - `docs/zh-hant/docs/tutorial/body-fields.md` — 62 lines
 - `docs/zh-hant/docs/tutorial/body-multiple-params.md` — 166 lines
-- `docs/zh-hant/docs/tutorial/body-nested-models.md` — 221 lines
-- `docs/zh-hant/docs/project-generation.md` — 29 lines
-- `docs/zh-hant/docs/resources/index.md` — 4 lines
-- `docs/zh-hant/docs/translation-banner.md` — 12 lines
-- `docs/zh-hant/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/zh-hant/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/zh-hant/docs/how-to/testing-database.md` — 8 lines
-- `docs/zh-hant/docs/index.md` — 560 lines
-- `docs/zh-hant/docs/learn/index.md` — 6 lines
 - `docs/zh-hant/docs/how-to/conditional-openapi.md` — 57 lines
 - `docs/zh-hant/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/zh-hant/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/zh-hant/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/zh-hant/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/zh-hant/docs/how-to/general.md` — 40 lines
+- `docs/zh-hant/docs/how-to/general.md` — 44 lines
 - `docs/zh-hant/docs/how-to/graphql.md` — 61 lines
 - `docs/zh-hant/docs/how-to/index.md` — 14 lines
-- `docs/zh-hant/docs/fastapi-cli.md` — 76 lines
-- `docs/zh-hant/docs/features.md` — 200 lines
-- `docs/zh-hant/docs/help-fastapi.md` — 256 lines
-- `docs/zh-hant/docs/history-design-future.md` — 80 lines
+- `docs/zh-hant/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
+- `docs/zh-hant/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/zh-hant/docs/how-to/testing-database.md` — 8 lines
+- `docs/zh-hant/docs/learn/index.md` — 6 lines
+- `docs/zh-hant/docs/project-generation.md` — 29 lines
+- `docs/zh-hant/docs/resources/index.md` — 4 lines
+- `docs/zh-hant/docs/translation-banner.md` — 12 lines
+- `docs/zh-hant/docs/tutorial/background-tasks.md` — 85 lines
 - `docs/zh-hant/docs/how-to/authentication-error-status-code.md` — 16 lines
+- `docs/zh-hant/docs/deployment/concepts.md` — 322 lines
 - `docs/zh-hant/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/zh-hant/docs/deployment/index.md` — 24 lines
 - `docs/zh-hant/docs/deployment/manually.md` — 158 lines
 - `docs/zh-hant/docs/deployment/server-workers.md` — 140 lines
 - `docs/zh-hant/docs/deployment/versions.md` — 94 lines
+- `docs/zh-hant/docs/editor-support.md` — 24 lines
 - `docs/zh-hant/docs/environment-variables.md` — 299 lines
-- `docs/zh-hant/docs/deployment/concepts.md` — 322 lines
-- `docs/zh-hant/docs/deployment/docker.md` — 619 lines
-- `docs/zh-hant/docs/async.md` — 445 lines
+- `docs/zh-hant/docs/fastapi-cli.md` — 129 lines
+- `docs/zh-hant/docs/features.md` — 200 lines
+- `docs/zh-hant/docs/history-design-future.md` — 80 lines
 - `docs/zh-hant/docs/benchmarks.md` — 35 lines
 - `docs/zh-hant/docs/deployment/cloud.md` — 25 lines
-- `docs/zh-hant/docs/advanced/testing-websockets.md` — 14 lines
-- `docs/zh-hant/docs/advanced/using-request-directly.md` — 57 lines
-- `docs/zh-hant/docs/advanced/websockets.md` — 187 lines
-- `docs/zh-hant/docs/advanced/wsgi.md` — 52 lines
-- `docs/zh-hant/docs/advanced/security/http-basic-auth.md` — 108 lines
 - `docs/zh-hant/docs/advanced/security/index.md` — 20 lines
+- `docs/zh-hant/docs/advanced/stream-data.md` — 118 lines
+- `docs/zh-hant/docs/advanced/strict-content-type.md` — 89 lines
 - `docs/zh-hant/docs/advanced/sub-applications.md` — 68 lines
 - `docs/zh-hant/docs/advanced/templates.md` — 127 lines
 - `docs/zh-hant/docs/advanced/testing-dependencies.md` — 54 lines
 - `docs/zh-hant/docs/advanced/testing-events.md` — 12 lines
+- `docs/zh-hant/docs/advanced/testing-websockets.md` — 14 lines
+- `docs/zh-hant/docs/advanced/using-request-directly.md` — 57 lines
+- `docs/zh-hant/docs/advanced/websockets.md` — 187 lines
+- `docs/zh-hant/docs/advanced/wsgi.md` — 52 lines
+- `docs/zh-hant/docs/alternatives.md` — 486 lines
 - `docs/zh-hant/docs/advanced/middleware.md` — 98 lines
 - `docs/zh-hant/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/zh-hant/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/zh-hant/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/zh-hant/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/zh-hant/docs/advanced/response-cookies.md` — 52 lines
-- `docs/zh-hant/docs/advanced/response-directly.md` — 66 lines
+- `docs/zh-hant/docs/advanced/response-directly.md` — 84 lines
 - `docs/zh-hant/docs/advanced/response-headers.md` — 42 lines
+- `docs/zh-hant/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/zh-hant/docs/advanced/additional-status-codes.md` — 42 lines
+- `docs/zh-hant/docs/advanced/advanced-python-types.md` — 62 lines
+- `docs/zh-hant/docs/advanced/async-tests.md` — 100 lines
 - `docs/zh-hant/docs/advanced/behind-a-proxy.md` — 467 lines
-- `docs/zh-hant/docs/advanced/custom-response.md` — 313 lines
 - `docs/zh-hant/docs/advanced/dataclasses.md` — 88 lines
 - `docs/zh-hant/docs/advanced/events.md` — 166 lines
 - `docs/zh-hant/docs/advanced/generate-clients.md` — 209 lines
 - `docs/zh-hant/docs/advanced/index.md` — 22 lines
-- `docs/zh-hant/docs/advanced/additional-status-codes.md` — 42 lines
-- `docs/zh-hant/docs/advanced/advanced-dependencies.md` — 164 lines
-- `docs/zh-hant/docs/advanced/advanced-python-types.md` — 62 lines
-- `docs/zh-hant/docs/advanced/async-tests.md` — 100 lines
+- `docs/zh-hant/docs/advanced/json-base64-bytes.md` — 64 lines
 - `docs/zh-hant/docs/about/index.md` — 4 lines
 - `docs/zh-hant/docs/advanced/additional-responses.md` — 248 lines
-- `docs/uk/docs/tutorial/testing.md` — 194 lines
-- `docs/uk/docs/virtual-environments.md` — 863 lines
+- `docs/zh-hant/docs/_llm-test.md` — 504 lines
 - `docs/uk/llm-prompt.md` — 114 lines
 - `docs/uk/mkdocs.yml` — 2 lines
-- `docs/uk/docs/tutorial/security/oauth2-jwt.md` — 278 lines
-- `docs/uk/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/uk/docs/tutorial/static-files.md` — 41 lines
 - `docs/uk/docs/tutorial/security/get-current-user.md` — 106 lines
 - `docs/uk/docs/tutorial/security/index.md` — 107 lines
-- `docs/uk/docs/tutorial/schema-extra-example.md` — 203 lines
-- `docs/uk/docs/tutorial/security/first-steps.md` — 204 lines
+- `docs/uk/docs/tutorial/security/simple-oauth2.md` — 290 lines
+- `docs/uk/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/uk/docs/tutorial/static-files.md` — 41 lines
+- `docs/uk/docs/tutorial/stream-json-lines.md` — 112 lines
+- `docs/uk/docs/tutorial/query-params.md` — 189 lines
+- `docs/uk/docs/tutorial/request-files.md` — 177 lines
 - `docs/uk/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/uk/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/uk/docs/tutorial/request-forms.md` — 74 lines
-- `docs/uk/docs/tutorial/response-model.md` — 344 lines
+- `docs/uk/docs/tutorial/response-model.md` — 345 lines
 - `docs/uk/docs/tutorial/response-status-code.md` — 102 lines
-- `docs/uk/docs/tutorial/query-params.md` — 189 lines
+- `docs/uk/docs/tutorial/security/first-steps.md` — 204 lines
+- `docs/uk/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
+- `docs/uk/docs/tutorial/encoder.md` — 36 lines
+- `docs/uk/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/uk/docs/tutorial/first-steps.md` — 430 lines
+- `docs/uk/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/uk/docs/tutorial/header-params.md` — 92 lines
+- `docs/uk/docs/tutorial/index.md` — 102 lines
+- `docs/uk/docs/tutorial/metadata.md` — 121 lines
 - `docs/uk/docs/tutorial/middleware.md` — 96 lines
 - `docs/uk/docs/tutorial/path-operation-configuration.md` — 108 lines
 - `docs/uk/docs/tutorial/path-params-numeric-validations.md` — 155 lines
+- `docs/uk/docs/tutorial/path-params.md` — 252 lines
 - `docs/uk/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/uk/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/uk/docs/tutorial/header-params.md` — 92 lines
-- `docs/uk/docs/tutorial/index.md` — 96 lines
-- `docs/uk/docs/tutorial/encoder.md` — 36 lines
-- `docs/uk/docs/tutorial/extra-data-types.md` — 63 lines
-- `docs/uk/docs/tutorial/extra-models.md` — 212 lines
-- `docs/uk/docs/tutorial/first-steps.md` — 381 lines
 - `docs/uk/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/uk/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
 - `docs/uk/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
 - `docs/uk/docs/tutorial/dependencies/index.md` — 251 lines
-- `docs/uk/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
-- `docs/uk/docs/tutorial/body-updates.md` — 101 lines
-- `docs/uk/docs/tutorial/cookie-param-models.md` — 77 lines
-- `docs/uk/docs/tutorial/cookie-params.md` — 46 lines
-- `docs/uk/docs/tutorial/cors.md` — 92 lines
-- `docs/uk/docs/tutorial/debugging.md` — 114 lines
-- `docs/uk/docs/tutorial/bigger-applications.md` — 505 lines
+- `docs/uk/docs/tutorial/bigger-applications.md` — 536 lines
 - `docs/uk/docs/tutorial/body-fields.md` — 62 lines
 - `docs/uk/docs/tutorial/body-multiple-params.md` — 170 lines
-- `docs/uk/docs/tutorial/background-tasks.md` — 85 lines
-- `docs/uk/docs/index.md` — 560 lines
-- `docs/uk/docs/learn/index.md` — 6 lines
-- `docs/uk/docs/project-generation.md` — 29 lines
+- `docs/uk/docs/tutorial/body-nested-models.md` — 222 lines
+- `docs/uk/docs/tutorial/body-updates.md` — 101 lines
+- `docs/uk/docs/tutorial/body.md` — 167 lines
+- `docs/uk/docs/tutorial/cookie-param-models.md` — 77 lines
+- `docs/uk/docs/tutorial/cookie-params.md` — 46 lines
+- `docs/uk/docs/tutorial/debugging.md` — 114 lines
 - `docs/uk/docs/resources/index.md` — 4 lines
 - `docs/uk/docs/translation-banner.md` — 12 lines
+- `docs/uk/docs/tutorial/background-tasks.md` — 85 lines
+- `docs/uk/docs/how-to/conditional-openapi.md` — 57 lines
+- `docs/uk/docs/how-to/configure-swagger-ui.md` — 71 lines
+- `docs/uk/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/uk/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/uk/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/uk/docs/how-to/general.md` — 40 lines
+- `docs/uk/docs/how-to/general.md` — 44 lines
 - `docs/uk/docs/how-to/graphql.md` — 61 lines
 - `docs/uk/docs/how-to/index.md` — 14 lines
 - `docs/uk/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
 - `docs/uk/docs/how-to/separate-openapi-schemas.md` — 102 lines
 - `docs/uk/docs/how-to/testing-database.md` — 8 lines
-- `docs/uk/docs/how-to/conditional-openapi.md` — 57 lines
-- `docs/uk/docs/how-to/configure-swagger-ui.md` — 71 lines
-- `docs/uk/docs/how-to/custom-docs-ui-assets.md` — 186 lines
+- `docs/uk/docs/index.md` — 546 lines
+- `docs/uk/docs/learn/index.md` — 6 lines
+- `docs/uk/docs/project-generation.md` — 29 lines
+- `docs/uk/docs/features.md` — 202 lines
+- `docs/uk/docs/help-fastapi.md` — 257 lines
 - `docs/uk/docs/history-design-future.md` — 80 lines
 - `docs/uk/docs/how-to/authentication-error-status-code.md` — 18 lines
-- `docs/uk/docs/deployment/manually.md` — 158 lines
-- `docs/uk/docs/deployment/server-workers.md` — 140 lines
-- `docs/uk/docs/deployment/versions.md` — 94 lines
-- `docs/uk/docs/environment-variables.md` — 299 lines
-- `docs/uk/docs/fastapi-cli.md` — 76 lines
-- `docs/uk/docs/features.md` — 202 lines
 - `docs/uk/docs/deployment/docker.md` — 619 lines
 - `docs/uk/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/uk/docs/deployment/index.md` — 24 lines
-- `docs/uk/docs/deployment/concepts.md` — 322 lines
+- `docs/uk/docs/deployment/manually.md` — 158 lines
+- `docs/uk/docs/deployment/server-workers.md` — 140 lines
+- `docs/uk/docs/deployment/versions.md` — 94 lines
+- `docs/uk/docs/editor-support.md` — 24 lines
+- `docs/uk/docs/fastapi-cli.md` — 129 lines
+- `docs/uk/docs/alternatives.md` — 486 lines
 - `docs/uk/docs/benchmarks.md` — 35 lines
 - `docs/uk/docs/deployment/cloud.md` — 25 lines
-- `docs/uk/docs/advanced/testing-websockets.md` — 14 lines
-- `docs/uk/docs/advanced/using-request-directly.md` — 56 lines
-- `docs/uk/docs/advanced/websockets.md` — 187 lines
-- `docs/uk/docs/advanced/wsgi.md` — 52 lines
-- `docs/uk/docs/alternatives.md` — 486 lines
+- `docs/uk/docs/advanced/security/index.md` — 20 lines
+- `docs/uk/docs/advanced/security/oauth2-scopes.md` — 275 lines
 - `docs/uk/docs/advanced/settings.md` — 303 lines
+- `docs/uk/docs/advanced/strict-content-type.md` — 89 lines
 - `docs/uk/docs/advanced/sub-applications.md` — 68 lines
 - `docs/uk/docs/advanced/templates.md` — 127 lines
 - `docs/uk/docs/advanced/testing-dependencies.md` — 54 lines
 - `docs/uk/docs/advanced/testing-events.md` — 12 lines
-- `docs/uk/docs/advanced/security/index.md` — 20 lines
+- `docs/uk/docs/advanced/testing-websockets.md` — 14 lines
+- `docs/uk/docs/advanced/using-request-directly.md` — 56 lines
+- `docs/uk/docs/advanced/websockets.md` — 187 lines
+- `docs/uk/docs/advanced/wsgi.md` — 52 lines
 - `docs/uk/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/uk/docs/advanced/response-cookies.md` — 52 lines
-- `docs/uk/docs/advanced/response-directly.md` — 66 lines
+- `docs/uk/docs/advanced/response-directly.md` — 84 lines
 - `docs/uk/docs/advanced/response-headers.md` — 42 lines
 - `docs/uk/docs/advanced/security/http-basic-auth.md` — 108 lines
-- `docs/uk/docs/advanced/index.md` — 22 lines
-- `docs/uk/docs/advanced/middleware.md` — 98 lines
-- `docs/uk/docs/advanced/openapi-callbacks.md` — 187 lines
-- `docs/uk/docs/advanced/openapi-webhooks.md` — 56 lines
-- `docs/uk/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
-- `docs/uk/docs/advanced/custom-response.md` — 313 lines
-- `docs/uk/docs/advanced/dataclasses.md` — 96 lines
-- `docs/uk/docs/advanced/events.md` — 166 lines
-- `docs/uk/docs/advanced/generate-clients.md` — 209 lines
 - `docs/uk/docs/advanced/additional-status-codes.md` — 42 lines
 - `docs/uk/docs/advanced/advanced-dependencies.md` — 164 lines
 - `docs/uk/docs/advanced/advanced-python-types.md` — 62 lines
 - `docs/uk/docs/advanced/async-tests.md` — 100 lines
 - `docs/uk/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/uk/docs/advanced/custom-response.md` — 274 lines
+- `docs/uk/docs/advanced/dataclasses.md` — 96 lines
+- `docs/uk/docs/advanced/events.md` — 166 lines
+- `docs/uk/docs/advanced/generate-clients.md` — 209 lines
+- `docs/uk/docs/advanced/index.md` — 22 lines
+- `docs/uk/docs/advanced/json-base64-bytes.md` — 64 lines
+- `docs/uk/docs/advanced/middleware.md` — 98 lines
+- `docs/uk/docs/advanced/openapi-webhooks.md` — 56 lines
+- `docs/uk/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/uk/docs/about/index.md` — 4 lines
 - `docs/uk/docs/advanced/additional-responses.md` — 248 lines
-- `docs/tr/docs/tutorial/static-files.md` — 41 lines
-- `docs/tr/docs/tutorial/testing.md` — 191 lines
-- `docs/tr/docs/virtual-environments.md` — 863 lines
-- `docs/tr/llm-prompt.md` — 69 lines
-- `docs/tr/mkdocs.yml` — 2 lines
+- `docs/uk/docs/_llm-test.md` — 504 lines
 - `docs/tr/docs/tutorial/security/get-current-user.md` — 106 lines
 - `docs/tr/docs/tutorial/security/index.md` — 107 lines
 - `docs/tr/docs/tutorial/security/oauth2-jwt.md` — 278 lines
 - `docs/tr/docs/tutorial/security/simple-oauth2.md` — 290 lines
+- `docs/tr/docs/tutorial/server-sent-events.md` — 121 lines
 - `docs/tr/docs/tutorial/sql-databases.md` — 358 lines
-- `docs/tr/docs/tutorial/request-forms.md` — 74 lines
-- `docs/tr/docs/tutorial/response-model.md` — 344 lines
+- `docs/tr/docs/tutorial/static-files.md` — 41 lines
+- `docs/tr/docs/tutorial/stream-json-lines.md` — 112 lines
+- `docs/tr/docs/tutorial/testing.md` — 191 lines
+- `docs/tr/docs/virtual-environments.md` — 863 lines
+- `docs/tr/llm-prompt.md` — 69 lines
+- `docs/tr/mkdocs.yml` — 2 lines
+- `docs/tr/docs/tutorial/response-model.md` — 345 lines
 - `docs/tr/docs/tutorial/response-status-code.md` — 102 lines
 - `docs/tr/docs/tutorial/schema-extra-example.md` — 203 lines
 - `docs/tr/docs/tutorial/security/first-steps.md` — 204 lines
+- `docs/tr/docs/tutorial/dependencies/index.md` — 251 lines
+- `docs/tr/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
+- `docs/tr/docs/tutorial/encoder.md` — 36 lines
+- `docs/tr/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/tr/docs/tutorial/extra-models.md` — 212 lines
+- `docs/tr/docs/tutorial/first-steps.md` — 430 lines
+- `docs/tr/docs/tutorial/handling-errors.md` — 245 lines
+- `docs/tr/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/tr/docs/tutorial/header-params.md` — 92 lines
+- `docs/tr/docs/tutorial/index.md` — 102 lines
+- `docs/tr/docs/tutorial/metadata.md` — 121 lines
+- `docs/tr/docs/tutorial/middleware.md` — 96 lines
+- `docs/tr/docs/tutorial/path-operation-configuration.md` — 108 lines
+- `docs/tr/docs/tutorial/path-params-numeric-validations.md` — 155 lines
+- `docs/tr/docs/tutorial/path-params.md` — 252 lines
 - `docs/tr/docs/tutorial/query-param-models.md` — 69 lines
 - `docs/tr/docs/tutorial/query-params-str-validations.md` — 451 lines
 - `docs/tr/docs/tutorial/query-params.md` — 189 lines
 - `docs/tr/docs/tutorial/request-files.md` — 177 lines
 - `docs/tr/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/tr/docs/tutorial/request-forms-and-files.md` — 42 lines
-- `docs/tr/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/tr/docs/tutorial/header-params.md` — 92 lines
-- `docs/tr/docs/tutorial/index.md` — 96 lines
-- `docs/tr/docs/tutorial/metadata.md` — 121 lines
-- `docs/tr/docs/tutorial/middleware.md` — 96 lines
-- `docs/tr/docs/tutorial/path-operation-configuration.md` — 108 lines
-- `docs/tr/docs/tutorial/path-params-numeric-validations.md` — 155 lines
-- `docs/tr/docs/tutorial/path-params.md` — 252 lines
-- `docs/tr/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
-- `docs/tr/docs/tutorial/encoder.md` — 36 lines
-- `docs/tr/docs/tutorial/extra-data-types.md` — 63 lines
-- `docs/tr/docs/tutorial/extra-models.md` — 212 lines
-- `docs/tr/docs/tutorial/first-steps.md` — 381 lines
+- `docs/tr/docs/tutorial/request-forms.md` — 74 lines
 - `docs/tr/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/tr/docs/tutorial/dependencies/dependencies-with-yield.md` — 289 lines
 - `docs/tr/docs/tutorial/dependencies/global-dependencies.md` — 17 lines
-- `docs/tr/docs/tutorial/dependencies/index.md` — 251 lines
-- `docs/tr/docs/tutorial/debugging.md` — 114 lines
-- `docs/tr/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
+- `docs/tr/docs/tutorial/bigger-applications.md` — 536 lines
+- `docs/tr/docs/tutorial/body-fields.md` — 61 lines
 - `docs/tr/docs/tutorial/body-multiple-params.md` — 170 lines
 - `docs/tr/docs/tutorial/body-nested-models.md` — 221 lines
 - `docs/tr/docs/tutorial/body-updates.md` — 101 lines
@@ -9641,44 +9609,42 @@ graph LR
 - `docs/tr/docs/tutorial/cookie-param-models.md` — 77 lines
 - `docs/tr/docs/tutorial/cookie-params.md` — 46 lines
 - `docs/tr/docs/tutorial/cors.md` — 90 lines
-- `docs/tr/docs/tutorial/bigger-applications.md` — 505 lines
-- `docs/tr/docs/tutorial/body-fields.md` — 61 lines
+- `docs/tr/docs/tutorial/debugging.md` — 114 lines
+- `docs/tr/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
+- `docs/tr/docs/learn/index.md` — 6 lines
+- `docs/tr/docs/project-generation.md` — 29 lines
 - `docs/tr/docs/python-types.md` — 349 lines
 - `docs/tr/docs/resources/index.md` — 4 lines
 - `docs/tr/docs/translation-banner.md` — 12 lines
 - `docs/tr/docs/tutorial/background-tasks.md` — 85 lines
-- `docs/tr/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/tr/docs/how-to/testing-database.md` — 8 lines
-- `docs/tr/docs/index.md` — 560 lines
-- `docs/tr/docs/learn/index.md` — 6 lines
-- `docs/tr/docs/project-generation.md` — 29 lines
 - `docs/tr/docs/how-to/conditional-openapi.md` — 57 lines
 - `docs/tr/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/tr/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/tr/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/tr/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/tr/docs/how-to/general.md` — 40 lines
+- `docs/tr/docs/how-to/general.md` — 44 lines
 - `docs/tr/docs/how-to/graphql.md` — 61 lines
 - `docs/tr/docs/how-to/index.md` — 14 lines
 - `docs/tr/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/tr/docs/fastapi-cli.md` — 76 lines
+- `docs/tr/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/tr/docs/how-to/testing-database.md` — 8 lines
+- `docs/tr/docs/index.md` — 546 lines
+- `docs/tr/docs/deployment/server-workers.md` — 140 lines
+- `docs/tr/docs/deployment/versions.md` — 94 lines
+- `docs/tr/docs/editor-support.md` — 24 lines
+- `docs/tr/docs/environment-variables.md` — 299 lines
+- `docs/tr/docs/fastapi-cli.md` — 129 lines
 - `docs/tr/docs/features.md` — 203 lines
 - `docs/tr/docs/help-fastapi.md` — 257 lines
 - `docs/tr/docs/history-design-future.md` — 80 lines
 - `docs/tr/docs/how-to/authentication-error-status-code.md` — 18 lines
-- `docs/tr/docs/deployment/https.md` — 232 lines
-- `docs/tr/docs/deployment/index.md` — 24 lines
-- `docs/tr/docs/deployment/manually.md` — 158 lines
-- `docs/tr/docs/deployment/server-workers.md` — 140 lines
-- `docs/tr/docs/deployment/versions.md` — 94 lines
-- `docs/tr/docs/environment-variables.md` — 299 lines
 - `docs/tr/docs/deployment/concepts.md` — 322 lines
 - `docs/tr/docs/deployment/docker.md` — 619 lines
 - `docs/tr/docs/deployment/fastapicloud.md` — 66 lines
-- `docs/tr/docs/deployment/cloud.md` — 25 lines
-- `docs/tr/docs/alternatives.md` — 484 lines
-- `docs/tr/docs/async.md` — 445 lines
-- `docs/tr/docs/benchmarks.md` — 35 lines
+- `docs/tr/docs/deployment/https.md` — 232 lines
+- `docs/tr/docs/deployment/index.md` — 24 lines
+- `docs/tr/docs/deployment/manually.md` — 158 lines
+- `docs/tr/docs/advanced/sub-applications.md` — 68 lines
 - `docs/tr/docs/advanced/templates.md` — 127 lines
 - `docs/tr/docs/advanced/testing-dependencies.md` — 55 lines
 - `docs/tr/docs/advanced/testing-events.md` — 13 lines
@@ -9686,325 +9652,352 @@ graph LR
 - `docs/tr/docs/advanced/using-request-directly.md` — 57 lines
 - `docs/tr/docs/advanced/websockets.md` — 187 lines
 - `docs/tr/docs/advanced/wsgi.md` — 52 lines
+- `docs/tr/docs/alternatives.md` — 484 lines
+- `docs/tr/docs/async.md` — 445 lines
+- `docs/tr/docs/benchmarks.md` — 35 lines
+- `docs/tr/docs/deployment/cloud.md` — 25 lines
 - `docs/tr/docs/advanced/security/index.md` — 20 lines
 - `docs/tr/docs/advanced/security/oauth2-scopes.md` — 275 lines
 - `docs/tr/docs/advanced/settings.md` — 303 lines
-- `docs/tr/docs/advanced/sub-applications.md` — 68 lines
-- `docs/tr/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/tr/docs/advanced/stream-data.md` — 118 lines
+- `docs/tr/docs/advanced/strict-content-type.md` — 89 lines
+- `docs/tr/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/tr/docs/advanced/custom-response.md` — 273 lines
+- `docs/tr/docs/advanced/dataclasses.md` — 96 lines
+- `docs/tr/docs/advanced/events.md` — 166 lines
+- `docs/tr/docs/advanced/index.md` — 22 lines
+- `docs/tr/docs/advanced/json-base64-bytes.md` — 64 lines
+- `docs/tr/docs/advanced/middleware.md` — 98 lines
 - `docs/tr/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/tr/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/tr/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/tr/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/tr/docs/advanced/response-cookies.md` — 52 lines
-- `docs/tr/docs/advanced/response-directly.md` — 66 lines
+- `docs/tr/docs/advanced/response-directly.md` — 84 lines
 - `docs/tr/docs/advanced/response-headers.md` — 42 lines
-- `docs/tr/docs/advanced/custom-response.md` — 313 lines
-- `docs/tr/docs/advanced/dataclasses.md` — 96 lines
-- `docs/tr/docs/advanced/events.md` — 166 lines
-- `docs/tr/docs/advanced/generate-clients.md` — 209 lines
-- `docs/tr/docs/advanced/index.md` — 22 lines
-- `docs/tr/docs/advanced/middleware.md` — 98 lines
-- `docs/tr/docs/advanced/additional-responses.md` — 248 lines
+- `docs/tr/docs/advanced/security/http-basic-auth.md` — 108 lines
 - `docs/tr/docs/advanced/additional-status-codes.md` — 42 lines
 - `docs/tr/docs/advanced/advanced-dependencies.md` — 164 lines
 - `docs/tr/docs/advanced/advanced-python-types.md` — 62 lines
 - `docs/tr/docs/advanced/async-tests.md` — 100 lines
-- `docs/tr/docs/advanced/behind-a-proxy.md` — 467 lines
 - `docs/tr/docs/about/index.md` — 4 lines
+- `docs/tr/docs/advanced/additional-responses.md` — 248 lines
 - `docs/tr/docs/_llm-test.md` — 504 lines
+- `docs/ru/docs/tutorial/security/simple-oauth2.md` — 274 lines
+- `docs/ru/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/ru/docs/tutorial/sql-databases.md` — 358 lines
+- `docs/ru/docs/tutorial/static-files.md` — 42 lines
+- `docs/ru/docs/tutorial/stream-json-lines.md` — 112 lines
+- `docs/ru/docs/tutorial/testing.md` — 194 lines
 - `docs/ru/llm-prompt.md` — 102 lines
 - `docs/ru/mkdocs.yml` — 2 lines
-- `docs/ru/docs/tutorial/security/simple-oauth2.md` — 274 lines
-- `docs/ru/docs/tutorial/static-files.md` — 42 lines
-- `docs/ru/docs/tutorial/testing.md` — 194 lines
 - `docs/ru/docs/tutorial/security/get-current-user.md` — 106 lines
 - `docs/ru/docs/tutorial/security/index.md` — 107 lines
 - `docs/ru/docs/tutorial/security/oauth2-jwt.md` — 278 lines
+- `docs/ru/docs/tutorial/path-params.md` — 251 lines
+- `docs/ru/docs/tutorial/query-param-models.md` — 69 lines
+- `docs/ru/docs/tutorial/query-params.md` — 188 lines
+- `docs/ru/docs/tutorial/request-files.md` — 178 lines
+- `docs/ru/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/ru/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/ru/docs/tutorial/request-forms.md` — 74 lines
 - `docs/ru/docs/tutorial/response-status-code.md` — 102 lines
-- `docs/ru/docs/tutorial/path-params.md` — 251 lines
-- `docs/ru/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/ru/docs/tutorial/query-params-str-validations.md` — 450 lines
-- `docs/ru/docs/tutorial/query-params.md` — 188 lines
-- `docs/ru/docs/tutorial/request-form-models.md` — 79 lines
+- `docs/ru/docs/tutorial/schema-extra-example.md` — 203 lines
+- `docs/ru/docs/tutorial/security/first-steps.md` — 204 lines
+- `docs/ru/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
+- `docs/ru/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
+- `docs/ru/docs/tutorial/dependencies/index.md` — 251 lines
+- `docs/ru/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
+- `docs/ru/docs/tutorial/encoder.md` — 36 lines
+- `docs/ru/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/ru/docs/tutorial/first-steps.md` — 430 lines
+- `docs/ru/docs/tutorial/handling-errors.md` — 245 lines
+- `docs/ru/docs/tutorial/header-param-models.md` — 73 lines
 - `docs/ru/docs/tutorial/header-params.md` — 92 lines
-- `docs/ru/docs/tutorial/index.md` — 96 lines
+- `docs/ru/docs/tutorial/index.md` — 102 lines
 - `docs/ru/docs/tutorial/metadata.md` — 121 lines
 - `docs/ru/docs/tutorial/middleware.md` — 96 lines
 - `docs/ru/docs/tutorial/path-operation-configuration.md` — 108 lines
-- `docs/ru/docs/tutorial/path-params-numeric-validations.md` — 153 lines
-- `docs/ru/docs/tutorial/encoder.md` — 36 lines
-- `docs/ru/docs/tutorial/extra-data-types.md` — 63 lines
-- `docs/ru/docs/tutorial/extra-models.md` — 212 lines
-- `docs/ru/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/ru/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
-- `docs/ru/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
-- `docs/ru/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
-- `docs/ru/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
-- `docs/ru/docs/tutorial/body-updates.md` — 101 lines
-- `docs/ru/docs/tutorial/body.md` — 167 lines
-- `docs/ru/docs/tutorial/cookie-param-models.md` — 77 lines
-- `docs/ru/docs/tutorial/cookie-params.md` — 46 lines
 - `docs/ru/docs/tutorial/cors.md` — 89 lines
 - `docs/ru/docs/tutorial/debugging.md` — 114 lines
 - `docs/ru/docs/tutorial/body-fields.md` — 61 lines
 - `docs/ru/docs/tutorial/body-nested-models.md` — 221 lines
-- `docs/ru/docs/tutorial/background-tasks.md` — 85 lines
+- `docs/ru/docs/tutorial/body-updates.md` — 101 lines
+- `docs/ru/docs/tutorial/body.md` — 167 lines
+- `docs/ru/docs/tutorial/cookie-param-models.md` — 77 lines
+- `docs/ru/docs/tutorial/cookie-params.md` — 46 lines
+- `docs/ru/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/ru/docs/how-to/testing-database.md` — 8 lines
+- `docs/ru/docs/index.md` — 546 lines
+- `docs/ru/docs/learn/index.md` — 6 lines
 - `docs/ru/docs/project-generation.md` — 29 lines
 - `docs/ru/docs/resources/index.md` — 4 lines
 - `docs/ru/docs/translation-banner.md` — 12 lines
-- `docs/ru/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/ru/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/ru/docs/how-to/testing-database.md` — 8 lines
-- `docs/ru/docs/index.md` — 560 lines
-- `docs/ru/docs/learn/index.md` — 6 lines
+- `docs/ru/docs/tutorial/background-tasks.md` — 85 lines
+- `docs/ru/docs/how-to/conditional-openapi.md` — 57 lines
+- `docs/ru/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/ru/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/ru/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/ru/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/ru/docs/how-to/general.md` — 40 lines
+- `docs/ru/docs/how-to/general.md` — 44 lines
 - `docs/ru/docs/how-to/graphql.md` — 61 lines
 - `docs/ru/docs/how-to/index.md` — 14 lines
-- `docs/ru/docs/how-to/conditional-openapi.md` — 57 lines
-- `docs/ru/docs/how-to/configure-swagger-ui.md` — 71 lines
-- `docs/ru/docs/how-to/authentication-error-status-code.md` — 18 lines
-- `docs/ru/docs/deployment/versions.md` — 94 lines
-- `docs/ru/docs/environment-variables.md` — 299 lines
-- `docs/ru/docs/fastapi-cli.md` — 76 lines
-- `docs/ru/docs/features.md` — 202 lines
-- `docs/ru/docs/history-design-future.md` — 80 lines
-- `docs/ru/docs/deployment/fastapicloud.md` — 66 lines
+- `docs/ru/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
 - `docs/ru/docs/deployment/https.md` — 232 lines
 - `docs/ru/docs/deployment/index.md` — 24 lines
-- `docs/ru/docs/deployment/server-workers.md` — 140 lines
-- `docs/ru/docs/async.md` — 445 lines
-- `docs/ru/docs/benchmarks.md` — 35 lines
-- `docs/ru/docs/deployment/cloud.md` — 25 lines
-- `docs/ru/docs/advanced/websockets.md` — 187 lines
-- `docs/ru/docs/advanced/wsgi.md` — 52 lines
-- `docs/ru/docs/alternatives.md` — 486 lines
-- `docs/ru/docs/advanced/settings.md` — 303 lines
-- `docs/ru/docs/advanced/sub-applications.md` — 68 lines
+- `docs/ru/docs/deployment/manually.md` — 158 lines
+- `docs/ru/docs/deployment/versions.md` — 94 lines
+- `docs/ru/docs/editor-support.md` — 24 lines
+- `docs/ru/docs/environment-variables.md` — 299 lines
+- `docs/ru/docs/fastapi-cli.md` — 129 lines
+- `docs/ru/docs/help-fastapi.md` — 256 lines
+- `docs/ru/docs/history-design-future.md` — 80 lines
+- `docs/ru/docs/how-to/authentication-error-status-code.md` — 18 lines
+- `docs/ru/docs/deployment/docker.md` — 619 lines
+- `docs/ru/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/ru/docs/advanced/templates.md` — 127 lines
 - `docs/ru/docs/advanced/testing-dependencies.md` — 54 lines
 - `docs/ru/docs/advanced/testing-events.md` — 13 lines
 - `docs/ru/docs/advanced/testing-websockets.md` — 14 lines
 - `docs/ru/docs/advanced/using-request-directly.md` — 57 lines
+- `docs/ru/docs/advanced/websockets.md` — 187 lines
+- `docs/ru/docs/advanced/wsgi.md` — 52 lines
+- `docs/ru/docs/async.md` — 445 lines
+- `docs/ru/docs/benchmarks.md` — 35 lines
+- `docs/ru/docs/deployment/cloud.md` — 25 lines
 - `docs/ru/docs/advanced/security/index.md` — 20 lines
-- `docs/ru/docs/advanced/response-change-status-code.md` — 32 lines
-- `docs/ru/docs/advanced/response-cookies.md` — 52 lines
-- `docs/ru/docs/advanced/response-directly.md` — 66 lines
-- `docs/ru/docs/advanced/response-headers.md` — 42 lines
-- `docs/ru/docs/advanced/security/http-basic-auth.md` — 108 lines
-- `docs/ru/docs/advanced/generate-clients.md` — 209 lines
+- `docs/ru/docs/advanced/security/oauth2-scopes.md` — 275 lines
+- `docs/ru/docs/advanced/settings.md` — 303 lines
+- `docs/ru/docs/advanced/strict-content-type.md` — 89 lines
+- `docs/ru/docs/advanced/sub-applications.md` — 68 lines
+- `docs/ru/docs/advanced/dataclasses.md` — 96 lines
+- `docs/ru/docs/advanced/events.md` — 166 lines
 - `docs/ru/docs/advanced/index.md` — 22 lines
+- `docs/ru/docs/advanced/json-base64-bytes.md` — 64 lines
 - `docs/ru/docs/advanced/middleware.md` — 98 lines
 - `docs/ru/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/ru/docs/advanced/openapi-webhooks.md` — 56 lines
-- `docs/ru/docs/advanced/async-tests.md` — 100 lines
-- `docs/ru/docs/advanced/dataclasses.md` — 96 lines
-- `docs/ru/docs/advanced/events.md` — 166 lines
+- `docs/ru/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
+- `docs/ru/docs/advanced/response-change-status-code.md` — 32 lines
+- `docs/ru/docs/advanced/response-cookies.md` — 52 lines
+- `docs/ru/docs/advanced/response-directly.md` — 84 lines
+- `docs/ru/docs/advanced/response-headers.md` — 42 lines
+- `docs/ru/docs/advanced/security/http-basic-auth.md` — 108 lines
 - `docs/ru/docs/advanced/additional-status-codes.md` — 42 lines
 - `docs/ru/docs/advanced/advanced-dependencies.md` — 164 lines
 - `docs/ru/docs/advanced/advanced-python-types.md` — 62 lines
+- `docs/ru/docs/advanced/async-tests.md` — 100 lines
+- `docs/ru/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/ru/docs/advanced/custom-response.md` — 273 lines
 - `docs/ru/docs/about/index.md` — 4 lines
 - `docs/ru/docs/advanced/additional-responses.md` — 248 lines
 - `docs/ru/docs/_llm-test.md` — 504 lines
+- `docs/pt/docs/tutorial/sql-databases.md` — 357 lines
+- `docs/pt/docs/tutorial/static-files.md` — 41 lines
+- `docs/pt/docs/tutorial/stream-json-lines.md` — 112 lines
+- `docs/pt/docs/tutorial/testing.md` — 192 lines
 - `docs/pt/docs/virtual-environments.md` — 865 lines
 - `docs/pt/llm-prompt.md` — 88 lines
 - `docs/pt/mkdocs.yml` — 2 lines
 - `docs/pt/docs/tutorial/security/get-current-user.md` — 106 lines
 - `docs/pt/docs/tutorial/security/index.md` — 106 lines
 - `docs/pt/docs/tutorial/security/oauth2-jwt.md` — 278 lines
-- `docs/pt/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/pt/docs/tutorial/sql-databases.md` — 357 lines
-- `docs/pt/docs/tutorial/static-files.md` — 41 lines
-- `docs/pt/docs/tutorial/testing.md` — 192 lines
-- `docs/pt/docs/tutorial/response-model.md` — 344 lines
-- `docs/pt/docs/tutorial/response-status-code.md` — 102 lines
-- `docs/pt/docs/tutorial/schema-extra-example.md` — 203 lines
-- `docs/pt/docs/tutorial/security/first-steps.md` — 204 lines
+- `docs/pt/docs/tutorial/security/simple-oauth2.md` — 291 lines
+- `docs/pt/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/pt/docs/tutorial/path-params-numeric-validations.md` — 155 lines
+- `docs/pt/docs/tutorial/path-params.md` — 238 lines
+- `docs/pt/docs/tutorial/query-param-models.md` — 69 lines
 - `docs/pt/docs/tutorial/query-params-str-validations.md` — 451 lines
 - `docs/pt/docs/tutorial/query-params.md` — 188 lines
 - `docs/pt/docs/tutorial/request-files.md` — 177 lines
 - `docs/pt/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/pt/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/pt/docs/tutorial/request-forms.md` — 74 lines
-- `docs/pt/docs/tutorial/path-params-numeric-validations.md` — 155 lines
-- `docs/pt/docs/tutorial/path-params.md` — 238 lines
-- `docs/pt/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/pt/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/pt/docs/tutorial/header-params.md` — 92 lines
-- `docs/pt/docs/tutorial/index.md` — 96 lines
-- `docs/pt/docs/tutorial/metadata.md` — 121 lines
-- `docs/pt/docs/tutorial/middleware.md` — 96 lines
-- `docs/pt/docs/tutorial/path-operation-configuration.md` — 108 lines
-- `docs/pt/docs/tutorial/extra-data-types.md` — 63 lines
-- `docs/pt/docs/tutorial/extra-models.md` — 212 lines
-- `docs/pt/docs/tutorial/first-steps.md` — 381 lines
-- `docs/pt/docs/tutorial/handling-errors.md` — 243 lines
-- `docs/pt/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
+- `docs/pt/docs/tutorial/response-model.md` — 345 lines
+- `docs/pt/docs/tutorial/response-status-code.md` — 102 lines
+- `docs/pt/docs/tutorial/schema-extra-example.md` — 203 lines
+- `docs/pt/docs/tutorial/security/first-steps.md` — 204 lines
 - `docs/pt/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/pt/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
 - `docs/pt/docs/tutorial/dependencies/global-dependencies.md` — 17 lines
 - `docs/pt/docs/tutorial/dependencies/index.md` — 251 lines
 - `docs/pt/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
 - `docs/pt/docs/tutorial/encoder.md` — 36 lines
-- `docs/pt/docs/tutorial/body-nested-models.md` — 222 lines
-- `docs/pt/docs/tutorial/body-updates.md` — 101 lines
+- `docs/pt/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/pt/docs/tutorial/extra-models.md` — 212 lines
+- `docs/pt/docs/tutorial/first-steps.md` — 430 lines
+- `docs/pt/docs/tutorial/handling-errors.md` — 243 lines
+- `docs/pt/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/pt/docs/tutorial/header-params.md` — 92 lines
+- `docs/pt/docs/tutorial/index.md` — 102 lines
+- `docs/pt/docs/tutorial/metadata.md` — 121 lines
+- `docs/pt/docs/tutorial/middleware.md` — 96 lines
+- `docs/pt/docs/tutorial/path-operation-configuration.md` — 108 lines
 - `docs/pt/docs/tutorial/body.md` — 167 lines
 - `docs/pt/docs/tutorial/cookie-param-models.md` — 77 lines
 - `docs/pt/docs/tutorial/cookie-params.md` — 46 lines
 - `docs/pt/docs/tutorial/cors.md` — 90 lines
 - `docs/pt/docs/tutorial/debugging.md` — 114 lines
-- `docs/pt/docs/tutorial/bigger-applications.md` — 505 lines
+- `docs/pt/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
+- `docs/pt/docs/tutorial/bigger-applications.md` — 536 lines
 - `docs/pt/docs/tutorial/body-fields.md` — 61 lines
 - `docs/pt/docs/tutorial/body-multiple-params.md` — 166 lines
-- `docs/pt/docs/resources/index.md` — 4 lines
-- `docs/pt/docs/translation-banner.md` — 12 lines
-- `docs/pt/docs/tutorial/background-tasks.md` — 86 lines
-- `docs/pt/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/pt/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/pt/docs/how-to/testing-database.md` — 8 lines
-- `docs/pt/docs/index.md` — 560 lines
-- `docs/pt/docs/learn/index.md` — 6 lines
-- `docs/pt/docs/project-generation.md` — 29 lines
-- `docs/pt/docs/python-types.md` — 349 lines
-- `docs/pt/docs/how-to/conditional-openapi.md` — 57 lines
-- `docs/pt/docs/how-to/configure-swagger-ui.md` — 71 lines
+- `docs/pt/docs/tutorial/body-nested-models.md` — 222 lines
+- `docs/pt/docs/tutorial/body-updates.md` — 101 lines
 - `docs/pt/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/pt/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/pt/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/pt/docs/how-to/general.md` — 39 lines
+- `docs/pt/docs/how-to/general.md` — 43 lines
 - `docs/pt/docs/how-to/graphql.md` — 61 lines
 - `docs/pt/docs/how-to/index.md` — 14 lines
-- `docs/pt/docs/fastapi-cli.md` — 76 lines
-- `docs/pt/docs/features.md` — 202 lines
-- `docs/pt/docs/help-fastapi.md` — 257 lines
-- `docs/pt/docs/history-design-future.md` — 80 lines
-- `docs/pt/docs/how-to/authentication-error-status-code.md` — 18 lines
+- `docs/pt/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
+- `docs/pt/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/pt/docs/how-to/testing-database.md` — 8 lines
+- `docs/pt/docs/index.md` — 546 lines
+- `docs/pt/docs/learn/index.md` — 6 lines
+- `docs/pt/docs/project-generation.md` — 29 lines
+- `docs/pt/docs/python-types.md` — 349 lines
+- `docs/pt/docs/resources/index.md` — 4 lines
+- `docs/pt/docs/translation-banner.md` — 12 lines
+- `docs/pt/docs/tutorial/background-tasks.md` — 86 lines
+- `docs/pt/docs/how-to/conditional-openapi.md` — 57 lines
+- `docs/pt/docs/how-to/configure-swagger-ui.md` — 71 lines
+- `docs/pt/docs/deployment/concepts.md` — 322 lines
+- `docs/pt/docs/deployment/docker.md` — 619 lines
 - `docs/pt/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/pt/docs/deployment/https.md` — 232 lines
 - `docs/pt/docs/deployment/index.md` — 24 lines
 - `docs/pt/docs/deployment/manually.md` — 158 lines
 - `docs/pt/docs/deployment/server-workers.md` — 140 lines
 - `docs/pt/docs/deployment/versions.md` — 94 lines
+- `docs/pt/docs/editor-support.md` — 24 lines
 - `docs/pt/docs/environment-variables.md` — 299 lines
-- `docs/pt/docs/deployment/concepts.md` — 322 lines
-- `docs/pt/docs/deployment/docker.md` — 619 lines
-- `docs/pt/docs/benchmarks.md` — 35 lines
+- `docs/pt/docs/fastapi-cli.md` — 129 lines
+- `docs/pt/docs/features.md` — 202 lines
+- `docs/pt/docs/help-fastapi.md` — 257 lines
+- `docs/pt/docs/history-design-future.md` — 80 lines
+- `docs/pt/docs/how-to/authentication-error-status-code.md` — 18 lines
 - `docs/pt/docs/deployment/cloud.md` — 25 lines
-- `docs/pt/docs/advanced/websockets.md` — 187 lines
-- `docs/pt/docs/advanced/wsgi.md` — 52 lines
-- `docs/pt/docs/alternatives.md` — 486 lines
-- `docs/pt/docs/async.md` — 445 lines
 - `docs/pt/docs/advanced/security/index.md` — 20 lines
 - `docs/pt/docs/advanced/security/oauth2-scopes.md` — 275 lines
 - `docs/pt/docs/advanced/settings.md` — 303 lines
+- `docs/pt/docs/advanced/stream-data.md` — 118 lines
+- `docs/pt/docs/advanced/strict-content-type.md` — 89 lines
 - `docs/pt/docs/advanced/sub-applications.md` — 68 lines
 - `docs/pt/docs/advanced/templates.md` — 127 lines
 - `docs/pt/docs/advanced/testing-dependencies.md` — 55 lines
 - `docs/pt/docs/advanced/testing-events.md` — 12 lines
 - `docs/pt/docs/advanced/testing-websockets.md` — 14 lines
 - `docs/pt/docs/advanced/using-request-directly.md` — 57 lines
-- `docs/pt/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
-- `docs/pt/docs/advanced/response-change-status-code.md` — 32 lines
-- `docs/pt/docs/advanced/response-cookies.md` — 52 lines
-- `docs/pt/docs/advanced/response-directly.md` — 66 lines
+- `docs/pt/docs/advanced/websockets.md` — 187 lines
+- `docs/pt/docs/advanced/wsgi.md` — 52 lines
+- `docs/pt/docs/alternatives.md` — 486 lines
+- `docs/pt/docs/async.md` — 445 lines
+- `docs/pt/docs/benchmarks.md` — 35 lines
 - `docs/pt/docs/advanced/response-headers.md` — 42 lines
 - `docs/pt/docs/advanced/security/http-basic-auth.md` — 108 lines
-- `docs/pt/docs/advanced/dataclasses.md` — 96 lines
-- `docs/pt/docs/advanced/events.md` — 166 lines
-- `docs/pt/docs/advanced/generate-clients.md` — 209 lines
-- `docs/pt/docs/advanced/index.md` — 22 lines
-- `docs/pt/docs/advanced/middleware.md` — 98 lines
-- `docs/pt/docs/advanced/openapi-callbacks.md` — 187 lines
-- `docs/pt/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/pt/docs/advanced/additional-status-codes.md` — 42 lines
 - `docs/pt/docs/advanced/advanced-dependencies.md` — 164 lines
 - `docs/pt/docs/advanced/advanced-python-types.md` — 62 lines
 - `docs/pt/docs/advanced/async-tests.md` — 100 lines
 - `docs/pt/docs/advanced/behind-a-proxy.md` — 467 lines
-- `docs/pt/docs/advanced/custom-response.md` — 313 lines
+- `docs/pt/docs/advanced/custom-response.md` — 273 lines
+- `docs/pt/docs/advanced/dataclasses.md` — 96 lines
+- `docs/pt/docs/advanced/events.md` — 166 lines
+- `docs/pt/docs/advanced/generate-clients.md` — 209 lines
+- `docs/pt/docs/advanced/index.md` — 22 lines
+- `docs/pt/docs/advanced/json-base64-bytes.md` — 64 lines
+- `docs/pt/docs/advanced/middleware.md` — 98 lines
+- `docs/pt/docs/advanced/openapi-callbacks.md` — 187 lines
+- `docs/pt/docs/advanced/openapi-webhooks.md` — 56 lines
+- `docs/pt/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
+- `docs/pt/docs/advanced/response-change-status-code.md` — 32 lines
+- `docs/pt/docs/advanced/response-cookies.md` — 52 lines
+- `docs/pt/docs/advanced/response-directly.md` — 84 lines
 - `docs/pt/docs/about/index.md` — 4 lines
 - `docs/pt/docs/advanced/additional-responses.md` — 248 lines
 - `docs/pt/docs/_llm-test.md` — 504 lines
+- `docs/ko/docs/tutorial/security/get-current-user.md` — 106 lines
+- `docs/ko/docs/tutorial/security/index.md` — 107 lines
+- `docs/ko/docs/tutorial/security/oauth2-jwt.md` — 278 lines
+- `docs/ko/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/ko/docs/tutorial/sql-databases.md` — 358 lines
+- `docs/ko/docs/tutorial/static-files.md` — 41 lines
+- `docs/ko/docs/tutorial/stream-json-lines.md` — 112 lines
 - `docs/ko/docs/tutorial/testing.md` — 194 lines
-- `docs/ko/docs/virtual-environments.md` — 865 lines
 - `docs/ko/llm-prompt.md` — 56 lines
 - `docs/ko/mkdocs.yml` — 2 lines
 - `docs/language_names.yml` — 184 lines
 - `docs/missing-translation.md` — 10 lines
-- `docs/ko/docs/tutorial/security/get-current-user.md` — 106 lines
-- `docs/ko/docs/tutorial/security/index.md` — 107 lines
-- `docs/ko/docs/tutorial/security/oauth2-jwt.md` — 278 lines
-- `docs/ko/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/ko/docs/tutorial/sql-databases.md` — 358 lines
-- `docs/ko/docs/tutorial/static-files.md` — 41 lines
+- `docs/ko/docs/tutorial/schema-extra-example.md` — 203 lines
 - `docs/ko/docs/tutorial/security/first-steps.md` — 204 lines
-- `docs/ko/docs/tutorial/query-params.md` — 189 lines
-- `docs/ko/docs/tutorial/request-files.md` — 177 lines
-- `docs/ko/docs/tutorial/request-form-models.md` — 79 lines
-- `docs/ko/docs/tutorial/request-forms-and-files.md` — 42 lines
-- `docs/ko/docs/tutorial/request-forms.md` — 74 lines
-- `docs/ko/docs/tutorial/response-model.md` — 344 lines
-- `docs/ko/docs/tutorial/response-status-code.md` — 102 lines
+- `docs/ko/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/ko/docs/tutorial/header-params.md` — 92 lines
+- `docs/ko/docs/tutorial/index.md` — 102 lines
+- `docs/ko/docs/tutorial/metadata.md` — 121 lines
 - `docs/ko/docs/tutorial/middleware.md` — 96 lines
 - `docs/ko/docs/tutorial/path-operation-configuration.md` — 108 lines
 - `docs/ko/docs/tutorial/path-params-numeric-validations.md` — 155 lines
+- `docs/ko/docs/tutorial/path-params.md` — 252 lines
 - `docs/ko/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/ko/docs/tutorial/first-steps.md` — 381 lines
-- `docs/ko/docs/tutorial/handling-errors.md` — 245 lines
-- `docs/ko/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/ko/docs/tutorial/header-params.md` — 92 lines
-- `docs/ko/docs/tutorial/index.md` — 96 lines
-- `docs/ko/docs/tutorial/metadata.md` — 121 lines
+- `docs/ko/docs/tutorial/query-params-str-validations.md` — 451 lines
+- `docs/ko/docs/tutorial/query-params.md` — 189 lines
+- `docs/ko/docs/tutorial/request-form-models.md` — 79 lines
+- `docs/ko/docs/tutorial/request-forms-and-files.md` — 42 lines
+- `docs/ko/docs/tutorial/request-forms.md` — 74 lines
+- `docs/ko/docs/tutorial/response-model.md` — 345 lines
+- `docs/ko/docs/tutorial/response-status-code.md` — 102 lines
 - `docs/ko/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/ko/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
 - `docs/ko/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
+- `docs/ko/docs/tutorial/dependencies/index.md` — 251 lines
 - `docs/ko/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
 - `docs/ko/docs/tutorial/encoder.md` — 36 lines
 - `docs/ko/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/ko/docs/tutorial/body-fields.md` — 61 lines
+- `docs/ko/docs/tutorial/body-multiple-params.md` — 170 lines
+- `docs/ko/docs/tutorial/body-nested-models.md` — 222 lines
+- `docs/ko/docs/tutorial/body-updates.md` — 101 lines
 - `docs/ko/docs/tutorial/body.md` — 167 lines
 - `docs/ko/docs/tutorial/cookie-param-models.md` — 77 lines
 - `docs/ko/docs/tutorial/cookie-params.md` — 46 lines
 - `docs/ko/docs/tutorial/cors.md` — 90 lines
 - `docs/ko/docs/tutorial/debugging.md` — 114 lines
-- `docs/ko/docs/tutorial/bigger-applications.md` — 505 lines
-- `docs/ko/docs/tutorial/body-fields.md` — 61 lines
-- `docs/ko/docs/tutorial/body-multiple-params.md` — 170 lines
-- `docs/ko/docs/tutorial/body-nested-models.md` — 222 lines
-- `docs/ko/docs/tutorial/body-updates.md` — 101 lines
-- `docs/ko/docs/tutorial/background-tasks.md` — 87 lines
-- `docs/ko/docs/index.md` — 560 lines
-- `docs/ko/docs/learn/index.md` — 6 lines
-- `docs/ko/docs/project-generation.md` — 29 lines
-- `docs/ko/docs/python-types.md` — 351 lines
-- `docs/ko/docs/resources/index.md` — 4 lines
 - `docs/ko/docs/translation-banner.md` — 12 lines
+- `docs/ko/docs/tutorial/background-tasks.md` — 87 lines
+- `docs/ko/docs/how-to/conditional-openapi.md` — 57 lines
+- `docs/ko/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/ko/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/ko/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/ko/docs/how-to/general.md` — 40 lines
+- `docs/ko/docs/how-to/general.md` — 44 lines
 - `docs/ko/docs/how-to/graphql.md` — 61 lines
 - `docs/ko/docs/how-to/index.md` — 14 lines
 - `docs/ko/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
 - `docs/ko/docs/how-to/separate-openapi-schemas.md` — 103 lines
 - `docs/ko/docs/how-to/testing-database.md` — 8 lines
-- `docs/ko/docs/how-to/conditional-openapi.md` — 57 lines
-- `docs/ko/docs/how-to/configure-swagger-ui.md` — 71 lines
-- `docs/ko/docs/how-to/custom-docs-ui-assets.md` — 186 lines
+- `docs/ko/docs/index.md` — 546 lines
+- `docs/ko/docs/learn/index.md` — 6 lines
+- `docs/ko/docs/project-generation.md` — 29 lines
+- `docs/ko/docs/python-types.md` — 351 lines
+- `docs/ko/docs/resources/index.md` — 4 lines
+- `docs/ko/docs/help-fastapi.md` — 257 lines
 - `docs/ko/docs/history-design-future.md` — 80 lines
 - `docs/ko/docs/how-to/authentication-error-status-code.md` — 18 lines
+- `docs/ko/docs/deployment/docker.md` — 619 lines
+- `docs/ko/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/ko/docs/deployment/index.md` — 24 lines
 - `docs/ko/docs/deployment/manually.md` — 158 lines
 - `docs/ko/docs/deployment/versions.md` — 94 lines
-- `docs/ko/docs/environment-variables.md` — 299 lines
-- `docs/ko/docs/fastapi-cli.md` — 76 lines
-- `docs/ko/docs/deployment/concepts.md` — 322 lines
-- `docs/ko/docs/deployment/docker.md` — 619 lines
-- `docs/ko/docs/deployment/fastapicloud.md` — 66 lines
+- `docs/ko/docs/editor-support.md` — 24 lines
+- `docs/ko/docs/fastapi-cli.md` — 129 lines
+- `docs/ko/docs/alternatives.md` — 486 lines
 - `docs/ko/docs/benchmarks.md` — 35 lines
 - `docs/ko/docs/deployment/cloud.md` — 25 lines
+- `docs/ko/docs/advanced/security/index.md` — 20 lines
+- `docs/ko/docs/advanced/security/oauth2-scopes.md` — 275 lines
+- `docs/ko/docs/advanced/settings.md` — 303 lines
+- `docs/ko/docs/advanced/stream-data.md` — 118 lines
+- `docs/ko/docs/advanced/strict-content-type.md` — 89 lines
 - `docs/ko/docs/advanced/sub-applications.md` — 68 lines
 - `docs/ko/docs/advanced/templates.md` — 127 lines
 - `docs/ko/docs/advanced/testing-dependencies.md` — 54 lines
@@ -10013,156 +10006,153 @@ graph LR
 - `docs/ko/docs/advanced/using-request-directly.md` — 57 lines
 - `docs/ko/docs/advanced/websockets.md` — 187 lines
 - `docs/ko/docs/advanced/wsgi.md` — 52 lines
-- `docs/ko/docs/advanced/security/index.md` — 20 lines
-- `docs/ko/docs/advanced/security/http-basic-auth.md` — 108 lines
-- `docs/ko/docs/advanced/openapi-callbacks.md` — 187 lines
+- `docs/ko/docs/advanced/json-base64-bytes.md` — 64 lines
+- `docs/ko/docs/advanced/middleware.md` — 98 lines
 - `docs/ko/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/ko/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/ko/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/ko/docs/advanced/response-cookies.md` — 52 lines
-- `docs/ko/docs/advanced/response-directly.md` — 66 lines
+- `docs/ko/docs/advanced/response-directly.md` — 84 lines
 - `docs/ko/docs/advanced/response-headers.md` — 42 lines
+- `docs/ko/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/ko/docs/advanced/additional-status-codes.md` — 42 lines
+- `docs/ko/docs/advanced/advanced-python-types.md` — 62 lines
+- `docs/ko/docs/advanced/async-tests.md` — 100 lines
+- `docs/ko/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/ko/docs/advanced/custom-response.md` — 274 lines
 - `docs/ko/docs/advanced/dataclasses.md` — 96 lines
 - `docs/ko/docs/advanced/events.md` — 166 lines
 - `docs/ko/docs/advanced/generate-clients.md` — 209 lines
 - `docs/ko/docs/advanced/index.md` — 22 lines
-- `docs/ko/docs/advanced/middleware.md` — 98 lines
-- `docs/ko/docs/advanced/advanced-python-types.md` — 62 lines
-- `docs/ko/docs/advanced/async-tests.md` — 100 lines
-- `docs/ko/docs/advanced/custom-response.md` — 314 lines
-- `docs/ko/docs/advanced/additional-status-codes.md` — 42 lines
-- `docs/ko/docs/advanced/advanced-dependencies.md` — 165 lines
 - `docs/ko/docs/about/index.md` — 4 lines
 - `docs/ko/docs/_llm-test.md` — 504 lines
-- `docs/ja/docs/tutorial/sql-databases.md` — 358 lines
-- `docs/ja/docs/tutorial/static-files.md` — 41 lines
 - `docs/ja/docs/tutorial/testing.md` — 194 lines
 - `docs/ja/llm-prompt.md` — 47 lines
 - `docs/ja/mkdocs.yml` — 2 lines
 - `docs/ja/docs/tutorial/security/get-current-user.md` — 106 lines
 - `docs/ja/docs/tutorial/security/index.md` — 107 lines
-- `docs/ja/docs/tutorial/security/simple-oauth2.md` — 290 lines
+- `docs/ja/docs/tutorial/security/oauth2-jwt.md` — 278 lines
+- `docs/ja/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/ja/docs/tutorial/sql-databases.md` — 358 lines
+- `docs/ja/docs/tutorial/static-files.md` — 41 lines
+- `docs/ja/docs/tutorial/stream-json-lines.md` — 112 lines
+- `docs/ja/docs/tutorial/query-params.md` — 189 lines
+- `docs/ja/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/ja/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/ja/docs/tutorial/request-forms.md` — 74 lines
 - `docs/ja/docs/tutorial/response-status-code.md` — 102 lines
-- `docs/ja/docs/tutorial/security/first-steps.md` — 204 lines
-- `docs/ja/docs/tutorial/path-params.md` — 252 lines
-- `docs/ja/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/ja/docs/tutorial/query-params.md` — 189 lines
-- `docs/ja/docs/tutorial/request-form-models.md` — 79 lines
+- `docs/ja/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
+- `docs/ja/docs/tutorial/dependencies/dependencies-with-yield.md` — 289 lines
+- `docs/ja/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
+- `docs/ja/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
+- `docs/ja/docs/tutorial/encoder.md` — 36 lines
+- `docs/ja/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/ja/docs/tutorial/first-steps.md` — 429 lines
 - `docs/ja/docs/tutorial/header-param-models.md` — 73 lines
 - `docs/ja/docs/tutorial/header-params.md` — 92 lines
-- `docs/ja/docs/tutorial/index.md` — 96 lines
+- `docs/ja/docs/tutorial/index.md` — 102 lines
 - `docs/ja/docs/tutorial/metadata.md` — 121 lines
 - `docs/ja/docs/tutorial/middleware.md` — 96 lines
 - `docs/ja/docs/tutorial/path-operation-configuration.md` — 108 lines
 - `docs/ja/docs/tutorial/path-params-numeric-validations.md` — 155 lines
-- `docs/ja/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
-- `docs/ja/docs/tutorial/encoder.md` — 36 lines
-- `docs/ja/docs/tutorial/extra-data-types.md` — 63 lines
-- `docs/ja/docs/tutorial/extra-models.md` — 212 lines
-- `docs/ja/docs/tutorial/first-steps.md` — 380 lines
-- `docs/ja/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
-- `docs/ja/docs/tutorial/dependencies/dependencies-with-yield.md` — 289 lines
-- `docs/ja/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
-- `docs/ja/docs/tutorial/cors.md` — 90 lines
-- `docs/ja/docs/tutorial/debugging.md` — 114 lines
+- `docs/ja/docs/tutorial/path-params.md` — 252 lines
+- `docs/ja/docs/tutorial/query-param-models.md` — 69 lines
+- `docs/ja/docs/tutorial/bigger-applications.md` — 536 lines
 - `docs/ja/docs/tutorial/body-fields.md` — 62 lines
 - `docs/ja/docs/tutorial/body-multiple-params.md` — 169 lines
 - `docs/ja/docs/tutorial/body-updates.md` — 101 lines
 - `docs/ja/docs/tutorial/cookie-param-models.md` — 77 lines
 - `docs/ja/docs/tutorial/cookie-params.md` — 46 lines
-- `docs/ja/docs/tutorial/bigger-applications.md` — 505 lines
+- `docs/ja/docs/tutorial/cors.md` — 90 lines
+- `docs/ja/docs/tutorial/debugging.md` — 114 lines
+- `docs/ja/docs/learn/index.md` — 6 lines
+- `docs/ja/docs/project-generation.md` — 29 lines
 - `docs/ja/docs/resources/index.md` — 4 lines
 - `docs/ja/docs/translation-banner.md` — 12 lines
 - `docs/ja/docs/tutorial/background-tasks.md` — 87 lines
+- `docs/ja/docs/how-to/general.md` — 44 lines
+- `docs/ja/docs/how-to/graphql.md` — 61 lines
+- `docs/ja/docs/how-to/index.md` — 14 lines
 - `docs/ja/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
 - `docs/ja/docs/how-to/separate-openapi-schemas.md` — 103 lines
 - `docs/ja/docs/how-to/testing-database.md` — 8 lines
-- `docs/ja/docs/index.md` — 560 lines
-- `docs/ja/docs/learn/index.md` — 6 lines
-- `docs/ja/docs/project-generation.md` — 29 lines
+- `docs/ja/docs/index.md` — 546 lines
 - `docs/ja/docs/how-to/conditional-openapi.md` — 57 lines
 - `docs/ja/docs/how-to/configure-swagger-ui.md` — 71 lines
-- `docs/ja/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/ja/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/ja/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/ja/docs/how-to/general.md` — 40 lines
-- `docs/ja/docs/how-to/graphql.md` — 61 lines
-- `docs/ja/docs/how-to/index.md` — 14 lines
-- `docs/ja/docs/fastapi-cli.md` — 76 lines
+- `docs/ja/docs/deployment/index.md` — 24 lines
+- `docs/ja/docs/deployment/manually.md` — 158 lines
+- `docs/ja/docs/deployment/versions.md` — 94 lines
+- `docs/ja/docs/editor-support.md` — 24 lines
+- `docs/ja/docs/environment-variables.md` — 299 lines
+- `docs/ja/docs/fastapi-cli.md` — 129 lines
 - `docs/ja/docs/features.md` — 202 lines
 - `docs/ja/docs/history-design-future.md` — 80 lines
 - `docs/ja/docs/how-to/authentication-error-status-code.md` — 18 lines
-- `docs/ja/docs/deployment/server-workers.md` — 140 lines
-- `docs/ja/docs/deployment/versions.md` — 94 lines
-- `docs/ja/docs/environment-variables.md` — 299 lines
-- `docs/ja/docs/deployment/fastapicloud.md` — 66 lines
-- `docs/ja/docs/deployment/index.md` — 24 lines
 - `docs/ja/docs/deployment/concepts.md` — 334 lines
-- `docs/ja/docs/benchmarks.md` — 35 lines
-- `docs/ja/docs/deployment/cloud.md` — 25 lines
-- `docs/ja/docs/advanced/websockets.md` — 187 lines
-- `docs/ja/docs/advanced/wsgi.md` — 52 lines
-- `docs/ja/docs/advanced/security/index.md` — 20 lines
-- `docs/ja/docs/advanced/security/oauth2-scopes.md` — 275 lines
-- `docs/ja/docs/advanced/settings.md` — 303 lines
+- `docs/ja/docs/deployment/fastapicloud.md` — 66 lines
+- `docs/ja/docs/advanced/strict-content-type.md` — 89 lines
 - `docs/ja/docs/advanced/sub-applications.md` — 68 lines
 - `docs/ja/docs/advanced/templates.md` — 127 lines
 - `docs/ja/docs/advanced/testing-dependencies.md` — 54 lines
 - `docs/ja/docs/advanced/testing-events.md` — 12 lines
 - `docs/ja/docs/advanced/testing-websockets.md` — 14 lines
 - `docs/ja/docs/advanced/using-request-directly.md` — 57 lines
-- `docs/ja/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
-- `docs/ja/docs/advanced/response-change-status-code.md` — 32 lines
-- `docs/ja/docs/advanced/response-cookies.md` — 52 lines
-- `docs/ja/docs/advanced/response-directly.md` — 66 lines
-- `docs/ja/docs/advanced/response-headers.md` — 42 lines
-- `docs/ja/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/ja/docs/advanced/websockets.md` — 187 lines
+- `docs/ja/docs/advanced/wsgi.md` — 52 lines
+- `docs/ja/docs/benchmarks.md` — 35 lines
+- `docs/ja/docs/deployment/cloud.md` — 25 lines
+- `docs/ja/docs/advanced/security/index.md` — 20 lines
+- `docs/ja/docs/advanced/security/oauth2-scopes.md` — 275 lines
+- `docs/ja/docs/advanced/settings.md` — 303 lines
+- `docs/ja/docs/advanced/stream-data.md` — 118 lines
+- `docs/ja/docs/advanced/custom-response.md` — 273 lines
 - `docs/ja/docs/advanced/dataclasses.md` — 96 lines
-- `docs/ja/docs/advanced/generate-clients.md` — 209 lines
 - `docs/ja/docs/advanced/index.md` — 22 lines
+- `docs/ja/docs/advanced/json-base64-bytes.md` — 64 lines
 - `docs/ja/docs/advanced/middleware.md` — 98 lines
 - `docs/ja/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/ja/docs/advanced/openapi-webhooks.md` — 56 lines
+- `docs/ja/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
+- `docs/ja/docs/advanced/response-change-status-code.md` — 32 lines
+- `docs/ja/docs/advanced/response-cookies.md` — 52 lines
+- `docs/ja/docs/advanced/response-directly.md` — 84 lines
+- `docs/ja/docs/advanced/response-headers.md` — 42 lines
+- `docs/ja/docs/advanced/security/http-basic-auth.md` — 108 lines
 - `docs/ja/docs/advanced/additional-status-codes.md` — 42 lines
 - `docs/ja/docs/advanced/advanced-dependencies.md` — 164 lines
 - `docs/ja/docs/advanced/advanced-python-types.md` — 62 lines
 - `docs/ja/docs/advanced/async-tests.md` — 100 lines
 - `docs/ja/docs/advanced/behind-a-proxy.md` — 467 lines
 - `docs/ja/docs/about/index.md` — 4 lines
-- `docs/ja/docs/_llm-test.md` — 504 lines
-- `docs/fr/mkdocs.yml` — 2 lines
 - `docs/fr/docs/tutorial/security/simple-oauth2.md` — 290 lines
+- `docs/fr/docs/tutorial/server-sent-events.md` — 121 lines
 - `docs/fr/docs/tutorial/sql-databases.md` — 358 lines
 - `docs/fr/docs/tutorial/static-files.md` — 41 lines
+- `docs/fr/docs/tutorial/stream-json-lines.md` — 112 lines
 - `docs/fr/docs/tutorial/testing.md` — 194 lines
 - `docs/fr/docs/virtual-environments.md` — 865 lines
 - `docs/fr/llm-prompt.md` — 133 lines
+- `docs/fr/mkdocs.yml` — 2 lines
 - `docs/fr/docs/tutorial/security/get-current-user.md` — 106 lines
 - `docs/fr/docs/tutorial/security/index.md` — 107 lines
 - `docs/fr/docs/tutorial/security/oauth2-jwt.md` — 278 lines
-- `docs/fr/docs/tutorial/schema-extra-example.md` — 203 lines
-- `docs/fr/docs/tutorial/security/first-steps.md` — 204 lines
-- `docs/fr/docs/tutorial/request-files.md` — 177 lines
-- `docs/fr/docs/tutorial/request-form-models.md` — 79 lines
-- `docs/fr/docs/tutorial/request-forms-and-files.md` — 42 lines
-- `docs/fr/docs/tutorial/request-forms.md` — 74 lines
-- `docs/fr/docs/tutorial/response-model.md` — 344 lines
-- `docs/fr/docs/tutorial/response-status-code.md` — 102 lines
+- `docs/fr/docs/tutorial/middleware.md` — 96 lines
 - `docs/fr/docs/tutorial/path-operation-configuration.md` — 108 lines
 - `docs/fr/docs/tutorial/path-params-numeric-validations.md` — 155 lines
 - `docs/fr/docs/tutorial/path-params.md` — 252 lines
 - `docs/fr/docs/tutorial/query-param-models.md` — 69 lines
 - `docs/fr/docs/tutorial/query-params-str-validations.md` — 450 lines
 - `docs/fr/docs/tutorial/query-params.md` — 188 lines
-- `docs/fr/docs/tutorial/first-steps.md` — 381 lines
-- `docs/fr/docs/tutorial/handling-errors.md` — 245 lines
-- `docs/fr/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/fr/docs/tutorial/header-params.md` — 92 lines
-- `docs/fr/docs/tutorial/index.md` — 96 lines
-- `docs/fr/docs/tutorial/metadata.md` — 121 lines
-- `docs/fr/docs/tutorial/middleware.md` — 96 lines
+- `docs/fr/docs/tutorial/request-files.md` — 177 lines
+- `docs/fr/docs/tutorial/request-form-models.md` — 79 lines
+- `docs/fr/docs/tutorial/request-forms-and-files.md` — 42 lines
+- `docs/fr/docs/tutorial/request-forms.md` — 74 lines
+- `docs/fr/docs/tutorial/response-model.md` — 345 lines
+- `docs/fr/docs/tutorial/response-status-code.md` — 102 lines
+- `docs/fr/docs/tutorial/schema-extra-example.md` — 203 lines
+- `docs/fr/docs/tutorial/security/first-steps.md` — 204 lines
 - `docs/fr/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/fr/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
 - `docs/fr/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
@@ -10171,52 +10161,62 @@ graph LR
 - `docs/fr/docs/tutorial/encoder.md` — 36 lines
 - `docs/fr/docs/tutorial/extra-data-types.md` — 63 lines
 - `docs/fr/docs/tutorial/extra-models.md` — 212 lines
+- `docs/fr/docs/tutorial/first-steps.md` — 430 lines
+- `docs/fr/docs/tutorial/handling-errors.md` — 245 lines
+- `docs/fr/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/fr/docs/tutorial/header-params.md` — 92 lines
+- `docs/fr/docs/tutorial/index.md` — 102 lines
+- `docs/fr/docs/tutorial/metadata.md` — 121 lines
+- `docs/fr/docs/tutorial/body-updates.md` — 101 lines
+- `docs/fr/docs/tutorial/body.md` — 165 lines
 - `docs/fr/docs/tutorial/cookie-param-models.md` — 77 lines
 - `docs/fr/docs/tutorial/cookie-params.md` — 46 lines
 - `docs/fr/docs/tutorial/cors.md` — 89 lines
 - `docs/fr/docs/tutorial/debugging.md` — 114 lines
 - `docs/fr/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
+- `docs/fr/docs/tutorial/bigger-applications.md` — 536 lines
 - `docs/fr/docs/tutorial/body-fields.md` — 62 lines
 - `docs/fr/docs/tutorial/body-multiple-params.md` — 166 lines
 - `docs/fr/docs/tutorial/body-nested-models.md` — 221 lines
-- `docs/fr/docs/tutorial/body-updates.md` — 101 lines
-- `docs/fr/docs/tutorial/body.md` — 165 lines
-- `docs/fr/docs/tutorial/bigger-applications.md` — 505 lines
-- `docs/fr/docs/python-types.md` — 349 lines
-- `docs/fr/docs/resources/index.md` — 4 lines
-- `docs/fr/docs/translation-banner.md` — 12 lines
-- `docs/fr/docs/tutorial/background-tasks.md` — 85 lines
-- `docs/fr/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/fr/docs/how-to/testing-database.md` — 8 lines
-- `docs/fr/docs/index.md` — 560 lines
-- `docs/fr/docs/learn/index.md` — 6 lines
-- `docs/fr/docs/project-generation.md` — 29 lines
+- `docs/fr/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/fr/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/fr/docs/how-to/general.md` — 40 lines
+- `docs/fr/docs/how-to/general.md` — 44 lines
 - `docs/fr/docs/how-to/graphql.md` — 61 lines
 - `docs/fr/docs/how-to/index.md` — 14 lines
 - `docs/fr/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
+- `docs/fr/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/fr/docs/how-to/testing-database.md` — 8 lines
+- `docs/fr/docs/index.md` — 546 lines
+- `docs/fr/docs/learn/index.md` — 6 lines
+- `docs/fr/docs/project-generation.md` — 29 lines
+- `docs/fr/docs/resources/index.md` — 4 lines
+- `docs/fr/docs/translation-banner.md` — 12 lines
+- `docs/fr/docs/tutorial/background-tasks.md` — 85 lines
 - `docs/fr/docs/how-to/conditional-openapi.md` — 57 lines
 - `docs/fr/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/fr/docs/how-to/custom-docs-ui-assets.md` — 186 lines
-- `docs/fr/docs/how-to/custom-request-and-route.md` — 110 lines
-- `docs/fr/docs/help-fastapi.md` — 257 lines
-- `docs/fr/docs/history-design-future.md` — 80 lines
-- `docs/fr/docs/how-to/authentication-error-status-code.md` — 18 lines
-- `docs/fr/docs/deployment/server-workers.md` — 140 lines
-- `docs/fr/docs/deployment/versions.md` — 94 lines
-- `docs/fr/docs/environment-variables.md` — 299 lines
-- `docs/fr/docs/fastapi-cli.md` — 76 lines
-- `docs/fr/docs/features.md` — 202 lines
 - `docs/fr/docs/deployment/docker.md` — 619 lines
 - `docs/fr/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/fr/docs/deployment/https.md` — 232 lines
 - `docs/fr/docs/deployment/index.md` — 31 lines
 - `docs/fr/docs/deployment/manually.md` — 158 lines
+- `docs/fr/docs/deployment/server-workers.md` — 140 lines
+- `docs/fr/docs/deployment/versions.md` — 94 lines
+- `docs/fr/docs/editor-support.md` — 24 lines
+- `docs/fr/docs/environment-variables.md` — 299 lines
+- `docs/fr/docs/fastapi-cli.md` — 129 lines
+- `docs/fr/docs/features.md` — 202 lines
+- `docs/fr/docs/help-fastapi.md` — 257 lines
+- `docs/fr/docs/history-design-future.md` — 80 lines
+- `docs/fr/docs/how-to/authentication-error-status-code.md` — 18 lines
 - `docs/fr/docs/deployment/concepts.md` — 322 lines
-- `docs/fr/docs/async.md` — 445 lines
-- `docs/fr/docs/benchmarks.md` — 35 lines
-- `docs/fr/docs/deployment/cloud.md` — 25 lines
+- `docs/fr/docs/advanced/security/index.md` — 20 lines
+- `docs/fr/docs/advanced/security/oauth2-scopes.md` — 275 lines
+- `docs/fr/docs/advanced/settings.md` — 303 lines
+- `docs/fr/docs/advanced/stream-data.md` — 118 lines
+- `docs/fr/docs/advanced/strict-content-type.md` — 89 lines
+- `docs/fr/docs/advanced/sub-applications.md` — 68 lines
+- `docs/fr/docs/advanced/templates.md` — 127 lines
 - `docs/fr/docs/advanced/testing-dependencies.md` — 53 lines
 - `docs/fr/docs/advanced/testing-events.md` — 12 lines
 - `docs/fr/docs/advanced/testing-websockets.md` — 14 lines
@@ -10224,75 +10224,74 @@ graph LR
 - `docs/fr/docs/advanced/websockets.md` — 187 lines
 - `docs/fr/docs/advanced/wsgi.md` — 52 lines
 - `docs/fr/docs/alternatives.md` — 517 lines
-- `docs/fr/docs/advanced/security/index.md` — 20 lines
-- `docs/fr/docs/advanced/security/oauth2-scopes.md` — 275 lines
-- `docs/fr/docs/advanced/settings.md` — 303 lines
-- `docs/fr/docs/advanced/sub-applications.md` — 68 lines
-- `docs/fr/docs/advanced/templates.md` — 127 lines
-- `docs/fr/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/fr/docs/async.md` — 445 lines
+- `docs/fr/docs/benchmarks.md` — 35 lines
+- `docs/fr/docs/deployment/cloud.md` — 25 lines
+- `docs/fr/docs/advanced/additional-status-codes.md` — 42 lines
+- `docs/fr/docs/advanced/advanced-dependencies.md` — 164 lines
+- `docs/fr/docs/advanced/advanced-python-types.md` — 62 lines
+- `docs/fr/docs/advanced/async-tests.md` — 100 lines
+- `docs/fr/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/fr/docs/advanced/custom-response.md` — 273 lines
+- `docs/fr/docs/advanced/dataclasses.md` — 96 lines
+- `docs/fr/docs/advanced/events.md` — 166 lines
+- `docs/fr/docs/advanced/generate-clients.md` — 209 lines
+- `docs/fr/docs/advanced/index.md` — 22 lines
+- `docs/fr/docs/advanced/json-base64-bytes.md` — 64 lines
 - `docs/fr/docs/advanced/middleware.md` — 98 lines
 - `docs/fr/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/fr/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/fr/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/fr/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/fr/docs/advanced/response-cookies.md` — 52 lines
-- `docs/fr/docs/advanced/response-directly.md` — 66 lines
+- `docs/fr/docs/advanced/response-directly.md` — 84 lines
 - `docs/fr/docs/advanced/response-headers.md` — 42 lines
-- `docs/fr/docs/advanced/behind-a-proxy.md` — 467 lines
-- `docs/fr/docs/advanced/custom-response.md` — 313 lines
-- `docs/fr/docs/advanced/dataclasses.md` — 96 lines
-- `docs/fr/docs/advanced/events.md` — 166 lines
-- `docs/fr/docs/advanced/generate-clients.md` — 209 lines
-- `docs/fr/docs/advanced/index.md` — 22 lines
-- `docs/fr/docs/advanced/additional-status-codes.md` — 42 lines
-- `docs/fr/docs/advanced/advanced-python-types.md` — 62 lines
-- `docs/fr/docs/advanced/async-tests.md` — 100 lines
+- `docs/fr/docs/advanced/security/http-basic-auth.md` — 108 lines
 - `docs/fr/docs/about/index.md` — 4 lines
 - `docs/fr/docs/advanced/additional-responses.md` — 248 lines
 - `docs/fr/docs/_llm-test.md` — 504 lines
-- `docs/es/llm-prompt.md` — 100 lines
-- `docs/es/mkdocs.yml` — 2 lines
-- `docs/es/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/es/docs/tutorial/sql-databases.md` — 358 lines
-- `docs/es/docs/tutorial/static-files.md` — 41 lines
-- `docs/es/docs/tutorial/testing.md` — 191 lines
-- `docs/es/docs/virtual-environments.md` — 863 lines
 - `docs/es/docs/tutorial/security/get-current-user.md` — 104 lines
 - `docs/es/docs/tutorial/security/index.md` — 106 lines
 - `docs/es/docs/tutorial/security/oauth2-jwt.md` — 278 lines
-- `docs/es/docs/tutorial/schema-extra-example.md` — 203 lines
+- `docs/es/docs/tutorial/security/simple-oauth2.md` — 290 lines
+- `docs/es/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/es/docs/tutorial/sql-databases.md` — 358 lines
+- `docs/es/docs/tutorial/static-files.md` — 41 lines
+- `docs/es/docs/tutorial/stream-json-lines.md` — 112 lines
+- `docs/es/docs/tutorial/testing.md` — 192 lines
+- `docs/es/docs/virtual-environments.md` — 863 lines
+- `docs/es/llm-prompt.md` — 100 lines
+- `docs/es/mkdocs.yml` — 2 lines
 - `docs/es/docs/tutorial/security/first-steps.md` — 204 lines
-- `docs/es/docs/tutorial/request-form-models.md` — 79 lines
-- `docs/es/docs/tutorial/request-forms-and-files.md` — 42 lines
-- `docs/es/docs/tutorial/request-forms.md` — 74 lines
-- `docs/es/docs/tutorial/response-model.md` — 344 lines
-- `docs/es/docs/tutorial/response-status-code.md` — 102 lines
-- `docs/es/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/es/docs/tutorial/query-params-str-validations.md` — 451 lines
-- `docs/es/docs/tutorial/query-params.md` — 188 lines
-- `docs/es/docs/tutorial/request-files.md` — 177 lines
-- `docs/es/docs/tutorial/index.md` — 96 lines
+- `docs/es/docs/tutorial/first-steps.md` — 430 lines
+- `docs/es/docs/tutorial/handling-errors.md` — 245 lines
+- `docs/es/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/es/docs/tutorial/header-params.md` — 92 lines
+- `docs/es/docs/tutorial/index.md` — 102 lines
 - `docs/es/docs/tutorial/metadata.md` — 121 lines
 - `docs/es/docs/tutorial/middleware.md` — 96 lines
 - `docs/es/docs/tutorial/path-operation-configuration.md` — 108 lines
 - `docs/es/docs/tutorial/path-params-numeric-validations.md` — 155 lines
 - `docs/es/docs/tutorial/path-params.md` — 252 lines
-- `docs/es/docs/tutorial/first-steps.md` — 381 lines
-- `docs/es/docs/tutorial/handling-errors.md` — 245 lines
-- `docs/es/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/es/docs/tutorial/header-params.md` — 92 lines
+- `docs/es/docs/tutorial/query-param-models.md` — 69 lines
+- `docs/es/docs/tutorial/query-params-str-validations.md` — 451 lines
+- `docs/es/docs/tutorial/query-params.md` — 188 lines
+- `docs/es/docs/tutorial/request-files.md` — 177 lines
+- `docs/es/docs/tutorial/request-form-models.md` — 79 lines
+- `docs/es/docs/tutorial/request-forms-and-files.md` — 42 lines
+- `docs/es/docs/tutorial/request-forms.md` — 74 lines
+- `docs/es/docs/tutorial/response-model.md` — 345 lines
+- `docs/es/docs/tutorial/response-status-code.md` — 102 lines
+- `docs/es/docs/tutorial/schema-extra-example.md` — 203 lines
+- `docs/es/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
+- `docs/es/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
+- `docs/es/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
 - `docs/es/docs/tutorial/dependencies/index.md` — 251 lines
 - `docs/es/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
 - `docs/es/docs/tutorial/encoder.md` — 36 lines
 - `docs/es/docs/tutorial/extra-data-types.md` — 63 lines
 - `docs/es/docs/tutorial/extra-models.md` — 212 lines
-- `docs/es/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
-- `docs/es/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
-- `docs/es/docs/tutorial/dependencies/global-dependencies.md` — 16 lines
-- `docs/es/docs/tutorial/cors.md` — 90 lines
-- `docs/es/docs/tutorial/debugging.md` — 114 lines
-- `docs/es/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
-- `docs/es/docs/tutorial/bigger-applications.md` — 505 lines
+- `docs/es/docs/tutorial/bigger-applications.md` — 536 lines
 - `docs/es/docs/tutorial/body-fields.md` — 61 lines
 - `docs/es/docs/tutorial/body-multiple-params.md` — 166 lines
 - `docs/es/docs/tutorial/body-nested-models.md` — 222 lines
@@ -10300,103 +10299,108 @@ graph LR
 - `docs/es/docs/tutorial/body.md` — 167 lines
 - `docs/es/docs/tutorial/cookie-param-models.md` — 77 lines
 - `docs/es/docs/tutorial/cookie-params.md` — 46 lines
-- `docs/es/docs/project-generation.md` — 29 lines
-- `docs/es/docs/python-types.md` — 349 lines
-- `docs/es/docs/resources/index.md` — 4 lines
-- `docs/es/docs/translation-banner.md` — 12 lines
+- `docs/es/docs/tutorial/cors.md` — 90 lines
+- `docs/es/docs/tutorial/debugging.md` — 114 lines
+- `docs/es/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
 - `docs/es/docs/tutorial/background-tasks.md` — 85 lines
-- `docs/es/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/es/docs/how-to/testing-database.md` — 8 lines
-- `docs/es/docs/index.md` — 560 lines
-- `docs/es/docs/learn/index.md` — 6 lines
 - `docs/es/docs/how-to/conditional-openapi.md` — 57 lines
 - `docs/es/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/es/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/es/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/es/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/es/docs/how-to/general.md` — 40 lines
+- `docs/es/docs/how-to/general.md` — 44 lines
 - `docs/es/docs/how-to/graphql.md` — 61 lines
 - `docs/es/docs/how-to/index.md` — 14 lines
 - `docs/es/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/es/docs/environment-variables.md` — 299 lines
-- `docs/es/docs/fastapi-cli.md` — 76 lines
+- `docs/es/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/es/docs/how-to/testing-database.md` — 8 lines
+- `docs/es/docs/index.md` — 546 lines
+- `docs/es/docs/learn/index.md` — 6 lines
+- `docs/es/docs/project-generation.md` — 29 lines
+- `docs/es/docs/python-types.md` — 349 lines
+- `docs/es/docs/resources/index.md` — 4 lines
+- `docs/es/docs/translation-banner.md` — 12 lines
 - `docs/es/docs/features.md` — 202 lines
 - `docs/es/docs/help-fastapi.md` — 257 lines
 - `docs/es/docs/history-design-future.md` — 80 lines
 - `docs/es/docs/how-to/authentication-error-status-code.md` — 18 lines
+- `docs/es/docs/deployment/concepts.md` — 322 lines
+- `docs/es/docs/deployment/docker.md` — 619 lines
 - `docs/es/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/es/docs/deployment/https.md` — 232 lines
 - `docs/es/docs/deployment/index.md` — 24 lines
 - `docs/es/docs/deployment/manually.md` — 158 lines
 - `docs/es/docs/deployment/server-workers.md` — 140 lines
 - `docs/es/docs/deployment/versions.md` — 94 lines
-- `docs/es/docs/deployment/concepts.md` — 322 lines
-- `docs/es/docs/deployment/docker.md` — 619 lines
-- `docs/es/docs/benchmarks.md` — 35 lines
-- `docs/es/docs/deployment/cloud.md` — 25 lines
-- `docs/es/docs/advanced/using-request-directly.md` — 57 lines
-- `docs/es/docs/advanced/websockets.md` — 187 lines
-- `docs/es/docs/advanced/wsgi.md` — 52 lines
+- `docs/es/docs/editor-support.md` — 24 lines
+- `docs/es/docs/environment-variables.md` — 299 lines
+- `docs/es/docs/fastapi-cli.md` — 129 lines
 - `docs/es/docs/alternatives.md` — 486 lines
 - `docs/es/docs/async.md` — 445 lines
+- `docs/es/docs/benchmarks.md` — 35 lines
+- `docs/es/docs/deployment/cloud.md` — 25 lines
 - `docs/es/docs/advanced/security/index.md` — 20 lines
 - `docs/es/docs/advanced/security/oauth2-scopes.md` — 275 lines
 - `docs/es/docs/advanced/settings.md` — 303 lines
+- `docs/es/docs/advanced/stream-data.md` — 118 lines
+- `docs/es/docs/advanced/strict-content-type.md` — 89 lines
 - `docs/es/docs/advanced/sub-applications.md` — 68 lines
 - `docs/es/docs/advanced/templates.md` — 127 lines
 - `docs/es/docs/advanced/testing-dependencies.md` — 54 lines
 - `docs/es/docs/advanced/testing-events.md` — 13 lines
 - `docs/es/docs/advanced/testing-websockets.md` — 14 lines
+- `docs/es/docs/advanced/using-request-directly.md` — 57 lines
+- `docs/es/docs/advanced/websockets.md` — 187 lines
+- `docs/es/docs/advanced/wsgi.md` — 52 lines
+- `docs/es/docs/advanced/middleware.md` — 98 lines
+- `docs/es/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/es/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/es/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/es/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/es/docs/advanced/response-cookies.md` — 52 lines
-- `docs/es/docs/advanced/response-directly.md` — 66 lines
+- `docs/es/docs/advanced/response-directly.md` — 84 lines
 - `docs/es/docs/advanced/response-headers.md` — 42 lines
 - `docs/es/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/es/docs/advanced/additional-status-codes.md` — 42 lines
+- `docs/es/docs/advanced/advanced-dependencies.md` — 164 lines
+- `docs/es/docs/advanced/advanced-python-types.md` — 62 lines
+- `docs/es/docs/advanced/async-tests.md` — 100 lines
+- `docs/es/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/es/docs/advanced/custom-response.md` — 274 lines
 - `docs/es/docs/advanced/dataclasses.md` — 96 lines
 - `docs/es/docs/advanced/events.md` — 166 lines
 - `docs/es/docs/advanced/generate-clients.md` — 209 lines
 - `docs/es/docs/advanced/index.md` — 22 lines
-- `docs/es/docs/advanced/middleware.md` — 98 lines
-- `docs/es/docs/advanced/openapi-callbacks.md` — 187 lines
-- `docs/es/docs/advanced/advanced-python-types.md` — 62 lines
-- `docs/es/docs/advanced/async-tests.md` — 100 lines
-- `docs/es/docs/advanced/behind-a-proxy.md` — 467 lines
-- `docs/es/docs/advanced/custom-response.md` — 313 lines
-- `docs/es/docs/advanced/additional-status-codes.md` — 42 lines
-- `docs/es/docs/advanced/advanced-dependencies.md` — 164 lines
-- `docs/es/docs/advanced/additional-responses.md` — 248 lines
+- `docs/es/docs/advanced/json-base64-bytes.md` — 64 lines
 - `docs/es/docs/about/index.md` — 4 lines
+- `docs/es/docs/advanced/additional-responses.md` — 248 lines
 - `docs/es/docs/_llm-test.md` — 504 lines
 - `docs/en/overrides/partials/copyright.html` — 12 lines
-- `docs/en/docs/virtual-environments.md` — 865 lines
-- `docs/en/mkdocs.env.yml` — 6 lines
-- `docs/en/mkdocs.yml` — 354 lines
+- `docs/en/mkdocs.yml` — 356 lines
 - `docs/en/overrides/main.html` — 105 lines
+- `docs/en/docs/tutorial/security/get-current-user.md` — 106 lines
+- `docs/en/docs/tutorial/security/index.md` — 107 lines
+- `docs/en/docs/tutorial/security/oauth2-jwt.md` — 278 lines
+- `docs/en/docs/tutorial/security/simple-oauth2.md` — 290 lines
 - `docs/en/docs/tutorial/server-sent-events.md` — 121 lines
 - `docs/en/docs/tutorial/sql-databases.md` — 358 lines
 - `docs/en/docs/tutorial/static-files.md` — 41 lines
 - `docs/en/docs/tutorial/stream-json-lines.md` — 112 lines
 - `docs/en/docs/tutorial/testing.md` — 194 lines
-- `docs/en/docs/tutorial/security/get-current-user.md` — 106 lines
-- `docs/en/docs/tutorial/security/index.md` — 107 lines
-- `docs/en/docs/tutorial/security/oauth2-jwt.md` — 278 lines
-- `docs/en/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/en/docs/tutorial/security/first-steps.md` — 204 lines
-- `docs/en/docs/tutorial/request-files.md` — 177 lines
-- `docs/en/docs/tutorial/request-form-models.md` — 79 lines
+- `docs/en/docs/virtual-environments.md` — 865 lines
+- `docs/en/mkdocs.env.yml` — 6 lines
 - `docs/en/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/en/docs/tutorial/request-forms.md` — 74 lines
 - `docs/en/docs/tutorial/response-model.md` — 345 lines
 - `docs/en/docs/tutorial/response-status-code.md` — 102 lines
 - `docs/en/docs/tutorial/schema-extra-example.md` — 203 lines
-- `docs/en/docs/tutorial/path-operation-configuration.md` — 108 lines
-- `docs/en/docs/tutorial/path-params-numeric-validations.md` — 155 lines
-- `docs/en/docs/tutorial/path-params.md` — 252 lines
-- `docs/en/docs/tutorial/query-param-models.md` — 69 lines
-- `docs/en/docs/tutorial/query-params-str-validations.md` — 451 lines
-- `docs/en/docs/tutorial/query-params.md` — 189 lines
+- `docs/en/docs/tutorial/security/first-steps.md` — 204 lines
+- `docs/en/docs/tutorial/dependencies/global-dependencies.md` — 17 lines
+- `docs/en/docs/tutorial/dependencies/index.md` — 251 lines
+- `docs/en/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
+- `docs/en/docs/tutorial/encoder.md` — 36 lines
+- `docs/en/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/en/docs/tutorial/extra-models.md` — 212 lines
 - `docs/en/docs/tutorial/first-steps.md` — 430 lines
 - `docs/en/docs/tutorial/handling-errors.md` — 245 lines
 - `docs/en/docs/tutorial/header-param-models.md` — 73 lines
@@ -10404,14 +10408,20 @@ graph LR
 - `docs/en/docs/tutorial/index.md` — 102 lines
 - `docs/en/docs/tutorial/metadata.md` — 121 lines
 - `docs/en/docs/tutorial/middleware.md` — 96 lines
+- `docs/en/docs/tutorial/path-operation-configuration.md` — 108 lines
+- `docs/en/docs/tutorial/path-params-numeric-validations.md` — 155 lines
+- `docs/en/docs/tutorial/path-params.md` — 252 lines
+- `docs/en/docs/tutorial/query-param-models.md` — 69 lines
+- `docs/en/docs/tutorial/query-params-str-validations.md` — 451 lines
+- `docs/en/docs/tutorial/query-params.md` — 189 lines
+- `docs/en/docs/tutorial/request-files.md` — 177 lines
+- `docs/en/docs/tutorial/request-form-models.md` — 79 lines
 - `docs/en/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/en/docs/tutorial/dependencies/dependencies-with-yield.md` — 290 lines
-- `docs/en/docs/tutorial/dependencies/global-dependencies.md` — 17 lines
-- `docs/en/docs/tutorial/dependencies/index.md` — 251 lines
-- `docs/en/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
-- `docs/en/docs/tutorial/encoder.md` — 36 lines
-- `docs/en/docs/tutorial/extra-data-types.md` — 63 lines
-- `docs/en/docs/tutorial/extra-models.md` — 212 lines
+- `docs/en/docs/tutorial/bigger-applications.md` — 536 lines
+- `docs/en/docs/tutorial/body-fields.md` — 62 lines
+- `docs/en/docs/tutorial/body-multiple-params.md` — 170 lines
+- `docs/en/docs/tutorial/body-nested-models.md` — 222 lines
 - `docs/en/docs/tutorial/body-updates.md` — 101 lines
 - `docs/en/docs/tutorial/body.md` — 167 lines
 - `docs/en/docs/tutorial/cookie-param-models.md` — 77 lines
@@ -10419,19 +10429,10 @@ graph LR
 - `docs/en/docs/tutorial/cors.md` — 90 lines
 - `docs/en/docs/tutorial/debugging.md` — 114 lines
 - `docs/en/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
-- `docs/en/docs/tutorial/bigger-applications.md` — 536 lines
-- `docs/en/docs/tutorial/body-fields.md` — 62 lines
-- `docs/en/docs/tutorial/body-multiple-params.md` — 170 lines
-- `docs/en/docs/tutorial/body-nested-models.md` — 222 lines
-- `docs/en/docs/tutorial/background-tasks.md` — 87 lines
-- `docs/en/docs/release-notes.md` — 6723 lines
+- `docs/en/docs/release-notes.md` — 6791 lines
 - `docs/en/docs/resources/index.md` — 4 lines
 - `docs/en/docs/translation-banner.md` — 12 lines
-- `docs/en/docs/reference/status.md` — 37 lines
-- `docs/en/docs/reference/templating.md` — 14 lines
-- `docs/en/docs/reference/testclient.md` — 14 lines
-- `docs/en/docs/reference/uploadfile.md` — 23 lines
-- `docs/en/docs/reference/websockets.md` — 74 lines
+- `docs/en/docs/tutorial/background-tasks.md` — 87 lines
 - `docs/en/docs/reference/openapi/index.md` — 6 lines
 - `docs/en/docs/reference/openapi/models.md` — 6 lines
 - `docs/en/docs/reference/parameters.md` — 36 lines
@@ -10440,6 +10441,11 @@ graph LR
 - `docs/en/docs/reference/responses.md` — 173 lines
 - `docs/en/docs/reference/security/index.md` — 76 lines
 - `docs/en/docs/reference/staticfiles.md` — 14 lines
+- `docs/en/docs/reference/status.md` — 37 lines
+- `docs/en/docs/reference/templating.md` — 14 lines
+- `docs/en/docs/reference/testclient.md` — 14 lines
+- `docs/en/docs/reference/uploadfile.md` — 23 lines
+- `docs/en/docs/reference/websockets.md` — 74 lines
 - `docs/en/docs/reference/background.md` — 12 lines
 - `docs/en/docs/reference/dependencies.md` — 30 lines
 - `docs/en/docs/reference/encoders.md` — 4 lines
@@ -10449,52 +10455,52 @@ graph LR
 - `docs/en/docs/reference/index.md` — 8 lines
 - `docs/en/docs/reference/middleware.md` — 38 lines
 - `docs/en/docs/reference/openapi/docs.md` — 12 lines
+- `docs/en/docs/js/init_kapa_widget.js` — 30 lines
+- `docs/en/docs/js/termynal.js` — 1 class, 265 lines
+- `docs/en/docs/learn/index.md` — 6 lines
+- `docs/en/docs/management-tasks.md` — 166 lines
 - `docs/en/docs/management.md` — 40 lines
 - `docs/en/docs/newsletter.md` — 6 lines
 - `docs/en/docs/project-generation.md` — 29 lines
 - `docs/en/docs/python-types.md` — 349 lines
 - `docs/en/docs/reference/apirouter.md` — 25 lines
-- `docs/en/docs/js/custom.js` — 6 functions, 213 lines
-- `docs/en/docs/js/init_kapa_widget.js` — 30 lines
-- `docs/en/docs/js/termynal.js` — 1 class, 265 lines
-- `docs/en/docs/learn/index.md` — 6 lines
-- `docs/en/docs/management-tasks.md` — 159 lines
 - `docs/en/docs/index.md` — 546 lines
+- `docs/en/docs/js/custom.js` — 6 functions, 213 lines
 - `docs/en/docs/img/tutorial/bigger-applications/package.drawio.svg` — 421 lines
-- `docs/en/docs/img/sponsors/testdriven.svg` — 2 lines
 - `docs/en/docs/img/sponsors/wetransfer.svg` — 119 lines
 - `docs/en/docs/img/sponsors/subtotal-banner.svg` — 134 lines
 - `docs/en/docs/img/sponsors/subtotal.svg` — 32 lines
 - `docs/en/docs/img/sponsors/svix.svg` — 179 lines
-- `docs/en/docs/img/sponsors/scalar.svg` — 2 lines
+- `docs/en/docs/img/sponsors/testdriven.svg` — 2 lines
 - `docs/en/docs/img/sponsors/render-banner.svg` — 26 lines
 - `docs/en/docs/img/sponsors/render.svg` — 25 lines
 - `docs/en/docs/img/sponsors/scalar-banner.svg` — 2 lines
-- `docs/en/docs/img/sponsors/jina2.svg` — 2 lines
+- `docs/en/docs/img/sponsors/scalar.svg` — 2 lines
 - `docs/en/docs/img/sponsors/jina.svg` — 1982 lines
-- `docs/en/docs/img/sponsors/jina-top-banner.svg` — 2 lines
+- `docs/en/docs/img/sponsors/jina2.svg` — 2 lines
 - `docs/en/docs/img/sponsors/jina-banner.svg` — 234 lines
+- `docs/en/docs/img/sponsors/jina-top-banner.svg` — 2 lines
+- `docs/en/docs/img/sponsors/imgwhale-banner.svg` — 15 lines
 - `docs/en/docs/img/sponsors/imgwhale.svg` — 29 lines
 - `docs/en/docs/img/sponsors/investsuite.svg` — 125 lines
-- `docs/en/docs/img/sponsors/imgwhale-banner.svg` — 15 lines
-- `docs/en/docs/img/sponsors/haystack-fastapi.svg` — 193 lines
 - `docs/en/docs/img/sponsors/fern.svg` — 2 lines
-- `docs/en/docs/img/sponsors/fern-banner.svg` — 2 lines
+- `docs/en/docs/img/sponsors/haystack-fastapi.svg` — 193 lines
 - `docs/en/docs/img/sponsors/fastapi-course-bundle-banner.svg` — 294 lines
-- `docs/en/docs/img/sponsors/dropbase-banner.svg` — 118 lines
-- `docs/en/docs/img/sponsors/dropbase.svg` — 125 lines
-- `docs/en/docs/img/sponsors/doist.svg` — 55 lines
+- `docs/en/docs/img/sponsors/fern-banner.svg` — 2 lines
 - `docs/en/docs/img/sponsors/docarray.svg` — 2 lines
 - `docs/en/docs/img/sponsors/doist-banner.svg` — 47 lines
-- `docs/en/docs/img/sponsors/docarray-top-banner.svg` — 2 lines
-- `fastapi/applications.py` — 1 class, 27 imports, 4692 lines
-- `docs/en/docs/img/sponsors/deta.svg` — 66 lines
-- `docs/en/docs/img/sponsors/deta-banner.svg` — 126 lines
+- `docs/en/docs/img/sponsors/doist.svg` — 55 lines
+- `docs/en/docs/img/sponsors/dropbase-banner.svg` — 118 lines
+- `docs/en/docs/img/sponsors/dropbase.svg` — 125 lines
 - `docs/en/docs/img/sponsors/databento.svg` — 145 lines
-- `docs/en/docs/img/sponsors/cryptapi.svg` — 1217 lines
+- `docs/en/docs/img/sponsors/deta-banner.svg` — 126 lines
+- `docs/en/docs/img/sponsors/deta.svg` — 66 lines
+- `docs/en/docs/img/sponsors/docarray-top-banner.svg` — 2 lines
 - `docs/en/docs/img/sponsors/cryptapi-banner.svg` — 1376 lines
-- `docs/en/docs/img/sponsors/bump-sh.svg` — 57 lines
+- `docs/en/docs/img/sponsors/cryptapi.svg` — 1217 lines
+- `fastapi/applications.py` — 1 class, 27 imports, 4750 lines
 - `docs/en/docs/img/sponsors/bump-sh-banner.svg` — 49 lines
+- `docs/en/docs/img/sponsors/bump-sh.svg` — 57 lines
 - `docs/en/docs/img/sponsors/budget-insight.svg` — 23 lines
 - `docs/en/docs/img/logo-margin/logo-teal.svg` — 60 lines
 - `docs/en/docs/img/logo-teal-vector.svg` — 52 lines
@@ -10502,20 +10508,16 @@ graph LR
 - `docs/en/docs/img/logo-margin/logo-teal-vector.svg` — 56 lines
 - `docs/en/docs/img/github-social-preview.svg` — 76 lines
 - `docs/en/docs/img/icon-white.svg` — 35 lines
+- `docs/en/docs/img/deployment/https/https05.drawio.svg` — 642 lines
 - `docs/en/docs/img/deployment/https/https06.drawio.svg` — 674 lines
 - `docs/en/docs/img/deployment/https/https07.drawio.svg` — 541 lines
 - `docs/en/docs/img/deployment/https/https08.drawio.svg` — 626 lines
-- `docs/en/docs/img/deployment/https/https05.drawio.svg` — 642 lines
-- `docs/en/docs/img/deployment/https/https04.drawio.svg` — 420 lines
 - `docs/en/docs/img/deployment/https/https03.drawio.svg` — 716 lines
-- `docs/en/docs/img/deployment/https/https.drawio.svg` — 908 lines
+- `docs/en/docs/img/deployment/https/https04.drawio.svg` — 420 lines
 - `docs/en/docs/img/deployment/https/https01.drawio.svg` — 132 lines
 - `docs/en/docs/img/deployment/https/https02.drawio.svg` — 246 lines
+- `docs/en/docs/img/deployment/https/https.drawio.svg` — 908 lines
 - `docs/en/docs/img/deployment/concepts/process-ram.drawio.svg` — 298 lines
-- `docs/en/docs/how-to/index.md` — 14 lines
-- `docs/en/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/en/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/en/docs/how-to/testing-database.md` — 8 lines
 - `docs/en/docs/how-to/conditional-openapi.md` — 57 lines
 - `docs/en/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/en/docs/how-to/custom-docs-ui-assets.md` — 186 lines
@@ -10523,12 +10525,14 @@ graph LR
 - `docs/en/docs/how-to/extending-openapi.md` — 81 lines
 - `docs/en/docs/how-to/general.md` — 44 lines
 - `docs/en/docs/how-to/graphql.md` — 61 lines
-- `docs/en/docs/fastapi-cli.md` — 129 lines
-- `docs/en/docs/fastapi-people.md` — 286 lines
-- `docs/en/docs/features.md` — 202 lines
-- `docs/en/docs/help-fastapi.md` — 257 lines
-- `docs/en/docs/history-design-future.md` — 80 lines
-- `docs/en/docs/how-to/authentication-error-status-code.md` — 18 lines
+- `docs/en/docs/how-to/index.md` — 14 lines
+- `docs/en/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
+- `docs/en/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/en/docs/how-to/testing-database.md` — 8 lines
+- `docs/en/docs/deployment/concepts.md` — 322 lines
+- `docs/en/docs/deployment/docker.md` — 619 lines
+- `docs/en/docs/deployment/fastapicloud.md` — 66 lines
+- `docs/en/docs/deployment/https.md` — 232 lines
 - `docs/en/docs/deployment/index.md` — 24 lines
 - `docs/en/docs/deployment/manually.md` — 158 lines
 - `docs/en/docs/deployment/server-workers.md` — 140 lines
@@ -10536,22 +10540,14 @@ graph LR
 - `docs/en/docs/editor-support.md` — 24 lines
 - `docs/en/docs/environment-variables.md` — 299 lines
 - `docs/en/docs/external-links.md` — 26 lines
+- `docs/en/docs/fastapi-cli.md` — 129 lines
+- `docs/en/docs/fastapi-people.md` — 286 lines
+- `docs/en/docs/features.md` — 202 lines
+- `docs/en/docs/help-fastapi.md` — 257 lines
+- `docs/en/docs/history-design-future.md` — 80 lines
+- `docs/en/docs/how-to/authentication-error-status-code.md` — 18 lines
 - `docs/en/docs/css/termynal.css` — 112 lines
 - `docs/en/docs/deployment/cloud.md` — 25 lines
-- `docs/en/docs/deployment/concepts.md` — 322 lines
-- `docs/en/docs/deployment/docker.md` — 619 lines
-- `docs/en/docs/deployment/fastapicloud.md` — 66 lines
-- `docs/en/docs/deployment/https.md` — 232 lines
-- `docs/en/docs/async.md` — 445 lines
-- `docs/en/docs/benchmarks.md` — 35 lines
-- `docs/en/docs/contributing.md` — 262 lines
-- `docs/en/docs/css/custom.css` — 261 lines
-- `docs/en/docs/advanced/testing-events.md` — 13 lines
-- `docs/en/docs/advanced/testing-websockets.md` — 14 lines
-- `docs/en/docs/advanced/using-request-directly.md` — 57 lines
-- `docs/en/docs/advanced/websockets.md` — 187 lines
-- `docs/en/docs/advanced/wsgi.md` — 52 lines
-- `docs/en/docs/alternatives.md` — 486 lines
 - `docs/en/docs/advanced/security/index.md` — 20 lines
 - `docs/en/docs/advanced/security/oauth2-scopes.md` — 275 lines
 - `docs/en/docs/advanced/settings.md` — 303 lines
@@ -10560,13 +10556,23 @@ graph LR
 - `docs/en/docs/advanced/sub-applications.md` — 68 lines
 - `docs/en/docs/advanced/templates.md` — 127 lines
 - `docs/en/docs/advanced/testing-dependencies.md` — 54 lines
-- `docs/en/docs/advanced/openapi-webhooks.md` — 56 lines
-- `docs/en/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
-- `docs/en/docs/advanced/response-change-status-code.md` — 32 lines
-- `docs/en/docs/advanced/response-cookies.md` — 52 lines
-- `docs/en/docs/advanced/response-directly.md` — 84 lines
-- `docs/en/docs/advanced/response-headers.md` — 42 lines
-- `docs/en/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/en/docs/advanced/testing-events.md` — 13 lines
+- `docs/en/docs/advanced/testing-websockets.md` — 14 lines
+- `docs/en/docs/advanced/using-request-directly.md` — 57 lines
+- `docs/en/docs/advanced/vibe.md` — 45 lines
+- `docs/en/docs/advanced/websockets.md` — 187 lines
+- `docs/en/docs/advanced/wsgi.md` — 52 lines
+- `docs/en/docs/alternatives.md` — 486 lines
+- `docs/en/docs/async.md` — 445 lines
+- `docs/en/docs/benchmarks.md` — 35 lines
+- `docs/en/docs/contributing.md` — 268 lines
+- `docs/en/docs/css/custom.css` — 267 lines
+- `docs/en/docs/advanced/additional-responses.md` — 248 lines
+- `docs/en/docs/advanced/additional-status-codes.md` — 42 lines
+- `docs/en/docs/advanced/advanced-dependencies.md` — 164 lines
+- `docs/en/docs/advanced/advanced-python-types.md` — 62 lines
+- `docs/en/docs/advanced/async-tests.md` — 100 lines
+- `docs/en/docs/advanced/behind-a-proxy.md` — 467 lines
 - `docs/en/docs/advanced/custom-response.md` — 274 lines
 - `docs/en/docs/advanced/dataclasses.md` — 96 lines
 - `docs/en/docs/advanced/events.md` — 166 lines
@@ -10575,112 +10581,118 @@ graph LR
 - `docs/en/docs/advanced/json-base64-bytes.md` — 64 lines
 - `docs/en/docs/advanced/middleware.md` — 98 lines
 - `docs/en/docs/advanced/openapi-callbacks.md` — 187 lines
-- `docs/en/docs/advanced/additional-status-codes.md` — 42 lines
-- `docs/en/docs/advanced/advanced-dependencies.md` — 164 lines
-- `docs/en/docs/advanced/advanced-python-types.md` — 62 lines
-- `docs/en/docs/advanced/async-tests.md` — 100 lines
-- `docs/en/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/en/docs/advanced/openapi-webhooks.md` — 56 lines
+- `docs/en/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
+- `docs/en/docs/advanced/response-change-status-code.md` — 32 lines
+- `docs/en/docs/advanced/response-cookies.md` — 52 lines
+- `docs/en/docs/advanced/response-directly.md` — 84 lines
+- `docs/en/docs/advanced/response-headers.md` — 42 lines
+- `docs/en/docs/advanced/security/http-basic-auth.md` — 108 lines
 - `docs/en/docs/about/index.md` — 4 lines
-- `docs/en/docs/advanced/additional-responses.md` — 248 lines
-- `docs/en/data/translation_reviewers.yml` — 1876 lines
-- `docs/en/data/translators.yml` — 556 lines
-- `docs/en/docs/_llm-test.md` — 504 lines
 - `docs/en/data/github_sponsors.yml` — 389 lines
 - `docs/en/data/members.yml` — 23 lines
-- `docs/en/data/people.yml` — 711 lines
+- `docs/en/data/people.yml` — 691 lines
 - `docs/en/data/skip_users.yml` — 6 lines
 - `docs/en/data/sponsors.yml` — 71 lines
 - `docs/en/data/sponsors_badge.yml` — 51 lines
 - `docs/en/data/topic_repos.yml` — 496 lines
-- `docs/en/data/contributors.yml` — 581 lines
+- `docs/en/data/translation_reviewers.yml` — 1876 lines
+- `docs/en/data/translators.yml` — 556 lines
+- `docs/en/docs/_llm-test.md` — 504 lines
+- `docs/en/data/contributors.yml` — 591 lines
+- `docs/de/mkdocs.yml` — 2 lines
+- `docs/de/docs/tutorial/security/get-current-user.md` — 106 lines
+- `docs/de/docs/tutorial/security/index.md` — 107 lines
+- `docs/de/docs/tutorial/security/oauth2-jwt.md` — 278 lines
+- `docs/de/docs/tutorial/security/simple-oauth2.md` — 290 lines
+- `docs/de/docs/tutorial/server-sent-events.md` — 121 lines
+- `docs/de/docs/tutorial/sql-databases.md` — 358 lines
+- `docs/de/docs/tutorial/static-files.md` — 41 lines
+- `docs/de/docs/tutorial/stream-json-lines.md` — 112 lines
 - `docs/de/docs/tutorial/testing.md` — 195 lines
 - `docs/de/docs/virtual-environments.md` — 863 lines
 - `docs/de/llm-prompt.md` — 325 lines
-- `docs/de/mkdocs.yml` — 2 lines
-- `docs/de/docs/tutorial/security/oauth2-jwt.md` — 278 lines
-- `docs/de/docs/tutorial/security/simple-oauth2.md` — 290 lines
-- `docs/de/docs/tutorial/sql-databases.md` — 358 lines
-- `docs/de/docs/tutorial/static-files.md` — 41 lines
-- `docs/de/docs/tutorial/security/get-current-user.md` — 106 lines
-- `docs/de/docs/tutorial/security/index.md` — 107 lines
+- `docs/de/docs/tutorial/request-forms.md` — 74 lines
+- `docs/de/docs/tutorial/response-model.md` — 345 lines
+- `docs/de/docs/tutorial/response-status-code.md` — 102 lines
 - `docs/de/docs/tutorial/schema-extra-example.md` — 203 lines
 - `docs/de/docs/tutorial/security/first-steps.md` — 206 lines
-- `docs/de/docs/tutorial/request-form-models.md` — 79 lines
-- `docs/de/docs/tutorial/request-forms-and-files.md` — 42 lines
-- `docs/de/docs/tutorial/request-forms.md` — 74 lines
-- `docs/de/docs/tutorial/response-model.md` — 344 lines
-- `docs/de/docs/tutorial/response-status-code.md` — 102 lines
+- `docs/de/docs/tutorial/encoder.md` — 36 lines
+- `docs/de/docs/tutorial/extra-data-types.md` — 63 lines
+- `docs/de/docs/tutorial/extra-models.md` — 212 lines
+- `docs/de/docs/tutorial/first-steps.md` — 430 lines
+- `docs/de/docs/tutorial/handling-errors.md` — 245 lines
+- `docs/de/docs/tutorial/header-param-models.md` — 73 lines
+- `docs/de/docs/tutorial/header-params.md` — 92 lines
+- `docs/de/docs/tutorial/index.md` — 102 lines
+- `docs/de/docs/tutorial/metadata.md` — 121 lines
+- `docs/de/docs/tutorial/middleware.md` — 96 lines
+- `docs/de/docs/tutorial/path-operation-configuration.md` — 108 lines
+- `docs/de/docs/tutorial/path-params-numeric-validations.md` — 155 lines
 - `docs/de/docs/tutorial/path-params.md` — 252 lines
 - `docs/de/docs/tutorial/query-param-models.md` — 69 lines
 - `docs/de/docs/tutorial/query-params-str-validations.md` — 450 lines
 - `docs/de/docs/tutorial/query-params.md` — 188 lines
 - `docs/de/docs/tutorial/request-files.md` — 177 lines
-- `docs/de/docs/tutorial/handling-errors.md` — 245 lines
-- `docs/de/docs/tutorial/header-param-models.md` — 73 lines
-- `docs/de/docs/tutorial/header-params.md` — 92 lines
-- `docs/de/docs/tutorial/index.md` — 96 lines
-- `docs/de/docs/tutorial/metadata.md` — 121 lines
-- `docs/de/docs/tutorial/middleware.md` — 96 lines
-- `docs/de/docs/tutorial/path-operation-configuration.md` — 108 lines
-- `docs/de/docs/tutorial/path-params-numeric-validations.md` — 155 lines
-- `docs/de/docs/tutorial/dependencies/index.md` — 250 lines
-- `docs/de/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
-- `docs/de/docs/tutorial/encoder.md` — 36 lines
-- `docs/de/docs/tutorial/extra-data-types.md` — 63 lines
-- `docs/de/docs/tutorial/extra-models.md` — 212 lines
-- `docs/de/docs/tutorial/first-steps.md` — 381 lines
+- `docs/de/docs/tutorial/request-form-models.md` — 79 lines
+- `docs/de/docs/tutorial/request-forms-and-files.md` — 42 lines
 - `docs/de/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md` — 70 lines
 - `docs/de/docs/tutorial/dependencies/dependencies-with-yield.md` — 289 lines
 - `docs/de/docs/tutorial/dependencies/global-dependencies.md` — 17 lines
-- `docs/de/docs/tutorial/cookie-params.md` — 46 lines
-- `docs/de/docs/tutorial/cors.md` — 89 lines
-- `docs/de/docs/tutorial/debugging.md` — 114 lines
-- `docs/de/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
-- `docs/de/docs/tutorial/bigger-applications.md` — 505 lines
+- `docs/de/docs/tutorial/dependencies/index.md` — 250 lines
+- `docs/de/docs/tutorial/dependencies/sub-dependencies.md` — 106 lines
+- `docs/de/docs/tutorial/bigger-applications.md` — 536 lines
 - `docs/de/docs/tutorial/body-fields.md` — 60 lines
 - `docs/de/docs/tutorial/body-multiple-params.md` — 166 lines
 - `docs/de/docs/tutorial/body-nested-models.md` — 221 lines
 - `docs/de/docs/tutorial/body-updates.md` — 101 lines
 - `docs/de/docs/tutorial/body.md` — 166 lines
 - `docs/de/docs/tutorial/cookie-param-models.md` — 77 lines
-- `docs/de/docs/learn/index.md` — 6 lines
-- `docs/de/docs/project-generation.md` — 29 lines
-- `docs/de/docs/python-types.md` — 349 lines
+- `docs/de/docs/tutorial/cookie-params.md` — 46 lines
+- `docs/de/docs/tutorial/cors.md` — 89 lines
+- `docs/de/docs/tutorial/debugging.md` — 114 lines
+- `docs/de/docs/tutorial/dependencies/classes-as-dependencies.md` — 289 lines
 - `docs/de/docs/resources/index.md` — 4 lines
 - `docs/de/docs/translation-banner.md` — 12 lines
 - `docs/de/docs/tutorial/background-tasks.md` — 87 lines
-- `docs/de/docs/how-to/index.md` — 14 lines
-- `docs/de/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
-- `docs/de/docs/how-to/separate-openapi-schemas.md` — 103 lines
-- `docs/de/docs/how-to/testing-database.md` — 8 lines
-- `docs/de/docs/index.md` — 560 lines
 - `docs/de/docs/how-to/conditional-openapi.md` — 57 lines
 - `docs/de/docs/how-to/configure-swagger-ui.md` — 71 lines
 - `docs/de/docs/how-to/custom-docs-ui-assets.md` — 186 lines
 - `docs/de/docs/how-to/custom-request-and-route.md` — 110 lines
 - `docs/de/docs/how-to/extending-openapi.md` — 81 lines
-- `docs/de/docs/how-to/general.md` — 40 lines
+- `docs/de/docs/how-to/general.md` — 44 lines
 - `docs/de/docs/how-to/graphql.md` — 61 lines
-- `docs/de/docs/how-to/authentication-error-status-code.md` — 18 lines
-- `docs/de/docs/environment-variables.md` — 299 lines
-- `docs/de/docs/fastapi-cli.md` — 76 lines
+- `docs/de/docs/how-to/index.md` — 14 lines
+- `docs/de/docs/how-to/migrate-from-pydantic-v1-to-pydantic-v2.md` — 136 lines
+- `docs/de/docs/how-to/separate-openapi-schemas.md` — 103 lines
+- `docs/de/docs/how-to/testing-database.md` — 8 lines
+- `docs/de/docs/index.md` — 546 lines
+- `docs/de/docs/learn/index.md` — 6 lines
+- `docs/de/docs/project-generation.md` — 29 lines
+- `docs/de/docs/python-types.md` — 349 lines
+- `docs/de/docs/fastapi-cli.md` — 129 lines
 - `docs/de/docs/features.md` — 202 lines
 - `docs/de/docs/help-fastapi.md` — 257 lines
 - `docs/de/docs/history-design-future.md` — 80 lines
+- `docs/de/docs/how-to/authentication-error-status-code.md` — 18 lines
+- `docs/de/docs/deployment/concepts.md` — 322 lines
+- `docs/de/docs/deployment/docker.md` — 619 lines
+- `docs/de/docs/deployment/fastapicloud.md` — 66 lines
 - `docs/de/docs/deployment/https.md` — 232 lines
 - `docs/de/docs/deployment/index.md` — 24 lines
 - `docs/de/docs/deployment/manually.md` — 158 lines
 - `docs/de/docs/deployment/server-workers.md` — 140 lines
 - `docs/de/docs/deployment/versions.md` — 94 lines
-- `docs/de/docs/deployment/concepts.md` — 322 lines
-- `docs/de/docs/deployment/docker.md` — 619 lines
-- `docs/de/docs/deployment/fastapicloud.md` — 66 lines
-- `docs/de/docs/deployment/cloud.md` — 25 lines
-- `docs/de/docs/advanced/wsgi.md` — 52 lines
+- `docs/de/docs/editor-support.md` — 24 lines
+- `docs/de/docs/environment-variables.md` — 299 lines
 - `docs/de/docs/alternatives.md` — 486 lines
 - `docs/de/docs/async.md` — 445 lines
 - `docs/de/docs/benchmarks.md` — 35 lines
+- `docs/de/docs/deployment/cloud.md` — 25 lines
+- `docs/de/docs/advanced/security/index.md` — 20 lines
 - `docs/de/docs/advanced/settings.md` — 303 lines
+- `docs/de/docs/advanced/stream-data.md` — 118 lines
+- `docs/de/docs/advanced/strict-content-type.md` — 89 lines
 - `docs/de/docs/advanced/sub-applications.md` — 68 lines
 - `docs/de/docs/advanced/templates.md` — 127 lines
 - `docs/de/docs/advanced/testing-dependencies.md` — 55 lines
@@ -10688,35 +10700,35 @@ graph LR
 - `docs/de/docs/advanced/testing-websockets.md` — 14 lines
 - `docs/de/docs/advanced/using-request-directly.md` — 57 lines
 - `docs/de/docs/advanced/websockets.md` — 187 lines
-- `docs/de/docs/advanced/security/index.md` — 20 lines
-- `docs/de/docs/advanced/security/oauth2-scopes.md` — 275 lines
-- `docs/de/docs/advanced/response-directly.md` — 66 lines
-- `docs/de/docs/advanced/response-headers.md` — 42 lines
-- `docs/de/docs/advanced/security/http-basic-auth.md` — 108 lines
+- `docs/de/docs/advanced/wsgi.md` — 52 lines
 - `docs/de/docs/advanced/openapi-callbacks.md` — 187 lines
 - `docs/de/docs/advanced/openapi-webhooks.md` — 56 lines
 - `docs/de/docs/advanced/path-operation-advanced-configuration.md` — 173 lines
 - `docs/de/docs/advanced/response-change-status-code.md` — 32 lines
 - `docs/de/docs/advanced/response-cookies.md` — 52 lines
-- `docs/de/docs/advanced/custom-response.md` — 313 lines
-- `docs/de/docs/advanced/dataclasses.md` — 96 lines
-- `docs/de/docs/advanced/events.md` — 166 lines
-- `docs/de/docs/advanced/generate-clients.md` — 209 lines
-- `docs/de/docs/advanced/index.md` — 22 lines
-- `docs/de/docs/advanced/middleware.md` — 98 lines
+- `docs/de/docs/advanced/response-directly.md` — 84 lines
+- `docs/de/docs/advanced/response-headers.md` — 42 lines
+- `docs/de/docs/advanced/security/http-basic-auth.md` — 108 lines
 - `docs/de/docs/advanced/additional-status-codes.md` — 42 lines
 - `docs/de/docs/advanced/advanced-dependencies.md` — 164 lines
 - `docs/de/docs/advanced/advanced-python-types.md` — 62 lines
 - `docs/de/docs/advanced/async-tests.md` — 100 lines
 - `docs/de/docs/advanced/behind-a-proxy.md` — 467 lines
+- `docs/de/docs/advanced/custom-response.md` — 273 lines
+- `docs/de/docs/advanced/dataclasses.md` — 96 lines
+- `docs/de/docs/advanced/events.md` — 166 lines
+- `docs/de/docs/advanced/generate-clients.md` — 209 lines
+- `docs/de/docs/advanced/index.md` — 22 lines
+- `docs/de/docs/advanced/json-base64-bytes.md` — 64 lines
+- `docs/de/docs/advanced/middleware.md` — 98 lines
 - `docs/de/docs/about/index.md` — 4 lines
 - `docs/de/docs/advanced/additional-responses.md` — 248 lines
 - `docs/de/docs/_llm-test.md` — 504 lines
+- `README.md` — 549 lines
+- `SECURITY.md` — 32 lines
 - `.gitignore` — 33 lines
-- `.pre-commit-config.yaml` — 81 lines
+- `.pre-commit-config.yaml` — 88 lines
 - `.python-version` — 2 lines
 - `CITATION.cff` — 25 lines
 - `CONTRIBUTING.md` — 2 lines
-- `README.md` — 549 lines
-- `SECURITY.md` — 32 lines
 

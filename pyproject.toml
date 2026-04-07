@@ -1,0 +1,12 @@
+[project]
+name = "codectx-testing"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "codectx>=0.1.2",
+    "matplotlib>=3.10.8",
+    "pandas>=3.0.1",
+    "tiktoken>=0.12.0",
+]

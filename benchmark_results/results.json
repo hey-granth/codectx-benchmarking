@@ -1,62 +1,62 @@
 [
   {
     "repo":"fastapi",
-    "loc":32408,
-    "baseline_naive":224672,
-    "codectx_tokens":89750,
+    "loc":32351,
+    "baseline_naive":224451,
+    "codectx_tokens":78708,
     "files_represented":0,
-    "total_files":529,
+    "total_files":528,
     "coverage_percent":0.0,
-    "tokens_per_loc_naive":6.9326092323,
-    "tokens_per_loc_codectx":2.7693779314,
-    "reduction_percent":60.052877083
+    "tokens_per_loc_naive":6.9379926432,
+    "tokens_per_loc_codectx":2.4329387036,
+    "reduction_percent":64.9331034391
   },
   {
     "repo":"requests",
-    "loc":5634,
-    "baseline_naive":41353,
-    "codectx_tokens":6327,
+    "loc":5639,
+    "baseline_naive":41427,
+    "codectx_tokens":6336,
     "files_represented":0,
     "total_files":19,
     "coverage_percent":0.0,
-    "tokens_per_loc_naive":7.3399006035,
-    "tokens_per_loc_codectx":1.1230031949,
-    "reduction_percent":84.7000217638
+    "tokens_per_loc_naive":7.3465153396,
+    "tokens_per_loc_codectx":1.1236034758,
+    "reduction_percent":84.7056267652
   },
   {
     "repo":"typer",
     "loc":12798,
     "baseline_naive":80204,
-    "codectx_tokens":35992,
+    "codectx_tokens":35731,
     "files_represented":0,
     "total_files":324,
     "coverage_percent":0.0,
     "tokens_per_loc_naive":6.2669167057,
-    "tokens_per_loc_codectx":2.8123144241,
-    "reduction_percent":55.1244326966
+    "tokens_per_loc_codectx":2.7919206126,
+    "reduction_percent":55.4498528752
   },
   {
     "repo":"rich",
-    "loc":39002,
-    "baseline_naive":353919,
-    "codectx_tokens":28075,
+    "loc":39043,
+    "baseline_naive":354111,
+    "codectx_tokens":28193,
     "files_represented":0,
     "total_files":109,
     "coverage_percent":0.0,
-    "tokens_per_loc_naive":9.074380801,
-    "tokens_per_loc_codectx":0.7198348803,
-    "reduction_percent":92.0673939517
+    "tokens_per_loc_naive":9.0697692288,
+    "tokens_per_loc_codectx":0.722101273,
+    "reduction_percent":92.0383721488
   },
   {
     "repo":"httpx",
     "loc":8827,
     "baseline_naive":63731,
-    "codectx_tokens":4760,
+    "codectx_tokens":6716,
     "files_represented":0,
     "total_files":23,
     "coverage_percent":0.0,
     "tokens_per_loc_naive":7.2200067973,
-    "tokens_per_loc_codectx":0.5392545599,
-    "reduction_percent":92.5311073104
+    "tokens_per_loc_codectx":0.7608474,
+    "reduction_percent":89.4619572892
   }
 ]

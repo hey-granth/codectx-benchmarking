@@ -366,7 +366,13 @@ if __name__ == "__main__":  # pragma: no cover
   - `save_html()`
   - `export_svg()`
   - `save_svg()`
-- `_svg_hash()`
+
+**`rich/__init__.py`**
+- `get_console()`
+- `reconfigure()`
+- `print()`
+- `print_json()`
+- `inspect()`
 
 **`rich/text.py`**
 - class `Span`
@@ -423,6 +429,25 @@ if __name__ == "__main__":  # pragma: no cover
   - `detect_indentation()`
   - `with_indent_guides()`
 
+**`rich/table.py`**
+- class `Column`
+  - `copy()`
+- class `Row`
+- class `_Cell`
+- class `Table`
+  - `__init__()`
+  - `get_row_style()`
+  - `__rich_measure__()`
+  - `add_column()`
+  - `add_row()`
+  - `add_section()`
+  - `__rich_console__()`
+  - `_calculate_column_widths()`
+  - `_get_cells()`
+  - `_get_padding_width()`
+  - `_measure_column()`
+  - `_render()`
+
 **`rich/style.py`**
 - class `_Bit`
   - `__init__()`
@@ -446,89 +471,6 @@ if __name__ == "__main__":  # pragma: no cover
   - `__repr__()`
   - `push()`
   - `pop()`
-
-**`rich/segment.py`**
-- class `ControlType`
-- class `Segment`
-  - `__rich_repr__()`
-  - `__bool__()`
-  - `split_cells()`
-- class `Segments`
-  - `__init__()`
-  - `__rich_console__()`
-- class `SegmentLines`
-  - `__init__()`
-  - `__rich_console__()`
-
-**`rich/__init__.py`**
-- `get_console()`
-- `reconfigure()`
-- `print()`
-- `print_json()`
-- `inspect()`
-
-**`rich/table.py`**
-- class `Column`
-  - `copy()`
-- class `Row`
-- class `_Cell`
-- class `Table`
-  - `__init__()`
-  - `get_row_style()`
-  - `__rich_measure__()`
-  - `add_column()`
-  - `add_row()`
-  - `add_section()`
-  - `__rich_console__()`
-  - `_calculate_column_widths()`
-  - `_get_cells()`
-  - `_get_padding_width()`
-  - `_measure_column()`
-  - `_render()`
-
-**`rich/panel.py`**
-- class `Panel`
-  - `__init__()`
-  - `__rich_console__()`
-  - `__rich_measure__()`
-
-**`rich/measure.py`**
-- class `Measurement`
-  - `normalize()`
-  - `with_maximum()`
-  - `with_minimum()`
-  - `clamp()`
-- `measure_renderables()`
-
-**`rich/__main__.py`**
-- class `ColorBox`
-  - `__rich_console__()`
-  - `__rich_measure__()`
-- `make_test_card()`
-
-**`rich/jupyter.py`**
-- class `JupyterRenderable`
-  - `__init__()`
-  - `_repr_mimebundle_()`
-- class `JupyterMixin`
-  - `_repr_mimebundle_()`
-- `_render_segments()`
-- `display()`
-- `print()`
-
-**`rich/color.py`**
-- class `ColorSystem`
-  - `__repr__()`
-  - `__str__()`
-- class `ColorType`
-  - `__repr__()`
-- class `ColorParseError`
-- class `Color`
-  - `__rich__()`
-  - `__rich_repr__()`
-  - `get_truecolor()`
-- `parse_rgb_hex()`
-- `blend_rgb()`
 
 **`rich/pretty.py`**
 - `_is_attr_object()`
@@ -560,158 +502,11 @@ if __name__ == "__main__":  # pragma: no cover
 - `pretty_repr()`
 - `pprint()`
 
-**`rich/highlighter.py`**
-- `_combine_regex()`
-- class `Highlighter`
-  - `__call__()`
-- class `NullHighlighter`
-  - `highlight()`
-- class `RegexHighlighter`
-  - `highlight()`
-- class `ReprHighlighter`
-- class `JSONHighlighter`
-  - `highlight()`
-- class `ISO8601Highlighter`
-
-**`rich/syntax.py`**
-- class `SyntaxTheme`
-- class `PygmentsSyntaxTheme`
+**`rich/panel.py`**
+- class `Panel`
   - `__init__()`
-  - `get_style_for_token()`
-  - `get_background_style()`
-- class `ANSISyntaxTheme`
-  - `__init__()`
-  - `get_style_for_token()`
-  - `get_background_style()`
-- class `_SyntaxHighlightRange`
-- class `PaddingProperty`
-  - `__get__()`
-  - `__set__()`
-- class `Syntax`
-  - `__init__()`
-  - `_get_base_style()`
-  - `_get_token_color()`
-  - `highlight()`
-  - `stylize_range()`
-  - `_get_line_numbers_color()`
-  - `_get_number_styles()`
-  - `__rich_measure__()`
-  - `__rich_console__()`
-  - `_get_syntax()`
-  - `_apply_stylized_ranges()`
-  - `_process_code()`
-- `_get_code_index_for_syntax_position()`
-
-**`rich/align.py`**
-- class `Align`
-  - `__init__()`
-  - `__repr__()`
   - `__rich_console__()`
   - `__rich_measure__()`
-- class `VerticalCenter`
-  - `__init__()`
-  - `__repr__()`
-  - `__rich_console__()`
-  - `__rich_measure__()`
-
-**`rich/live.py`**
-- class `_RefreshThread`
-  - `__init__()`
-  - `stop()`
-  - `run()`
-- class `Live`
-  - `__init__()`
-  - `get_renderable()`
-  - `start()`
-  - `stop()`
-  - `__enter__()`
-  - `__exit__()`
-  - `_enable_redirect_io()`
-  - `_disable_redirect_io()`
-  - `update()`
-  - `refresh()`
-  - `process_renderables()`
-
-**`rich/_loop.py`**
-- `loop_first()`
-- `loop_last()`
-- `loop_first_last()`
-
-**`rich/markdown.py`**
-- class `MarkdownElement`
-  - `on_enter()`
-  - `on_text()`
-  - `on_leave()`
-  - `on_child_close()`
-  - `__rich_console__()`
-- class `UnknownElement`
-- class `TextElement`
-  - `on_enter()`
-  - `on_text()`
-  - `on_leave()`
-- class `Paragraph`
-  - `__init__()`
-  - `__rich_console__()`
-- class `HeadingFormat`
-- class `Heading`
-  - `on_enter()`
-  - `__init__()`
-  - `__rich_console__()`
-- class `CodeBlock`
-  - `__init__()`
-  - `__rich_console__()`
-- class `BlockQuote`
-  - `__init__()`
-  - `on_child_close()`
-  - `__rich_console__()`
-- class `HorizontalRule`
-  - `__rich_console__()`
-- class `TableElement`
-  - `__init__()`
-  - `on_child_close()`
-  - `__rich_console__()`
-- class `TableHeaderElement`
-  - `__init__()`
-  - `on_child_close()`
-- class `TableBodyElement`
-  - `__init__()`
-  - `on_child_close()`
-- class `TableRowElement`
-  - `__init__()`
-  - `on_child_close()`
-- class `TableDataElement`
-  - `__init__()`
-  - `on_text()`
-- class `ListElement`
-  - `__init__()`
-  - `on_child_close()`
-  - `__rich_console__()`
-- class `ListItem`
-  - `__init__()`
-  - `on_child_close()`
-  - `render_bullet()`
-  - `render_number()`
-- class `Link`
-  - `__init__()`
-- class `ImageItem`
-  - `__init__()`
-  - `on_enter()`
-  - `__rich_console__()`
-- class `MarkdownContext`
-  - `__init__()`
-  - `on_text()`
-  - `enter_style()`
-  - `leave_style()`
-- class `Markdown`
-  - `__init__()`
-  - `_flatten_tokens()`
-  - `__rich_console__()`
-
-**`rich/columns.py`**
-- class `Columns`
-  - `__init__()`
-  - `add_renderable()`
-  - `__rich_console__()`
 
 **`rich/progress.py`**
 - class `_TrackThread`
@@ -811,31 +606,263 @@ if __name__ == "__main__":  # pragma: no cover
   - `add_task()`
   - `remove_task()`
 
-**`rich/theme.py`**
-- class `Theme`
+**`rich/syntax.py`**
+- class `SyntaxTheme`
+- class `PygmentsSyntaxTheme`
   - `__init__()`
-- class `ThemeStackError`
-- class `ThemeStack`
+  - `get_style_for_token()`
+  - `get_background_style()`
+- class `ANSISyntaxTheme`
   - `__init__()`
-  - `push_theme()`
-  - `pop_theme()`
+  - `get_style_for_token()`
+  - `get_background_style()`
+- class `_SyntaxHighlightRange`
+- class `PaddingProperty`
+  - `__get__()`
+  - `__set__()`
+- class `Syntax`
+  - `__init__()`
+  - `_get_base_style()`
+  - `_get_token_color()`
+  - `highlight()`
+  - `stylize_range()`
+  - `_get_line_numbers_color()`
+  - `_get_number_styles()`
+  - `__rich_measure__()`
+  - `__rich_console__()`
+  - `_get_syntax()`
+  - `_apply_stylized_ranges()`
+  - `_process_code()`
+- `_get_code_index_for_syntax_position()`
 
-**`rich/repr.py`**
-- class `ReprError`
-- `auto()`
-- `auto()`
-- `auto()`
-- `rich_repr()`
-- `rich_repr()`
-- `rich_repr()`
+**`rich/segment.py`**
+- class `ControlType`
+- class `Segment`
+  - `__rich_repr__()`
+  - `__bool__()`
+  - `split_cells()`
+- class `Segments`
+  - `__init__()`
+  - `__rich_console__()`
+- class `SegmentLines`
+  - `__init__()`
+  - `__rich_console__()`
 
-**`rich/rule.py`**
-- class `Rule`
+**`rich/markup.py`**
+- class `Tag`
+  - `__str__()`
+- `escape()`
+- `_parse()`
+- `render()`
+
+**`rich/measure.py`**
+- class `Measurement`
+  - `normalize()`
+  - `with_maximum()`
+  - `with_minimum()`
+  - `clamp()`
+- `measure_renderables()`
+
+**`rich/jupyter.py`**
+- class `JupyterRenderable`
+  - `__init__()`
+  - `_repr_mimebundle_()`
+- class `JupyterMixin`
+  - `_repr_mimebundle_()`
+- `_render_segments()`
+- `display()`
+- `print()`
+
+**`rich/markdown.py`**
+- class `MarkdownElement`
+  - `on_enter()`
+  - `on_text()`
+  - `on_leave()`
+  - `on_child_close()`
+  - `__rich_console__()`
+- class `UnknownElement`
+- class `TextElement`
+  - `on_enter()`
+  - `on_text()`
+  - `on_leave()`
+- class `Paragraph`
+  - `__init__()`
+  - `__rich_console__()`
+- class `HeadingFormat`
+- class `Heading`
+  - `on_enter()`
+  - `__init__()`
+  - `__rich_console__()`
+- class `CodeBlock`
+  - `__init__()`
+  - `__rich_console__()`
+- class `BlockQuote`
+  - `__init__()`
+  - `on_child_close()`
+  - `__rich_console__()`
+- class `HorizontalRule`
+  - `__rich_console__()`
+- class `TableElement`
+  - `__init__()`
+  - `on_child_close()`
+  - `__rich_console__()`
+- class `TableHeaderElement`
+  - `__init__()`
+  - `on_child_close()`
+- class `TableBodyElement`
+  - `__init__()`
+  - `on_child_close()`
+- class `TableRowElement`
+  - `__init__()`
+  - `on_child_close()`
+- class `TableDataElement`
+  - `__init__()`
+  - `on_text()`
+- class `ListElement`
+  - `__init__()`
+  - `on_child_close()`
+  - `__rich_console__()`
+- class `ListItem`
+  - `__init__()`
+  - `on_child_close()`
+  - `render_bullet()`
+  - `render_number()`
+- class `Link`
+  - `__init__()`
+- class `ImageItem`
+  - `__init__()`
+  - `on_enter()`
+  - `__rich_console__()`
+- class `MarkdownContext`
+  - `__init__()`
+  - `on_text()`
+  - `enter_style()`
+  - `leave_style()`
+- class `Markdown`
+  - `__init__()`
+  - `_flatten_tokens()`
+  - `__rich_console__()`
+
+**`rich/__main__.py`**
+- class `ColorBox`
+  - `__rich_console__()`
+  - `__rich_measure__()`
+- `make_test_card()`
+
+**`rich/columns.py`**
+- class `Columns`
+  - `__init__()`
+  - `add_renderable()`
+  - `__rich_console__()`
+
+**`rich/color.py`**
+- class `ColorSystem`
+  - `__repr__()`
+  - `__str__()`
+- class `ColorType`
+  - `__repr__()`
+- class `ColorParseError`
+- class `Color`
+  - `__rich__()`
+  - `__rich_repr__()`
+  - `get_truecolor()`
+- `parse_rgb_hex()`
+- `blend_rgb()`
+
+**`rich/box.py`**
+- class `Box`
+  - `__init__()`
+  - `__repr__()`
+  - `__str__()`
+  - `substitute()`
+  - `get_plain_headed_box()`
+  - `get_top()`
+  - `get_row()`
+  - `get_bottom()`
+
+**`rich/emoji.py`**
+- class `NoEmoji`
+- class `Emoji`
+  - `__init__()`
+  - `__repr__()`
+  - `__str__()`
+  - `__rich_console__()`
+
+**`rich/status.py`**
+- class `Status`
+  - `__init__()`
+  - `update()`
+  - `start()`
+  - `stop()`
+  - `__rich__()`
+  - `__enter__()`
+  - `__exit__()`
+
+**`rich/highlighter.py`**
+- `_combine_regex()`
+- class `Highlighter`
+  - `__call__()`
+- class `NullHighlighter`
+  - `highlight()`
+- class `RegexHighlighter`
+  - `highlight()`
+- class `ReprHighlighter`
+- class `JSONHighlighter`
+  - `highlight()`
+- class `ISO8601Highlighter`
+
+**`rich/align.py`**
+- class `Align`
   - `__init__()`
   - `__repr__()`
   - `__rich_console__()`
-  - `_rule_line()`
   - `__rich_measure__()`
+- class `VerticalCenter`
+  - `__init__()`
+  - `__repr__()`
+  - `__rich_console__()`
+  - `__rich_measure__()`
+
+**`rich/tree.py`**
+- class `Tree`
+  - `__init__()`
+  - `add()`
+  - `__rich_console__()`
+  - `__rich_measure__()`
+
+**`rich/_inspect.py`**
+- `_first_paragraph()`
+- class `Inspect`
+  - `__init__()`
+  - `_make_title()`
+  - `__rich__()`
+  - `_get_signature()`
+  - `_render()`
+  - `_get_formatted_doc()`
+- `get_object_types_mro()`
+- `get_object_types_mro_as_strings()`
+- `is_object_one_of_types()`
+
+**`rich/live.py`**
+- class `_RefreshThread`
+  - `__init__()`
+  - `stop()`
+  - `run()`
+- class `Live`
+  - `__init__()`
+  - `get_renderable()`
+  - `start()`
+  - `stop()`
+  - `__enter__()`
+  - `__exit__()`
+  - `_enable_redirect_io()`
+  - `_disable_redirect_io()`
+  - `update()`
+  - `refresh()`
+  - `process_renderables()`
+
+**`rich/repr.py`**
+- class `ReprError`
 
 ## IMPORTANT_CALL_PATHS
 
@@ -855,46 +882,16 @@ __main__.ColorBox()
 
 **Functions:**
 - `def _is_jupyter() -> bool`
-- `def _svg_hash(svg_main_code: str) -> str`
 - `def detect_legacy_windows() -> bool`
 - `def get_windows_console_features() -> "WindowsConsoleFeatures"`
 - `def group(fit: bool = True) -> Callable[..., Callable[..., Group]]`
 
-### `rich/text.py`
-
-**Purpose:** Implements text.
-**Depends on:** `_loop`, `_pick`, `_wrap`, `align`, `ansi`, `cells`, `console`, `containers`, +7 more
-
-**Types:**
-- `Span` (bases: `NamedTuple`) - A marked up region in some text. methods: `__repr__`, `extend`, `move`, `right_crop`, `split`
-- `Text` (bases: `JupyterMixin`) - Text with color / style. methods: `__init__`, `__repr__`, `__str__`, `align`, `append`, `append_text` (+30 more)
-
-**Notes:** decorator-heavy (10 decorators); large file (1364 lines)
-
-### `rich/style.py`
-
-**Purpose:** Implements style.
-**Depends on:** `color`, `errors`, `repr`, `terminal_theme`
-
-**Types:**
-- `Style` - A terminal style. methods: `__init__`, `__str__`, `copy`, `render`, `test`, `update_link`
-- `StyleStack` - A stack of styles. methods: `__init__`, `__repr__`, `pop`, `push`
-- `_Bit` - A descriptor to get/set a style attribute bit. methods: `__init__`
-
-**Notes:** decorator-heavy (24 decorators); large file (793 lines)
-
-### `rich/segment.py`
-
-**Purpose:** Implements segment.
-**Depends on:** `cells`, `console`, `repr`, `style`, `syntax`, `text`
-
-**Types:**
-- `ControlType` (bases: `IntEnum`) - Non-printable control codes which typically translate to ANSI codes.
-- `Segment` (bases: `NamedTuple`) - A piece of text with associated style. Segments are produced by the Console render process and methods: `split_cells`
-- `SegmentLines` methods: `__init__`
-- `Segments` - A simple renderable to render an iterable of segments. This class may be useful if methods: `__init__`
-
-**Notes:** decorator-heavy (23 decorators); large file (784 lines)
+## Constants
+JUPYTER_DEFAULT_COLUMNS = 115
+JUPYTER_DEFAULT_LINES = 100
+WINDOWS = sys.platform == "win32"
+NO_CHANGE = NoChange()
+COLOR_SYSTEMS = <complex expression>
 
 ### `rich/__init__.py`
 
@@ -907,6 +904,21 @@ __main__.ColorBox()
 - `def print(*objects: Any, sep: str = " ", end: str = "\n", file: Optional[IO[str]] = None, ...) -> None`
 - `def print_json(json: Optional[str] = None, *, data: Any = None, indent: Union[None, int, str] = 2, ...) -> None`
 - `def reconfigure(*args: Any, **kwargs: Any) -> None`
+
+### `rich/text.py`
+
+**Purpose:** Implements text.
+**Depends on:** `_loop`, `_pick`, `_wrap`, `align`, `ansi`, `cells`, `console`, `containers`, +7 more
+
+**Types:**
+- `Span` (bases: `NamedTuple`) - A marked up region in some text. methods: `__repr__`, `extend`, `move`, `right_crop`, `split`
+- `Text` (bases: `JupyterMixin`) - Text with color / style. methods: `__init__`, `__repr__`, `__str__`, `align`, `append`, `append_text` (+30 more)
+
+## Constants
+DEFAULT_JUSTIFY: "JustifyMethod" = "default"
+DEFAULT_OVERFLOW: "OverflowMethod" = "fold"
+
+**Notes:** decorator-heavy (10 decorators); large file (1364 lines)
 
 ### `rich/table.py`
 
@@ -921,6 +933,35 @@ __main__.ColorBox()
 
 **Notes:** decorator-heavy (12 decorators); large file (1016 lines)
 
+### `rich/style.py`
+
+**Purpose:** Implements style.
+**Depends on:** `color`, `errors`, `repr`, `terminal_theme`
+
+**Types:**
+- `Style` - A terminal style. methods: `__init__`, `__str__`, `copy`, `render`, `test`, `update_link`
+- `StyleStack` - A stack of styles. methods: `__init__`, `__repr__`, `pop`, `push`
+- `_Bit` - A descriptor to get/set a style attribute bit. methods: `__init__`
+
+## Constants
+NULL_STYLE = Style()
+
+**Notes:** decorator-heavy (24 decorators); large file (797 lines)
+
+### `rich/pretty.py`
+
+**Purpose:** Implements pretty.
+**Depends on:** `_loop`, `_pick`, `abc`, `cells`, +6 more
+
+**Types:**
+- `Node` - A node in a repr tree. May be atomic or a container. methods: `__str__`, `check_length` (+2 more)
+
+**Functions:**
+- `def _get_attr_fields(obj: Any) -> Sequence["_attr_module.Attribute[Any]"]`
+- `def _get_braces_for_array(_object: "array[Any]") -> Tuple[str, str, str]`
+- `def _get_braces_for_defaultdict(_object: DefaultDict[Any, Any]) -> Tuple[str, str, str]`
+- `def _get_braces_for_deque(_object: Deque[Any]) -> Tuple[str, str, str]`
+
 ### `rich/panel.py`
 
 **Purpose:** Implements panel.
@@ -930,6 +971,60 @@ __main__.ColorBox()
 - `Panel` (bases: `JupyterMixin`) - A console renderable that draws a border around its contents. methods: `__init__`
 
 **Notes:** large file (318 lines)
+
+### `rich/progress.py`
+
+**Purpose:** Implements progress.
+**Depends on:** `console`, `filesize`, `highlighter`, `jupyter`, +9 more
+
+**Types:**
+- `BarColumn` (bases: `ProgressColumn`) - Renders a visual progress bar. methods: `__init__`, `render`
+
+**Functions:**
+- `def open(file: Union[str, "PathLike[str]", bytes], mode: Literal["rb"], ...) -> ContextManager[BinaryIO]`
+- `def open(file: Union[str, "PathLike[str]", bytes], ...) -> Union[ContextManager[BinaryIO], ContextManager[TextIO]]`
+- `def open(file: Union[str, "PathLike[str]", bytes], mode: Union[Literal["rt"], ...) -> ContextManager[TextIO]`
+- `def track(sequence: Iterable[ProgressType], description: str = "Working...", ...) -> Iterable[ProgressType]`
+
+### `rich/syntax.py`
+
+**Purpose:** Implements syntax.
+**Depends on:** `_loop`, `cells`, `color`, `console`, +7 more
+
+**Types:**
+- `ANSISyntaxTheme` (bases: `SyntaxTheme`) - Syntax theme to use standard colors. methods: `__init__`, `get_background_style` (+1 more)
+
+**Functions:**
+- `def _get_code_index_for_syntax_position(newlines_offsets: Sequence[int], position: SyntaxPosition) -> Optional[int]`
+
+## Constants
+WINDOWS = sys.platform == "win32"
+DEFAULT_THEME = "monokai"
+ANSI_LIGHT: Dict[TokenType, Style] = <complex expression>
+ANSI_DARK: Dict[TokenType, Style] = <complex expression>
+RICH_SYNTAX_THEMES = {"ansi_light": ANSI_LIGHT, "ansi_dark": ANSI_DARK}
+NUMBERS_COLUMN_DEFAULT_PADDING = 2
+
+### `rich/segment.py`
+
+**Purpose:** Implements segment.
+**Depends on:** `cells`, `console`, `repr`, `style`, `syntax`, `text`
+
+**Types:**
+- `ControlType` (bases: `IntEnum`) - Non-printable control codes which typically translate to ANSI codes.
+- `Segment` (bases: `NamedTuple`) - A piece of text with associated style. Segments are produced by the Console render process and methods: `split_cells`
+- `SegmentLines` methods: `__init__`
+- `Segments` - A simple renderable to render an iterable of segments. This class may be useful if methods: `__init__`
+
+**Notes:** decorator-heavy (23 decorators); large file (781 lines)
+
+### `rich/markup.py`
+
+**Purpose:** Implements markup.
+
+**Functions:**
+- `def _parse(markup: str) -> Iterable[Tuple[int, Optional[str], Optional[Tag]]]`
+  - Parse markup in to an iterable of tuples of (position, text, tag).
 
 ### `rich/measure.py`
 
@@ -959,35 +1054,68 @@ __main__.ColorBox()
 - `def print(*args: Any, **kwargs: Any) -> None`
   - Proxy for Console print.
 
+## Constants
+JUPYTER_HTML_FORMAT = <complex expression>
+
+### `rich/markdown.py`
+
+**Purpose:** Implements markdown.
+**Depends on:** `_loop`, `_stack`, `box`, `console`, `containers`, `jupyter`, +6 more
+
+**Types:**
+- `BlockQuote` (bases: `TextElement`) - A block quote. methods: `__init__`, `on_child_close`
+- `CodeBlock` (bases: `TextElement`) - A code block with syntax highlighting. methods: `__init__`
+- `Heading` (bases: `TextElement`) - A heading. methods: `__init__`, `on_enter`
+- `HeadingFormat`
+
+**Notes:** decorator-heavy (10 decorators); large file (803 lines)
+
+### `rich/columns.py`
+
+**Purpose:** Implements columns.
+**Depends on:** `align`, `console`, `constrain`, `jupyter`, `measure`, `padding`, `table`, `text`
+
+**Types:**
+- `Columns` (bases: `JupyterMixin`) - Display renderables in neat columns. methods: `__init__`, `add_renderable`
+
 ### `rich/color.py`
 
 **Purpose:** Implements color.
-**Depends on:** `_palettes`, `color_triplet`, `console`, `repr`, `style`, `table`, +2 more
+**Depends on:** `_palettes`, `color_triplet`, `console`, `repr`, `style`, +3 more
 
 **Types:**
 - `Color` (bases: `NamedTuple`) - Terminal color definition. methods: `get_truecolor`
 - `ColorParseError` (bases: `Exception`) - The color could not be parsed.
-- `ColorSystem` (bases: `IntEnum`) - One of the 3 color system supported by terminals. methods: `__repr__`, `__str__`
 
 **Functions:**
 - `def blend_rgb(     color1: ColorTriplet, color2: ColorTriplet, cross_fade: float = 0.5 ) -> ColorTriplet`
 - `def parse_rgb_hex(hex_color: str) -> ColorTriplet`
 
-**Notes:** decorator-heavy (12 decorators); large file (622 lines)
+## Constants
+WINDOWS = sys.platform == "win32"
+ANSI_COLOR_NAMES = <complex expression>
+RE_COLOR = <complex expression>
 
-### `rich/pretty.py`
+### `rich/box.py`
 
-**Purpose:** Implements pretty.
-**Depends on:** `_loop`, `_pick`, `abc`, `cells`, +6 more
+**Purpose:** Implements box.
+
+### `rich/emoji.py`
+
+**Purpose:** Implements emoji.
+**Depends on:** `_emoji_codes`, `_emoji_replace`, `columns`, `console`, `jupyter`, `segment`, `style`
 
 **Types:**
-- `Node` - A node in a repr tree. May be atomic or a container. methods: `__str__`, `check_length` (+2 more)
+- `Emoji` (bases: `JupyterMixin`) methods: `__init__`, `__repr__`, `__str__`
+- `NoEmoji` (bases: `Exception`) - No emoji by that name.
 
-**Functions:**
-- `def _get_attr_fields(obj: Any) -> Sequence["_attr_module.Attribute[Any]"]`
-- `def _get_braces_for_array(_object: "array[Any]") -> Tuple[str, str, str]`
-- `def _get_braces_for_defaultdict(_object: DefaultDict[Any, Any]) -> Tuple[str, str, str]`
-- `def _get_braces_for_deque(_object: Deque[Any]) -> Tuple[str, str, str]`
+### `rich/status.py`
+
+**Purpose:** Implements status.
+**Depends on:** `console`, `jupyter`, `live`, `spinner`, `style`
+
+**Types:**
+- `Status` (bases: `JupyterMixin`) - Displays a status indicator with a 'spinner' animation. methods: `__init__`, `start`, `stop`, `update`
 
 ### `rich/highlighter.py`
 
@@ -1004,21 +1132,6 @@ __main__.ColorBox()
 - `def _combine_regex(*regexes: str) -> str`
   - Combine a number of regexes in to a single regex.
 
-### `rich/syntax.py`
-
-**Purpose:** Implements syntax.
-**Depends on:** `_loop`, `cells`, `color`, `console`, `containers`, `jupyter`, +5 more
-
-**Types:**
-- `ANSISyntaxTheme` (bases: `SyntaxTheme`) - Syntax theme to use standard colors. methods: `__init__`, `get_background_style`, `get_style_for_token`
-- `PaddingProperty` - Descriptor to get and set padding.
-- `PygmentsSyntaxTheme` (bases: `SyntaxTheme`) - Syntax theme that delegates to Pygments theme. methods: `__init__`, `get_background_style`, `get_style_for_token`
-
-**Functions:**
-- `def _get_code_index_for_syntax_position(newlines_offsets: Sequence[int], position: SyntaxPosition) -> Optional[int]`
-
-**Notes:** decorator-heavy (8 decorators); large file (986 lines)
-
 ### `rich/align.py`
 
 **Purpose:** Implements align.
@@ -1030,6 +1143,28 @@ __main__.ColorBox()
 
 **Notes:** large file (321 lines)
 
+### `rich/tree.py`
+
+**Purpose:** Implements tree.
+**Depends on:** `_loop`, `console`, `jupyter`, `markdown`, `measure`, `panel`, `segment`, `style`, +3 more
+
+**Types:**
+- `Tree` (bases: `JupyterMixin`) - A renderable for a tree structure. methods: `__init__`, `add`
+
+### `rich/_inspect.py`
+
+**Purpose:** Implements inspect.
+**Depends on:** `console`, `control`, `highlighter`, `jupyter`, `panel`, `pretty`, +2 more
+
+**Types:**
+- `Inspect` (bases: `JupyterMixin`) - A renderable to inspect any Python Object. methods: `__init__`
+
+**Functions:**
+- `def _first_paragraph(doc: str) -> str`
+- `def get_object_types_mro(obj: Union[object, Type[Any]]) -> Tuple[type, ...]`
+- `def get_object_types_mro_as_strings(obj: object) -> Collection[str]`
+- `def is_object_one_of_types(     obj: object, fully_qualified_types_names: Collection[str] ) -> bool`
+
 ### `rich/live.py`
 
 **Purpose:** Implements live.
@@ -1040,63 +1175,6 @@ __main__.ColorBox()
 - `_RefreshThread` (bases: `Thread`) - A thread that calls refresh() at regular intervals. methods: `__init__`, `run`, `stop`
 
 **Notes:** large file (405 lines)
-
-### `rich/_loop.py`
-
-**Purpose:** Implements loop.
-
-**Functions:**
-- `def loop_first(values: Iterable[T]) -> Iterable[Tuple[bool, T]]`
-  - Iterate and generate a tuple with a flag for first value.
-- `def loop_first_last(values: Iterable[T]) -> Iterable[Tuple[bool, bool, T]]`
-  - Iterate and generate a tuple with a flag for first and last value.
-- `def loop_last(values: Iterable[T]) -> Iterable[Tuple[bool, T]]`
-  - Iterate and generate a tuple with a flag for last value.
-
-### `rich/markdown.py`
-
-**Purpose:** Implements markdown.
-**Depends on:** `_loop`, `_stack`, `box`, `console`, `containers`, `jupyter`, +6 more
-
-**Types:**
-- `BlockQuote` (bases: `TextElement`) - A block quote. methods: `__init__`, `on_child_close`
-- `CodeBlock` (bases: `TextElement`) - A code block with syntax highlighting. methods: `__init__`
-- `Heading` (bases: `TextElement`) - A heading. methods: `__init__`, `on_enter`
-- `HeadingFormat`
-
-**Notes:** decorator-heavy (10 decorators); large file (794 lines)
-
-### `rich/columns.py`
-
-**Purpose:** Implements columns.
-**Depends on:** `align`, `console`, `constrain`, `jupyter`, `measure`, `padding`, `table`, `text`
-
-**Types:**
-- `Columns` (bases: `JupyterMixin`) - Display renderables in neat columns. methods: `__init__`, `add_renderable`
-
-### `rich/progress.py`
-
-**Purpose:** Implements progress.
-**Depends on:** `console`, `filesize`, `highlighter`, `jupyter`, +9 more
-
-**Types:**
-- `BarColumn` (bases: `ProgressColumn`) - Renders a visual progress bar. methods: `__init__`, `render`
-
-**Functions:**
-- `def open(file: Union[str, "PathLike[str]", bytes], mode: Literal["rb"], ...) -> ContextManager[BinaryIO]`
-- `def open(file: Union[str, "PathLike[str]", bytes], ...) -> Union[ContextManager[BinaryIO], ContextManager[TextIO]]`
-- `def open(file: Union[str, "PathLike[str]", bytes], mode: Union[Literal["rt"], ...) -> ContextManager[TextIO]`
-- `def track(sequence: Iterable[ProgressType], description: str = "Working...", ...) -> Iterable[ProgressType]`
-
-### `rich/theme.py`
-
-**Purpose:** Implements theme.
-**Depends on:** `default_styles`, `style`
-
-**Types:**
-- `Theme` - A container for style information, used by :class:`~rich.console.Console`. methods: `__init__`
-- `ThemeStack` - A stack of themes. methods: `__init__`, `pop_theme`, `push_theme`
-- `ThemeStackError` (bases: `Exception`) - Base exception for errors related to the theme stack.
 
 ### `rich/repr.py`
 
@@ -1111,16 +1189,64 @@ __main__.ColorBox()
 - `def auto(*, angular: bool = False) -> Callable[[Type[T]], Type[T]]`
 - `def auto(cls: Optional[Type[T]]) -> Type[T]`
 - `def rich_repr(cls: Optional[Type[T]] = None, *, ...) -> Union[Type[T], Callable[[Type[T]], Type[T]]]`
-- `def rich_repr(*, angular: bool = False) -> Callable[[Type[T]], Type[T]]`
-- `def rich_repr(cls: Optional[Type[T]]) -> Type[T]`
 
-### `rich/rule.py`
+## Constants
+T = TypeVar("T")
 
-**Purpose:** Implements rule.
-**Depends on:** `align`, `cells`, `console`, `jupyter`, `measure`, `style`, `text`
+### `rich/traceback.py`
+
+**Purpose:** Implements traceback.
+**Depends on:** `_loop`, `columns`, `console`, `constrain`, `highlighter`, `panel`, +6 more
 
 **Types:**
-- `Rule` (bases: `JupyterMixin`) - A console renderable to draw a horizontal rule (line). methods: `__init__`, `__repr__`
+- `Frame`
+- `PathHighlighter` (bases: `RegexHighlighter`)
+- `Stack`
+
+**Functions:**
+- `def _iter_syntax_lines(     start: SyntaxPosition, end: SyntaxPosition ) -> Iterable[Tuple[int, int, int]]`
+- `def install(...),     max_frames: int = 100, ) -> Callable[[Type[BaseException], BaseException, Optional[TracebackType]], Any]`
+
+## Constants
+WINDOWS = sys.platform == "win32"
+LOCALS_MAX_LENGTH = 10
+LOCALS_MAX_STRING = 80
+
+**Notes:** decorator-heavy (10 decorators); large file (925 lines)
+
+### `rich/theme.py`
+
+**Purpose:** Implements theme.
+**Depends on:** `default_styles`, `style`
+
+**Types:**
+- `Theme` - A container for style information, used by :class:`~rich.console.Console`. methods: `__init__`
+- `ThemeStack` - A stack of themes. methods: `__init__`, `pop_theme`, `push_theme`
+- `ThemeStackError` (bases: `Exception`) - Base exception for errors related to the theme stack.
+
+### `rich/_loop.py`
+
+**Purpose:** Implements loop.
+
+**Functions:**
+- `def loop_first(values: Iterable[T]) -> Iterable[Tuple[bool, T]]`
+  - Iterate and generate a tuple with a flag for first value.
+- `def loop_first_last(values: Iterable[T]) -> Iterable[Tuple[bool, bool, T]]`
+  - Iterate and generate a tuple with a flag for first and last value.
+- `def loop_last(values: Iterable[T]) -> Iterable[Tuple[bool, T]]`
+  - Iterate and generate a tuple with a flag for last value.
+
+## Constants
+T = TypeVar("T")
+
+### `rich/diagnose.py`
+
+**Purpose:** Implements diagnose.
+**Depends on:** `console`, `panel`, `pretty`
+
+**Functions:**
+- `def report() -> None`
+  - Print a report to the terminal with debugging information
 
 ### `rich/padding.py`
 
@@ -1139,6 +1265,65 @@ __main__.ColorBox()
 - `Pager` (bases: `ABC`) - Base class for a pager.
 - `SystemPager` (bases: `Pager`) - Uses the pager installed on the system. methods: `show`
 
+### `rich/palette.py`
+
+**Purpose:** Implements palette.
+**Depends on:** `color`, `color_triplet`, `console`, `segment`, `style`, `table`, `text`
+
+**Types:**
+- `Palette` - A palette of available colors. methods: `__init__`
+
+### `rich/containers.py`
+
+**Purpose:** Implements containers.
+**Depends on:** `cells`, `console`, `measure`, `text`
+
+**Types:**
+- `Lines` - A list subclass which can render to the console. methods: `__init__`, `__repr__`, `append`, `extend`, `justify`, `pop`
+- `Renderables` - A list subclass which renders its contents to the console. methods: `__init__`, `append`
+
+## Constants
+T = TypeVar("T")
+
+### `rich/errors.py`
+
+**Purpose:** Implements errors.
+
+**Types:**
+- `ConsoleError` (bases: `Exception`) - An error in console operation.
+- `LiveError` (bases: `ConsoleError`) - Error related to Live display.
+- `MarkupError` (bases: `ConsoleError`) - Markup was badly formatted.
+- `MissingStyle` (bases: `StyleError`) - No such style.
+- `NoAltScreen` (bases: `ConsoleError`) - Alt screen mode was required.
+- `NotRenderableError` (bases: `ConsoleError`) - Object is not renderable.
+
+### `rich/rule.py`
+
+**Purpose:** Implements rule.
+**Depends on:** `align`, `cells`, `console`, `jupyter`, `measure`, `style`, `text`
+
+**Types:**
+- `Rule` (bases: `JupyterMixin`) - A console renderable to draw a horizontal rule (line). methods: `__init__`, `__repr__`
+
+### `rich/spinner.py`
+
+**Purpose:** Implements spinner.
+**Depends on:** `_spinners`, `console`, `live`, `measure`, `style`, `table`, `text`
+
+**Types:**
+- `Spinner` - A spinner animation. methods: `__init__`, `render`, `update`
+
+### `rich/_wrap.py`
+
+**Purpose:** Implements wrap.
+**Depends on:** `_loop`, `cells`, `console`
+
+**Functions:**
+- `def divide_line(text: str, width: int, fold: bool = True) -> list[int]`
+  - Given a string of text, and a width (measured in cells), return a list
+- `def words(text: str) -> Iterable[tuple[int, int, str]]`
+  - Yields each word from the text as a tuple
+
 ### `rich/control.py`
 
 **Purpose:** Implements control.
@@ -1153,84 +1338,22 @@ __main__.ColorBox()
 - `def strip_control_codes(     text: str, _translate_table: Dict[int, None] = _CONTROL_STRIP_TRANSLATE ) -> str`
   - Remove control codes from text.
 
+## Constants
+STRIP_CONTROL_CODES: Final = <complex expression>
+CONTROL_ESCAPE: Final = <complex expression>
+CONTROL_CODES_FORMAT: Dict[int, Callable[..., str]] = <complex expression>
+
 **Notes:** decorator-heavy (9 decorators)
 
-### `rich/traceback.py`
+### `rich/logging.py`
 
-**Purpose:** Implements traceback.
-**Depends on:** `_loop`, `columns`, `console`, `constrain`, `highlighter`, `panel`, +6 more
-
-**Types:**
-- `Frame`
-- `PathHighlighter` (bases: `RegexHighlighter`)
-- `Stack`
-- `Trace`
-
-**Functions:**
-- `def _iter_syntax_lines(     start: SyntaxPosition, end: SyntaxPosition ) -> Iterable[Tuple[int, int, int]]`
-  - Yield start and end positions per line.
-- `def install(...),     max_frames: int = 100, ) -> Callable[[Type[BaseException], BaseException, Optional[TracebackType]], Any]`
-  - Install a rich traceback handler.
-
-**Notes:** decorator-heavy (10 decorators); large file (925 lines)
-
-### `rich/errors.py`
-
-**Purpose:** Implements errors.
+**Purpose:** Implements logging.
+**Depends on:** `_log_render`, `_null_file`, `console`, `highlighter`, `text`, `traceback`
 
 **Types:**
-- `ConsoleError` (bases: `Exception`) - An error in console operation.
-- `LiveError` (bases: `ConsoleError`) - Error related to Live display.
-- `MarkupError` (bases: `ConsoleError`) - Markup was badly formatted.
-- `MissingStyle` (bases: `StyleError`) - No such style.
-- `NoAltScreen` (bases: `ConsoleError`) - Alt screen mode was required.
-- `NotRenderableError` (bases: `ConsoleError`) - Object is not renderable.
+- `RichHandler` (bases: `Handler`) - A logging handler that renders output with Rich. The time / level / message and file are displayed in columns. methods: `__init__`, `emit`, `get_level_text`, `render`, `render_message`
 
-### `rich/spinner.py`
-
-**Purpose:** Implements spinner.
-**Depends on:** `_spinners`, `console`, `live`, `measure`, `style`, `table`, `text`
-
-**Types:**
-- `Spinner` - A spinner animation. methods: `__init__`, `render`, `update`
-
-### `rich/terminal_theme.py`
-
-**Purpose:** Implements terminal theme.
-**Depends on:** `color_triplet`, `palette`
-
-**Types:**
-- `TerminalTheme` - A color theme used when exporting console content. methods: `__init__`
-
-### `rich/color_triplet.py`
-
-**Purpose:** Implements color triplet.
-
-**Types:**
-- `ColorTriplet` (bases: `NamedTuple`) - The red, green, and blue components of a color.
-
-### `rich/containers.py`
-
-**Purpose:** Implements containers.
-**Depends on:** `cells`, `console`, `measure`, `text`
-
-**Types:**
-- `Lines` - A list subclass which can render to the console. methods: `__init__`, `__repr__`, `append`, `extend`, `justify`, `pop`
-- `Renderables` - A list subclass which renders its contents to the console. methods: `__init__`, `append`
-
-### `rich/_win32_console.py`
-
-**Purpose:** Light wrapper around the Win32 Console API - this module should only be imported on Windows
-**Depends on:** `color`, `console`, `style`
-
-**Types:**
-- `CONSOLE_CURSOR_INFO` (bases: `ctypes.Structure`)
-
-**Functions:**
-- `def FillConsoleOutputAttribute(std_handle: wintypes.HANDLE, attributes: int, length: int, ...) -> int`
-- `def FillConsoleOutputCharacter(std_handle: wintypes.HANDLE, char: str, length: int, ...) -> int`
-- `def GetConsoleCursorInfo(     std_handle: wintypes.HANDLE, cursor_info: CONSOLE_CURSOR_INFO ) -> bool`
-- `def GetConsoleMode(std_handle: wintypes.HANDLE) -> int`
+**Notes:** large file (306 lines)
 
 ### `rich/styled.py`
 
@@ -1240,69 +1363,61 @@ __main__.ColorBox()
 **Types:**
 - `Styled` - Apply a style to a renderable. methods: `__init__`
 
-### `rich/markup.py`
+### `rich/terminal_theme.py`
 
-**Purpose:** Implements markup.
-**Depends on:** `_emoji_replace`, `emoji`, `errors`, `style`, `table`, `text`
-
-**Types:**
-- `Tag` (bases: `NamedTuple`) - A tag in console markup. methods: `__str__`
-
-**Functions:**
-- `def _parse(markup: str) -> Iterable[Tuple[int, Optional[str], Optional[Tag]]]`
-- `def escape(     markup: str,     _escape: _EscapeSubMethod = re.compile(r"(\\*)(\[[a-z#/@][^[]*?])").sub, ) -> str`
-- `def render(markup: str, style: Union[str, Style] = "", emoji: bool = True, ...) -> Text`
-
-### `rich/tree.py`
-
-**Purpose:** Implements tree.
-**Depends on:** `_loop`, `console`, `jupyter`, `markdown`, `measure`, `panel`, `segment`, `style`, +3 more
+**Purpose:** Implements terminal theme.
+**Depends on:** `color_triplet`, `palette`
 
 **Types:**
-- `Tree` (bases: `JupyterMixin`) - A renderable for a tree structure. methods: `__init__`, `add`
+- `TerminalTheme` - A color theme used when exporting console content. methods: `__init__`
 
-### `rich/box.py`
+## Constants
+DEFAULT_TERMINAL_THEME = <complex expression>
+MONOKAI = <complex expression>
+DIMMED_MONOKAI = <complex expression>
+NIGHT_OWLISH = <complex expression>
+SVG_EXPORT_THEME = <complex expression>
 
-**Purpose:** Implements box.
-**Depends on:** `_loop`, `box`, `columns`, `console`, `panel`, `table`, `text`
+### `rich/json.py`
 
-**Types:**
-- `Box` - Defines characters to render boxes. methods: `__init__`, `__repr__`, `__str__`, `get_bottom`, `get_plain_headed_box`, `get_row` (+2 more)
-
-**Notes:** large file (475 lines)
-
-### `rich/constrain.py`
-
-**Purpose:** Implements constrain.
-**Depends on:** `console`, `jupyter`, `measure`
+**Purpose:** Implements json.
+**Depends on:** `console`, `highlighter`, `text`
 
 **Types:**
-- `Constrain` (bases: `JupyterMixin`) - Constrain the width of a renderable to a given number of characters. methods: `__init__`
+- `JSON` - A renderable which pretty prints JSON. methods: `__init__`
 
-### `rich/emoji.py`
+### `rich/layout.py`
 
-**Purpose:** Implements emoji.
-**Depends on:** `_emoji_codes`, `_emoji_replace`, `columns`, `console`, `jupyter`, `segment`, `style`
-
-**Types:**
-- `Emoji` (bases: `JupyterMixin`) methods: `__init__`, `__repr__`, `__str__`
-- `NoEmoji` (bases: `Exception`) - No emoji by that name.
-
-### `rich/cells.py`
-
-**Purpose:** Implements cells.
-**Depends on:** `_unicode_data`
+**Purpose:** Implements layout.
+**Depends on:** `_ratio`, `align`, `console`, `highlighter`, `panel`, `pretty`, +7 more
 
 **Types:**
-- `CellTable` (bases: `NamedTuple`) - Contains unicode data required to measure the cell widths of glyphs.
+- `ColumnSplitter` (bases: `Splitter`) - Split a layout region in to columns. methods: `divide`, `get_tree_icon`
+- `Layout` - A renderable to divide a fixed height in to rows or columns. methods: `__init__`, `add_split`, `get`, `refresh_screen` (+6 more)
+- `LayoutError` (bases: `Exception`) - Layout related error.
+- `LayoutRender` (bases: `NamedTuple`) - An individual layout render.
 
-**Functions:**
-- `def _cell_len(text: str, unicode_version: str) -> int`
-- `def _split_text(     text: str, cell_position: int, unicode_version: str = "auto" ) -> tuple[str, str]`
-- `def cached_cell_len(text: str, unicode_version: str = "auto") -> int`
-- `def cell_len(text: str, unicode_version: str = "auto") -> int`
-- `def chop_cells(text: str, width: int, unicode_version: str = "auto") -> list[str]`
-- `def get_character_cell_size(character: str, unicode_version: str = "auto") -> int`
+**Notes:** decorator-heavy (7 decorators); large file (443 lines)
+
+### `rich/bar.py`
+
+**Purpose:** Implements bar.
+**Depends on:** `color`, `console`, `jupyter`, `measure`, `segment`, `style`
+
+**Types:**
+- `Bar` (bases: `JupyterMixin`) - Renders a solid block bar. methods: `__init__`, `__repr__`
+
+## Constants
+BEGIN_BLOCK_ELEMENTS = ["█", "█", "█", "▐", "▐", "▐", "▕", "▕"]
+END_BLOCK_ELEMENTS = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉"]
+FULL_BLOCK = "█"
+
+### `rich/color_triplet.py`
+
+**Purpose:** Implements color triplet.
+
+**Types:**
+- `ColorTriplet` (bases: `NamedTuple`) - The red, green, and blue components of a color.
 
 ### `rich/progress_bar.py`
 
@@ -1311,6 +1426,9 @@ __main__.ColorBox()
 
 **Types:**
 - `ProgressBar` (bases: `JupyterMixin`) - Renders a (progress) bar. Used by rich.progress. methods: `__init__`, `__repr__`, `update`
+
+## Constants
+PULSE_SIZE = 20
 
 ### `rich/protocol.py`
 
@@ -1330,49 +1448,24 @@ __main__.ColorBox()
 **Types:**
 - `Region` (bases: `NamedTuple`) - Defines a rectangular region of the screen.
 
-### `rich/screen.py`
+### `rich/_win32_console.py`
 
-**Purpose:** Implements screen.
-**Depends on:** `_loop`, `console`, `segment`, `style`
-
-**Types:**
-- `Screen` - A renderable that fills the terminal screen and crops excess. methods: `__init__`
-
-### `rich/status.py`
-
-**Purpose:** Implements status.
-**Depends on:** `console`, `jupyter`, `live`, `spinner`, `style`
+**Purpose:** Light wrapper around the Win32 Console API - this module should only be imported on Windows
+**Depends on:** `color`, `console`, `style`
 
 **Types:**
-- `Status` (bases: `JupyterMixin`) - Displays a status indicator with a 'spinner' animation. methods: `__init__`, `start`, `stop`, `update`
-
-### `rich/layout.py`
-
-**Purpose:** Implements layout.
-**Depends on:** `_ratio`, `align`, `console`, `highlighter`, `panel`, `pretty`, +7 more
-
-**Types:**
-- `ColumnSplitter` (bases: `Splitter`) - Split a layout region in to columns. methods: `divide`, `get_tree_icon`
-- `Layout` - A renderable to divide a fixed height in to rows or columns. methods: `__init__`, `add_split`, `get`, `refresh_screen` (+6 more)
-- `LayoutError` (bases: `Exception`) - Layout related error.
-- `LayoutRender` (bases: `NamedTuple`) - An individual layout render.
-
-**Notes:** decorator-heavy (7 decorators); large file (443 lines)
-
-### `rich/_null_file.py`
-
-**Purpose:** Implements null file.
-
-**Types:**
-- `NullFile` (bases: `IO[str]`) methods: `close`, `fileno`, `flush`, `isatty`, `read`, `readable` (+9 more)
-
-### `rich/_pick.py`
-
-**Purpose:** Implements pick.
+- `CONSOLE_CURSOR_INFO` (bases: `ctypes.Structure`)
 
 **Functions:**
-- `def pick_bool(*values: Optional[bool]) -> bool`
-  - Pick the first non-none bool or return the last value.
+- `def FillConsoleOutputAttribute(std_handle: wintypes.HANDLE, attributes: int, length: int, ...) -> int`
+- `def FillConsoleOutputCharacter(std_handle: wintypes.HANDLE, char: str, length: int, ...) -> int`
+- `def GetConsoleCursorInfo(     std_handle: wintypes.HANDLE, cursor_info: CONSOLE_CURSOR_INFO ) -> bool`
+- `def GetConsoleMode(std_handle: wintypes.HANDLE) -> int`
+
+## Constants
+STDOUT = -11
+ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4
+COORD = wintypes._COORD
 
 ### `rich/_ratio.py`
 
@@ -1389,6 +1482,36 @@ __main__.ColorBox()
 - `def ratio_resolve(total: int, edges: Sequence[Edge]) -> List[int]`
   - Divide total space to satisfy size, ratio, and minimum_size, constraints.
 
+### `rich/prompt.py`
+
+**Purpose:** Implements prompt.
+**Depends on:** `console`, `text`
+
+**Types:**
+- `Confirm` (bases: `PromptBase[bool]`) - A yes / no confirmation prompt. methods: `process_response`, `render_default`
+- `FloatPrompt` (bases: `PromptBase[float]`) - A prompt that returns a float.
+- `IntPrompt` (bases: `PromptBase[int]`) - A prompt that returns an integer.
+- `InvalidResponse` (bases: `PromptError`) - Exception to indicate a response was invalid. Raise this within process_response() to indicate an error methods: `__init__`
+
+**Notes:** decorator-heavy (8 decorators); large file (401 lines)
+
+### `rich/scope.py`
+
+**Purpose:** Implements scope.
+**Depends on:** `console`, `highlighter`, `panel`, `pretty`, `table`, `text`
+
+**Functions:**
+- `def render_scope(scope: "Mapping[str, Any]", *, title: Optional[TextType] = None, ...) -> "ConsoleRenderable"`
+  - Render python variables in a given scope.
+
+### `rich/screen.py`
+
+**Purpose:** Implements screen.
+**Depends on:** `_loop`, `console`, `segment`, `style`
+
+**Types:**
+- `Screen` - A renderable that fills the terminal screen and crops excess. methods: `__init__`
+
 ### `rich/ansi.py`
 
 **Purpose:** Implements ansi.
@@ -1402,22 +1525,59 @@ __main__.ColorBox()
 - `def _ansi_tokenize(ansi_text: str) -> Iterable[_AnsiToken]`
   - Tokenize a string in to plain text and ANSI codes.
 
-### `rich/scope.py`
+## Constants
+SGR_STYLE_MAP = <complex expression>
 
-**Purpose:** Implements scope.
-**Depends on:** `console`, `highlighter`, `panel`, `pretty`, `table`, `text`
+### `rich/constrain.py`
 
-**Functions:**
-- `def render_scope(scope: "Mapping[str, Any]", *, title: Optional[TextType] = None, ...) -> "ConsoleRenderable"`
-  - Render python variables in a given scope.
-
-### `rich/json.py`
-
-**Purpose:** Implements json.
-**Depends on:** `console`, `highlighter`, `text`
+**Purpose:** Implements constrain.
+**Depends on:** `console`, `jupyter`, `measure`
 
 **Types:**
-- `JSON` - A renderable which pretty prints JSON. methods: `__init__`
+- `Constrain` (bases: `JupyterMixin`) - Constrain the width of a renderable to a given number of characters. methods: `__init__`
+
+### `tools/make_emoji.py`
+
+**Purpose:** Implements make emoji.
+
+## Constants
+emoji = {k.lower().strip(":"): v for k, v in EMOJI_ALIAS_UNICODE.items()}
+
+### `tools/profile_divide.py`
+
+**Purpose:** Implements profile divide.
+
+## Constants
+text = <complex expression>
+segments = [Segment(text[n : n + 7]) for n in range(0, len(text), 7)]
+start = perf_counter()
+
+### `tools/profile_pretty.py`
+
+**Purpose:** Implements profile pretty.
+
+## Constants
+console = Console(file=io.StringIO(), color_system="truecolor", width=100)
+start = time()
+pretty = Pretty(cats)
+result = console.end_capture()
+taken = (time() - start) * 1000
+
+### `tools/stress_test_pretty.py`
+
+**Purpose:** Implements stress test pretty.
+
+## Constants
+DATA = <complex expression>
+console = Console()
+
+### `rich/file_proxy.py`
+
+**Purpose:** Implements file proxy.
+**Depends on:** `ansi`, `console`, `text`
+
+**Types:**
+- `FileProxy` (bases: `io.TextIOBase`) - Wraps a file (e.g. sys.stdout) and redirects writes to a console. methods: `__init__`, `fileno`, `flush`, `isatty`, `write`
 
 ### `rich/live_render.py`
 
@@ -1427,61 +1587,25 @@ __main__.ColorBox()
 **Types:**
 - `LiveRender` - Creates a renderable that may be updated. methods: `__init__`, `position_cursor`, `restore_cursor`, `set_renderable`
 
-### `rich/palette.py`
+### `rich/_null_file.py`
 
-**Purpose:** Implements palette.
-**Depends on:** `color`, `color_triplet`, `console`, `segment`, `style`, `table`, `text`
+**Purpose:** Implements null file.
 
 **Types:**
-- `Palette` - A palette of available colors. methods: `__init__`
+- `NullFile` (bases: `IO[str]`) methods: `close`, `fileno`, `flush`, `isatty`, `read`, `readable` (+9 more)
 
-### `tools/profile_divide.py`
+## Constants
+NULL_FILE = NullFile()
 
-**Purpose:** Implements profile divide.
+### `rich/_pick.py`
 
-### `tools/profile_pretty.py`
-
-**Purpose:** Implements profile pretty.
-
-### `tools/stress_test_pretty.py`
-
-**Purpose:** Implements stress test pretty.
-
-### `rich/_emoji_replace.py`
-
-**Purpose:** Implements emoji replace.
-**Depends on:** `_emoji_codes`
+**Purpose:** Implements pick.
 
 **Functions:**
-- `def _emoji_replace(text: str, default_variant: Optional[str] = None, ...)(?:(?:\-)(emoji|text))?:)").sub, ) -> str`
-  - Replace emoji code in text.
-
-### `rich/default_styles.py`
-
-**Purpose:** Implements default styles.
-**Depends on:** `console`, `style`, `table`, `text`
-
-### `rich/file_proxy.py`
-
-**Purpose:** Implements file proxy.
-**Depends on:** `ansi`, `console`, `text`
-
-**Types:**
-- `FileProxy` (bases: `io.TextIOBase`) - Wraps a file (e.g. sys.stdout) and redirects writes to a console. methods: `__init__`, `fileno`, `flush`, `write`
+- `def pick_bool(*values: Optional[bool]) -> bool`
+  - Pick the first non-none bool or return the last value.
 
 ## SUPPORTING_MODULES
-
-### `rich/_windows_renderer.py`
-
-```python
-def legacy_windows_render(buffer: Iterable[Segment], term: LegacyWindowsTerm) -> None
-    """Makes appropriate Windows Console API calls based on the segments in the buffer.
-
-    Args:
-        buffer (Iterable[Segment]): Iterable of Segments to convert to Win32 API calls.
-        term (LegacyWindowsTerm): Used to call the Windows Console API."""
-
-```
 
 ### `rich/abc.py`
 
@@ -1497,111 +1621,39 @@ class RichRenderable(ABC)
 
 ```
 
-### `rich/bar.py`
+### `rich/default_styles.py`
+
+*197 lines, 7 imports*
+
+### `rich/_emoji_replace.py`
 
 ```python
-class Bar(JupyterMixin)
-    """Renders a solid block bar.
-
-    Args:
-        size (float): Value for the end of the bar.
-        begin (float): Begin point (between 0 and size, inclusive).
-        end (float): End point (between 0 and size, inclusive).
-        width (int, optional): Width of the bar, or ``None`` for maximum width. Defaults to None.
-        color (Union[Color, str], optional): Color of the bar. Defaults to "default".
-        bgcolor (Union[Color, str], optional): Color of bar background. Defaults to "default"."""
+def _emoji_replace(
+    text: str,
+    default_variant: Optional[str] = None,
+    _emoji_sub: _EmojiSubMethod = re.compile(r"(:(\S*?)(?:(?:\-)(emoji|text))?:)").sub,
+) -> str
+    """Replace emoji code in text."""
 
 ```
 
-### `rich/prompt.py`
+### `rich/_stack.py`
 
 ```python
-class PromptError(Exception)
-    """Exception base class for prompt related errors."""
-
-class InvalidResponse(PromptError)
-    """Exception to indicate a response was invalid. Raise this within process_response() to indicate an error
-    and provide an error message.
-
-    Args:
-        message (Union[str, Text]): Error message."""
-
-class PromptBase(Generic[PromptType])
-    """Ask the user for input until a valid response is received. This is the base class, see one of
-    the concrete classes for examples.
-
-    Args:
-        prompt (TextType, optional): Prompt text. Defaults to "".
-        console (Console, optional): A Console instance or None to use global console. Defaults to None.
-        password (bool, optional): Enable password input. Defaults to False.
-        choices (List[str], optional): A list of valid choices. Defaults to None.
-        case_sensitive (bool, optional): Matching of choices should be case-sensitive. Defaults to True.
-        show_default (bool, optional): Show default in prompt. Defaults to True.
-        show_choices (bool, optional): Show choices in prompt. Defaults to True."""
-
-class Prompt(PromptBase[str])
-    """A prompt that returns a str.
-
-    Example:
-        >>> name = Prompt.ask("Enter your name")"""
-
-class IntPrompt(PromptBase[int])
-    """A prompt that returns an integer.
-
-    Example:
-        >>> burrito_count = IntPrompt.ask("How many burritos do you want to order")"""
-
-class FloatPrompt(PromptBase[float])
-    """A prompt that returns a float.
-
-    Example:
-        >>> temperature = FloatPrompt.ask("Enter desired temperature")"""
-
-class Confirm(PromptBase[bool])
-    """A yes / no confirmation prompt.
-
-    Example:
-        >>> if Confirm.ask("Continue"):
-                run_job()"""
+class Stack(List[T])
+    """A small shim over builtin list."""
 
 ```
 
-### `rich/logging.py`
+### `rich/_windows_renderer.py`
 
 ```python
-class RichHandler(Handler)
-    """A logging handler that renders output with Rich. The time / level / message and file are displayed in columns.
-    The level is color coded, and the message is syntax highlighted.
-
-    Note:
-        Be careful when enabling console markup in log messages if you have configured logging for libraries not
-        under your control. If a dependency writes messages containing square brackets, it may not produce the intended output.
+def legacy_windows_render(buffer: Iterable[Segment], term: LegacyWindowsTerm) -> None
+    """Makes appropriate Windows Console API calls based on the segments in the buffer.
 
     Args:
-        level (Union[int, str], optional): Log level. Defaults to logging.NOTSET.
-        console (:class:`~rich.console.Console`, optional): Optional console instance to write logs.
-            Default will use a global console instance writing to stdout.
-        show_time (bool, optional): Show a column for the time. Defaults to True.
-        omit_repeated_times (bool, optional): Omit repetition of the same time. Defaults to True.
-        show_level (bool, optional): Show a column for the level. Defaults to True.
-        show_path (bool, optional): Show the path to the original log call. Defaults to True.
-        enable_link_path (bool, optional): Enable terminal link of path column to file. Defaults to True.
-        highlighter (Highlighter, optional): Highlighter to style log messages, or None to use ReprHighlighter. Defaults to None.
-        markup (bool, optional): Enable console markup in log messages. Defaults to False.
-        rich_tracebacks (bool, optional): Enable rich tracebacks with syntax highlighting and formatting. Defaults to False.
-        tracebacks_width (Optional[int], optional): Number of characters used to render tracebacks, or None for full width. Defaults to None.
-        tracebacks_code_width (int, optional): Number of code characters used to render tracebacks, or None for full width. Defaults to 88.
-        tracebacks_extra_lines (int, optional): Additional lines of code to render tracebacks, or None for full width. Defaults to None.
-        tracebacks_theme (str, optional): Override pygments theme used in traceback.
-        tracebacks_word_wrap (bool, optional): Enable word wrapping of long tracebacks lines. Defaults to True.
-        tracebacks_show_locals (bool, optional): Enable display of locals in tracebacks. Defaults to False.
-        tracebacks_suppress (Sequence[Union[str, ModuleType]]): Optional sequence of modules or paths to exclude from traceback.
-        tracebacks_max_frames (int, optional): Optional maximum number of frames returned by traceback.
-        locals_max_length (int, optional): Maximum length of containers before abbreviating, or None for no abbreviation.
-            Defaults to 10.
-        locals_max_string (int, optional): Maximum length of string before truncating, or None to disable. Defaults to 80.
-        log_time_format (Union[str, TimeFormatterCallable], optional): If ``log_time`` is enabled, either string for strftime or callable that formats the time. Defaults to "[%x %X] ".
-        keywords (List[str], optional): List of words to highlight instead of ``RichHandler.KEYWORDS``."""
+        buffer (Iterable[Segment]): Iterable of Segments to convert to Win32 API calls.
+        term (LegacyWindowsTerm): Used to call the Windows Console API."""
 
 ```
 
@@ -1630,14 +1682,6 @@ class LogRender
 
 *310 lines, 1 imports*
 
-### `rich/_stack.py`
-
-```python
-class Stack(List[T])
-    """A small shim over builtin list."""
-
-```
-
 ### `rich/_timer.py`
 
 > 
@@ -1658,90 +1702,6 @@ class WindowsConsoleFeatures
     """Windows features available."""
 
 ```
-
-### `rich/_wrap.py`
-
-```python
-def words(text: str) -> Iterable[tuple[int, int, str]]
-    """Yields each word from the text as a tuple
-    containing (start_index, end_index, word). A "word" in this context may
-    include the actual word and any whitespace to the right."""
-
-def divide_line(text: str, width: int, fold: bool = True) -> list[int]
-    """Given a string of text, and a width (measured in cells), return a list
-    of cell offsets which the string should be split at in order for it to fit
-    within the given width.
-
-    Args:
-        text: The text to examine.
-        width: The available cell width.
-        fold: If True, words longer than `width` will be folded onto a new line.
-
-    Returns:
-        A list of indices to break the line at."""
-
-```
-
-### `rich/_export_format.py`
-
-*77 lines, 0 imports*
-
-### `rich/_extension.py`
-
-```python
-def load_ipython_extension(ip: Any) -> None
-
-```
-
-### `rich/_inspect.py`
-
-```python
-def _first_paragraph(doc: str) -> str
-    """Get the first paragraph from a docstring."""
-
-class Inspect(JupyterMixin)
-    """A renderable to inspect any Python Object.
-
-    Args:
-        obj (Any): An object to inspect.
-        title (str, optional): Title to display over inspect result, or None use type. Defaults to None.
-        help (bool, optional): Show full help text rather than just first paragraph. Defaults to False.
-        methods (bool, optional): Enable inspection of callables. Defaults to False.
-        docs (bool, optional): Also render doc strings. Defaults to True.
-        private (bool, optional): Show private attributes (beginning with underscore). Defaults to False.
-        dunder (bool, optional): Show attributes starting with double underscore. Defaults to False.
-        sort (bool, optional): Sort attributes alphabetically, callables at the top, leading and trailing underscores ignored. Defaults to True.
-        all (bool, optional): Show all attributes. Defaults to False.
-        value (bool, optional): Pretty print value of object. Defaults to True."""
-
-def get_object_types_mro(obj: Union[object, Type[Any]]) -> Tuple[type, ...]
-    """Returns the MRO of an object's class, or of the object itself if it's a class."""
-
-def get_object_types_mro_as_strings(obj: object) -> Collection[str]
-    """Returns the MRO of an object's class as full qualified names, or of the object itself if it's a class.
-
-    Examples:
-        `object_types_mro_as_strings(JSONDecoder)` will return `['json.decoder.JSONDecoder', 'builtins.object']`"""
-
-def is_object_one_of_types(
-    obj: object, fully_qualified_types_names: Collection[str]
-) -> bool
-    """Returns `True` if the given object's class (or the object itself, if it's a class) has one of the
-    fully qualified names in its MRO."""
-
-```
-
-### `rich/diagnose.py`
-
-```python
-def report() -> None
-    """Print a report to the terminal with debugging information"""
-
-```
-
-### `tools/make_width_tables.py`
-
-*54 lines, 7 imports*
 
 ### `rich/filesize.py`
 
@@ -1801,13 +1761,60 @@ def decimal(
 
 ```
 
-### `rich/_emoji_codes.py`
+### `rich/_export_format.py`
 
-*3611 lines, 0 imports*
+*77 lines, 0 imports*
+
+### `rich/_extension.py`
+
+```python
+def load_ipython_extension(ip: Any) -> None
+
+```
+
+### `tools/make_width_tables.py`
+
+*54 lines, 7 imports*
+
+### `tools/movies.md`
+
+*45 lines, 0 imports*
+
+### `questions/ansi_escapes.question.md`
+
+*12 lines, 0 imports*
+
+### `questions/emoji_broken.question.md`
+
+*12 lines, 0 imports*
+
+### `questions/highlighting_unexpected.question.md`
+
+*12 lines, 0 imports*
+
+### `questions/log_renderables.question.md`
+
+*15 lines, 0 imports*
+
+### `questions/logging_color.question.md`
+
+*12 lines, 0 imports*
+
+### `questions/square_brackets.question.md`
+
+*11 lines, 0 imports*
+
+### `questions/tracebacks_installed.question.md`
+
+*10 lines, 0 imports*
 
 ### `rich/themes.py`
 
 *6 lines, 2 imports*
+
+### `rich/_emoji_codes.py`
+
+*3611 lines, 0 imports*
 
 ### `rich/_unicode_data/unicode10-0-0.py`
 
@@ -1889,85 +1896,153 @@ def decimal(
 
 *599 lines, 1 imports*
 
-### `rich/_unicode_data/_versions.py`
-
-*24 lines, 0 imports*
-
-### `tools/cats.json`
-
-*3288 lines, 0 imports*
-
-### `tools/make_emoji.py`
-
-*13 lines, 2 imports*
-
-### `tools/movies.md`
-
-*45 lines, 0 imports*
-
-### `tox.ini`
-
-*52 lines, 0 imports*
-
-### `tools/README.md`
-
-*6 lines, 0 imports*
-
-### `setup.py`
-
-*9 lines, 1 imports*
-
-### `rich/py.typed`
-
-*0 lines, 0 imports*
-
-### `questions/ansi_escapes.question.md`
-
-*12 lines, 0 imports*
-
-### `questions/emoji_broken.question.md`
-
-*12 lines, 0 imports*
-
 ### `questions/highlight_incorrect.question.md`
 
 *17 lines, 0 imports*
-
-### `questions/highlighting_unexpected.question.md`
-
-*12 lines, 0 imports*
 
 ### `questions/jupyter.question.md`
 
 *20 lines, 0 imports*
 
-### `questions/log_renderables.question.md`
-
-*15 lines, 0 imports*
-
-### `questions/logging_color.question.md`
-
-*12 lines, 0 imports*
-
 ### `questions/rich_spinner.question.md`
 
 *8 lines, 0 imports*
 
-### `questions/square_brackets.question.md`
+### `rich/_unicode_data/_versions.py`
 
-*11 lines, 0 imports*
+*24 lines, 0 imports*
 
-### `questions/tracebacks_installed.question.md`
+### `rich/cells.py`
 
-*10 lines, 0 imports*
+```python
+class CellTable(NamedTuple)
+    """Contains unicode data required to measure the cell widths of glyphs."""
+
+def get_character_cell_size(character: str, unicode_version: str = "auto") -> int
+    """Get the cell size of a character.
+
+    Args:
+        character (str): A single character.
+        unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+
+    Returns:
+        int: Number of cells (0, 1 or 2) occupied by that character."""
+
+def cached_cell_len(text: str, unicode_version: str = "auto") -> int
+    """Get the number of cells required to display text.
+
+    This method always caches, which may use up a lot of memory. It is recommended to use
+    `cell_len` over this method.
+
+    Args:
+        text (str): Text to display.
+        unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+
+    Returns:
+        int: Get the number of cells required to display text."""
+
+def cell_len(text: str, unicode_version: str = "auto") -> int
+    """Get the cell length of a string (length as it appears in the terminal).
+
+    Args:
+        text: String to measure.
+        unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+
+    Returns:
+        Length of string in terminal cells."""
+
+def _cell_len(text: str, unicode_version: str) -> int
+    """Get the cell length of a string (length as it appears in the terminal).
+
+    Args:
+        text: String to measure.
+        unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+
+    Returns:
+        Length of string in terminal cells."""
+
+def split_graphemes(
+    text: str, unicode_version: str = "auto"
+) -> "tuple[list[CellSpan], int]"
+    """Divide text into spans that define a single grapheme, and additionally return the cell length of the whole string.
+
+    The returned spans will cover every index in the string, with no gaps. It is possible for some graphemes to have a cell length of zero.
+    This can occur for nonsense strings like two zero width joiners, or for control codes that don't contribute to the grapheme size.
+
+    Args:
+        text: String to split.
+        unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+
+    Returns:
+        A tuple of a list of *spans* and the cell length of the entire string. A span is a list of tuples
+            of three values consisting of (<START>, <END>, <CELL LENGTH>), where START and END are string indices,
+            and CELL LENGTH is the cell length of the single grapheme."""
+
+def _split_text(
+    text: str, cell_position: int, unicode_version: str = "auto"
+) -> tuple[str, str]
+    """Split text by cell position.
+
+    If the cell position falls within a double width character, it is converted to two spaces.
+
+    Args:
+        text: Text to split.
+        cell_position Offset in cells.
+        unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+
+    Returns:
+        Tuple to two split strings."""
+
+def split_text(
+    text: str, cell_position: int, unicode_version: str = "auto"
+) -> tuple[str, str]
+    """Split text by cell position.
+
+    If the cell position falls within a double width character, it is converted to two spaces.
+
+    Args:
+        text: Text to split.
+        cell_position Offset in cells.
+        unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+
+    Returns:
+        Tuple to two split strings."""
+
+def set_cell_size(text: str, total: int, unicode_version: str = "auto") -> str
+    """Adjust a string by cropping or padding with spaces such that it fits within the given number of cells.
+
+    Args:
+        text: String to adjust.
+        total: Desired size in cells.
+        unicode_version: Unicode version.
+
+    Returns:
+        A string with cell size equal to total."""
+
+def chop_cells(text: str, width: int, unicode_version: str = "auto") -> list[str]
+    """Split text into lines such that each line fits within the available (cell) width.
+
+    Args:
+        text: The text to fold such that it fits in the given width.
+        width: The width available (number of cells).
+
+    Returns:
+        A list of strings such that each string in the list has cell width
+        less than or equal to the available width."""
+
+```
+
+### `tools/README.md`
+
+*6 lines, 0 imports*
+
+### `rich/py.typed`
+
+*0 lines, 0 imports*
 
 ### `make.bat`
 
 *36 lines, 0 imports*
-
-### `pyproject.toml`
-
-*70 lines, 0 imports*
 
 ### `questions/README.md`
 
@@ -1977,181 +2052,189 @@ def decimal(
 
 *1 lines, 0 imports*
 
-### `faq.yml`
-
-*8 lines, 0 imports*
-
 ## DEPENDENCY_GRAPH
 
 ```mermaid
 graph LR
     f0["rich/console.py"]
-    f1["rich/text.py"]
-    f2["rich/style.py"]
-    f3["rich/segment.py"]
-    f4["rich/__init__.py"]
-    f5["rich/table.py"]
-    f6["rich/panel.py"]
-    f7["rich/measure.py"]
-    f8["rich/__main__.py"]
-    f9["rich/jupyter.py"]
-    f10["rich/color.py"]
-    f11["rich/pretty.py"]
-    f12["rich/highlighter.py"]
-    f13["rich/syntax.py"]
-    f14["rich/align.py"]
-    f15["rich/live.py"]
-    f16["rich/_loop.py"]
-    f17["rich/markdown.py"]
-    f18["rich/columns.py"]
-    f19["rich/progress.py"]
-    f20["rich/theme.py"]
-    f21["rich/repr.py"]
-    f22["rich/rule.py"]
-    f23["rich/padding.py"]
-    f24["rich/pager.py"]
-    f0 --> f9
-    f0 --> f22
-    f0 --> f15
+    f1["benchmarks/benchmarks.py"]
+    f2["rich/__init__.py"]
+    f3["rich/text.py"]
+    f4["rich/table.py"]
+    f5["rich/style.py"]
+    f6["rich/pretty.py"]
+    f7["rich/panel.py"]
+    f8["rich/progress.py"]
+    f9["rich/syntax.py"]
+    f10["rich/segment.py"]
+    f11["rich/markup.py"]
+    f12["rich/measure.py"]
+    f13["rich/jupyter.py"]
+    f14["rich/markdown.py"]
+    f15["rich/__main__.py"]
+    f16["rich/columns.py"]
+    f17["rich/color.py"]
+    f18["rich/box.py"]
+    f19["rich/emoji.py"]
+    f20["rich/status.py"]
+    f21["rich/highlighter.py"]
+    f22["rich/align.py"]
+    f23["rich/tree.py"]
+    f24["rich/_inspect.py"]
+    f0 --> f8
+    f0 --> f13
+    f0 --> f6
     f0 --> f20
-    f0 --> f1
-    f0 --> f2
     f0 --> f3
-    f0 --> f11
-    f0 --> f24
-    f0 --> f7
-    f0 --> f12
+    f0 --> f5
     f0 --> f10
-    f0 --> f14
-    f1 --> f0
-    f1 --> f2
+    f0 --> f12
+    f0 --> f11
+    f0 --> f21
+    f0 --> f19
+    f0 --> f17
+    f0 --> f22
     f1 --> f3
-    f1 --> f7
+    f1 --> f4
     f1 --> f9
-    f1 --> f14
-    f1 --> f16
-    f2 --> f21
-    f2 --> f10
-    f3 --> f1
-    f3 --> f13
+    f1 --> f5
+    f1 --> f10
+    f1 --> f6
+    f1 --> f0
+    f1 --> f17
+    f2 --> f24
+    f2 --> f0
+    f3 --> f11
     f3 --> f0
-    f3 --> f2
-    f3 --> f21
+    f3 --> f5
+    f3 --> f10
+    f3 --> f12
+    f3 --> f13
+    f3 --> f19
+    f3 --> f22
+    f4 --> f21
     f4 --> f0
-    f5 --> f12
-    f5 --> f0
-    f5 --> f1
-    f5 --> f2
-    f5 --> f3
-    f5 --> f23
-    f5 --> f7
-    f5 --> f9
-    f5 --> f14
-    f5 --> f16
-    f6 --> f0
-    f6 --> f1
+    f4 --> f3
+    f4 --> f5
+    f4 --> f10
+    f4 --> f12
+    f4 --> f13
+    f4 --> f22
+    f4 --> f18
+    f5 --> f17
     f6 --> f2
+    f6 --> f0
     f6 --> f3
-    f6 --> f23
-    f6 --> f7
-    f6 --> f9
-    f6 --> f14
+    f6 --> f12
+    f6 --> f13
+    f6 --> f21
     f7 --> f0
-    f8 --> f6
-    f8 --> f1
+    f7 --> f3
+    f7 --> f5
+    f7 --> f10
+    f7 --> f12
+    f7 --> f13
+    f7 --> f18
+    f7 --> f22
+    f8 --> f2
+    f8 --> f9
+    f8 --> f7
+    f8 --> f3
+    f8 --> f4
     f8 --> f5
     f8 --> f13
-    f8 --> f2
-    f8 --> f3
-    f8 --> f11
-    f8 --> f7
-    f8 --> f17
+    f8 --> f21
     f8 --> f0
-    f8 --> f10
-    f8 --> f4
     f9 --> f3
+    f9 --> f5
+    f9 --> f10
+    f9 --> f12
+    f9 --> f13
+    f9 --> f17
     f9 --> f0
-    f10 --> f5
+    f10 --> f3
+    f10 --> f9
     f10 --> f0
-    f10 --> f2
-    f10 --> f1
-    f10 --> f21
+    f10 --> f5
     f11 --> f4
-    f11 --> f0
-    f11 --> f1
-    f11 --> f7
-    f11 --> f9
-    f11 --> f12
-    f11 --> f16
-    f11 --> f21
+    f11 --> f2
+    f11 --> f3
+    f11 --> f5
+    f11 --> f19
     f12 --> f0
-    f12 --> f1
-    f13 --> f1
     f13 --> f2
-    f13 --> f3
-    f13 --> f7
-    f13 --> f9
-    f13 --> f0
+    f13 --> f11
     f13 --> f10
-    f13 --> f16
-    f13 --> f23
-    f14 --> f6
-    f14 --> f12
-    f14 --> f0
-    f14 --> f2
+    f13 --> f0
+    f14 --> f8
     f14 --> f3
-    f14 --> f7
     f14 --> f9
-    f15 --> f5
-    f15 --> f13
-    f15 --> f22
-    f15 --> f6
-    f15 --> f14
-    f15 --> f1
+    f14 --> f5
+    f14 --> f10
+    f14 --> f13
+    f14 --> f0
+    f14 --> f18
+    f14 --> f4
+    f15 --> f7
+    f15 --> f3
+    f15 --> f4
     f15 --> f9
+    f15 --> f5
+    f15 --> f10
+    f15 --> f6
+    f15 --> f12
+    f15 --> f14
     f15 --> f0
-    f17 --> f1
-    f17 --> f13
-    f17 --> f2
-    f17 --> f3
-    f17 --> f22
-    f17 --> f9
+    f15 --> f17
+    f15 --> f2
+    f16 --> f13
+    f16 --> f3
+    f16 --> f4
+    f16 --> f12
+    f16 --> f0
+    f16 --> f22
+    f17 --> f4
     f17 --> f0
-    f17 --> f16
     f17 --> f5
-    f18 --> f9
-    f18 --> f1
-    f18 --> f5
-    f18 --> f23
+    f17 --> f3
+    f18 --> f3
+    f18 --> f4
     f18 --> f7
+    f18 --> f16
     f18 --> f0
-    f18 --> f14
-    f19 --> f13
-    f19 --> f22
-    f19 --> f6
-    f19 --> f1
-    f19 --> f5
-    f19 --> f2
-    f19 --> f15
-    f19 --> f9
-    f19 --> f12
+    f19 --> f16
     f19 --> f0
-    f20 --> f2
+    f19 --> f5
+    f19 --> f10
+    f19 --> f13
+    f20 --> f5
+    f20 --> f13
+    f20 --> f0
     f21 --> f0
-    f22 --> f1
-    f22 --> f2
+    f21 --> f3
     f22 --> f7
-    f22 --> f9
+    f22 --> f21
     f22 --> f0
-    f22 --> f14
+    f22 --> f5
+    f22 --> f10
+    f22 --> f12
+    f22 --> f13
     f23 --> f4
-    f23 --> f2
-    f23 --> f3
-    f23 --> f7
     f23 --> f9
+    f23 --> f7
+    f23 --> f14
+    f23 --> f5
+    f23 --> f10
+    f23 --> f12
+    f23 --> f13
     f23 --> f0
+    f24 --> f3
+    f24 --> f4
+    f24 --> f6
+    f24 --> f7
+    f24 --> f13
+    f24 --> f21
     f24 --> f0
-    f24 --> f8
 ```
 
 ### Cyclic Dependencies
@@ -2165,134 +2248,147 @@ graph LR
 
 | File | Score | Tier | Tokens |
 |------|-------|------|--------|
-| `rich/console.py` | 0.542 | structured summary | 165 |
-| `rich/text.py` | 0.340 | structured summary | 155 |
-| `rich/style.py` | 0.309 | structured summary | 134 |
-| `rich/segment.py` | 0.250 | structured summary | 157 |
-| `rich/__init__.py` | 0.248 | structured summary | 170 |
-| `rich/table.py` | 0.244 | structured summary | 158 |
-| `rich/panel.py` | 0.242 | structured summary | 92 |
-| `rich/measure.py` | 0.239 | structured summary | 115 |
-| `rich/__main__.py` | 0.196 | full source | 2029 |
-| `rich/jupyter.py` | 0.195 | structured summary | 150 |
-| `rich/color.py` | 0.190 | structured summary | 197 |
-| `rich/pretty.py` | 0.188 | structured summary | 176 |
-| `rich/highlighter.py` | 0.180 | structured summary | 165 |
-| `rich/syntax.py` | 0.179 | structured summary | 186 |
-| `rich/align.py` | 0.176 | structured summary | 127 |
-| `rich/live.py` | 0.168 | structured summary | 155 |
-| `rich/_loop.py` | 0.164 | structured summary | 124 |
-| `rich/markdown.py` | 0.157 | structured summary | 147 |
-| `rich/columns.py` | 0.156 | structured summary | 80 |
-| `rich/progress.py` | 0.155 | structured summary | 196 |
-| `rich/theme.py` | 0.153 | structured summary | 104 |
-| `rich/repr.py` | 0.152 | structured summary | 195 |
-| `rich/rule.py` | 0.152 | structured summary | 81 |
-| `rich/padding.py` | 0.151 | structured summary | 68 |
-| `rich/pager.py` | 0.150 | structured summary | 72 |
-| `rich/control.py` | 0.149 | structured summary | 158 |
-| `tests/render.py` | 0.147 | one-liner | 19 |
+| `rich/console.py` | 0.501 | structured summary | 196 |
+| `benchmarks/benchmarks.py` | 0.446 | one-liner | 23 |
+| `rich/__init__.py` | 0.431 | structured summary | 170 |
+| `rich/text.py` | 0.308 | structured summary | 183 |
+| `rich/table.py` | 0.278 | structured summary | 158 |
+| `rich/style.py` | 0.271 | structured summary | 142 |
+| `rich/pretty.py` | 0.245 | structured summary | 176 |
+| `rich/panel.py` | 0.243 | structured summary | 92 |
+| `rich/progress.py` | 0.226 | structured summary | 196 |
+| `rich/syntax.py` | 0.224 | structured summary | 189 |
+| `rich/segment.py` | 0.218 | structured summary | 157 |
+| `rich/markup.py` | 0.216 | structured summary | 60 |
+| `rich/measure.py` | 0.210 | structured summary | 115 |
+| `rich/jupyter.py` | 0.207 | structured summary | 164 |
+| `rich/markdown.py` | 0.201 | structured summary | 147 |
+| `rich/__main__.py` | 0.199 | full source | 2029 |
+| `rich/columns.py` | 0.192 | structured summary | 80 |
+| `rich/color.py` | 0.189 | structured summary | 171 |
+| `rich/box.py` | 0.186 | structured summary | 13 |
+| `rich/emoji.py` | 0.173 | structured summary | 93 |
+| `rich/status.py` | 0.171 | structured summary | 77 |
+| `rich/highlighter.py` | 0.169 | structured summary | 165 |
+| `tests/test_console.py` | 0.168 | one-liner | 25 |
+| `rich/align.py` | 0.165 | structured summary | 127 |
+| `rich/tree.py` | 0.164 | structured summary | 81 |
+| `rich/_inspect.py` | 0.161 | structured summary | 162 |
+| `rich/live.py` | 0.160 | structured summary | 155 |
+| `rich/repr.py` | 0.159 | structured summary | 165 |
+| `rich/traceback.py` | 0.158 | structured summary | 182 |
+| `rich/theme.py` | 0.155 | structured summary | 104 |
+| `examples/recursive_error.py` | 0.152 | one-liner | 10 |
+| `tests/render.py` | 0.150 | one-liner | 19 |
+| `rich/_loop.py` | 0.150 | structured summary | 134 |
+| `rich/diagnose.py` | 0.148 | structured summary | 53 |
+| `rich/padding.py` | 0.148 | structured summary | 68 |
+| `rich/pager.py` | 0.148 | structured summary | 72 |
+| `rich/palette.py` | 0.148 | structured summary | 63 |
 | `tests/test_card.py` | 0.147 | one-liner | 20 |
-| `rich/traceback.py` | 0.146 | structured summary | 176 |
+| `rich/containers.py` | 0.146 | structured summary | 110 |
 | `rich/errors.py` | 0.146 | structured summary | 129 |
-| `rich/spinner.py` | 0.145 | structured summary | 66 |
-| `rich/terminal_theme.py` | 0.143 | structured summary | 54 |
-| `rich/color_triplet.py` | 0.142 | structured summary | 45 |
-| `rich/containers.py` | 0.142 | structured summary | 100 |
-| `rich/_win32_console.py` | 0.142 | structured summary | 172 |
-| `rich/styled.py` | 0.141 | structured summary | 57 |
-| `rich/markup.py` | 0.140 | structured summary | 167 |
-| `rich/tree.py` | 0.139 | structured summary | 81 |
-| `rich/box.py` | 0.139 | structured summary | 99 |
-| `rich/constrain.py` | 0.139 | structured summary | 68 |
 
 ## PERIPHERY
 
+- `benchmarks/benchmarks.py` — 9 classs, 10 imports, 219 lines
+- `tests/test_console.py` — 1 class, 97 functions, 24 imports, 1136 lines
+- `examples/recursive_error.py` — 
 - `tests/render.py` — 2 functions, 3 imports, 25 lines
 - `tests/test_card.py` — 3 functions, 5 imports, 42 lines
-- `tests/_card_render.py` — 2 lines
-- `tests/test_theme.py` — 5 functions, 6 imports, 54 lines
-- `tests/test_traceback.py` — 23 functions, 8 imports, 400 lines
-- `tests/test_tree.py` — 9 functions, 5 imports, 146 lines
-- `tests/test_win32_console.py` — 8 imports, 413 lines
-- `tests/test_windows_renderer.py` — 13 functions, 7 imports, 142 lines
-- `tests/test_panel.py` — 8 functions, 7 imports, 184 lines
-- `tests/test_pretty.py` — 3 classs, 52 functions, 14 imports, 760 lines
-- `tests/test_progress.py` — 1 class, 37 functions, 13 imports, 691 lines
-- `tests/test_prompt.py` — 8 functions, 3 imports, 127 lines
 - `tests/test_protocol.py` — 2 classs, 6 functions, 5 imports, 85 lines
-- `tests/test_repr.py` — 8 classs, 8 functions, 5 imports, 153 lines
-- `tests/test_rich_print.py` — 7 functions, 4 imports, 75 lines
-- `tests/test_rule.py` — 11 functions, 5 imports, 131 lines
-- `tests/test_rule_in_table.py` — 3 functions, 7 imports, 77 lines
-- `tests/test_screen.py` — 1 function, 2 imports, 13 lines
+- `tests/test_pretty.py` — 3 classs, 52 functions, 14 imports, 760 lines
+- `tools/cats.json` — 3288 lines
+- `tox.ini` — 52 lines
+- `tests/_card_render.py` — 2 lines
 - `tests/test_segment.py` — 31 functions, 7 imports, 396 lines
 - `tests/test_spinner.py` — 5 functions, 6 imports, 73 lines
 - `tests/test_status.py` — 2 functions, 4 imports, 35 lines
 - `tests/test_style.py` — 27 functions, 4 imports, 268 lines
 - `tests/test_styled.py` — 1 function, 4 imports, 16 lines
-- `tests/test_syntax.py` — 25 functions, 14 imports, 454 lines
+- `tests/test_syntax.py` — 25 functions, 15 imports, 454 lines
 - `tests/test_table.py` — 14 functions, 9 imports, 413 lines
 - `tests/test_text.py` — 91 functions, 8 imports, 1130 lines
-- `tests/test_columns.py` — 2 functions, 3 imports, 78 lines
-- `tests/test_columns_align.py` — 2 functions, 5 imports, 44 lines
-- `tests/test_console.py` — 1 class, 96 functions, 24 imports, 1130 lines
-- `tests/test_constrain.py` — 1 function, 3 imports, 14 lines
-- `tests/test_containers.py` — 4 functions, 4 imports, 58 lines
-- `tests/test_control.py` — 7 functions, 2 imports, 63 lines
-- `tests/test_file_proxy.py` — 3 functions, 5 imports, 38 lines
-- `tests/test_filesize.py` — 2 functions, 1 imports, 21 lines
-- `tests/test_highlighter.py` — Tests for the highlighter classes.
+- `tests/test_theme.py` — 5 functions, 6 imports, 54 lines
+- `tests/test_traceback.py` — 23 functions, 8 imports, 400 lines
+- `tests/test_tree.py` — 9 functions, 5 imports, 146 lines
+- `tests/test_win32_console.py` — 8 imports, 413 lines
+- `tests/test_windows_renderer.py` — 13 functions, 7 imports, 142 lines
 - `tests/test_jupyter.py` — 3 functions, 1 imports, 33 lines
 - `tests/test_layout.py` — 6 functions, 5 imports, 101 lines
 - `tests/test_live.py` — 12 functions, 6 imports, 188 lines
 - `tests/test_live_render.py` — 5 functions, 5 imports, 46 lines
 - `tests/test_log.py` — 5 functions, 3 imports, 66 lines
 - `tests/test_logging.py` — 4 functions, 7 imports, 163 lines
-- `tests/test_markdown.py` — 9 functions, 4 imports, 207 lines
+- `tests/test_markdown.py` — 10 functions, 4 imports, 223 lines
 - `tests/test_markdown_no_hyperlinks.py` — 3 functions, 4 imports, 105 lines
 - `tests/test_markup.py` — 21 functions, 5 imports, 220 lines
 - `tests/test_measure.py` — 4 functions, 5 imports, 37 lines
 - `tests/test_padding.py` — 5 functions, 5 imports, 61 lines
 - `tests/test_palette.py` — 1 function, 2 imports, 9 lines
+- `tests/test_panel.py` — 8 functions, 7 imports, 184 lines
+- `tests/test_progress.py` — 1 class, 37 functions, 13 imports, 691 lines
+- `tests/test_prompt.py` — 8 functions, 3 imports, 127 lines
+- `tests/test_repr.py` — 8 classs, 8 functions, 5 imports, 153 lines
+- `tests/test_rich_print.py` — 7 functions, 4 imports, 75 lines
+- `tests/test_rule.py` — 11 functions, 5 imports, 131 lines
+- `tests/test_rule_in_table.py` — 3 functions, 7 imports, 77 lines
+- `tests/test_screen.py` — 1 function, 2 imports, 13 lines
 - `tests/test_align.py` — 16 functions, 5 imports, 152 lines
-- `tests/test_ansi.py` — 4 functions, 5 imports, 85 lines
+- `tests/test_ansi.py` — 5 functions, 5 imports, 105 lines
 - `tests/test_bar.py` — 7 functions, 5 imports, 102 lines
 - `tests/test_block_bar.py` — 4 functions, 3 imports, 56 lines
 - `tests/test_box.py` — 8 functions, 3 imports, 106 lines
 - `tests/test_cells.py` — 15 functions, 4 imports, 255 lines
 - `tests/test_color.py` — 17 functions, 4 imports, 188 lines
-- `tests/test_tools.py` — 4 functions, 2 imports, 39 lines
-- `tests/test_pick.py` — 1 function, 1 imports, 15 lines
-- `tests/test_ratio.py` — 1 class, 2 functions, 3 imports, 59 lines
-- `tests/test_stack.py` — 1 function, 1 imports, 11 lines
+- `tests/test_columns.py` — 2 functions, 3 imports, 78 lines
+- `tests/test_columns_align.py` — 2 functions, 5 imports, 44 lines
+- `tests/test_constrain.py` — 1 function, 3 imports, 14 lines
+- `tests/test_containers.py` — 4 functions, 4 imports, 58 lines
+- `tests/test_control.py` — 7 functions, 2 imports, 63 lines
 - `tests/test_emoji.py` — 6 functions, 3 imports, 38 lines
-- `tests/test_getfileno.py` — 3 functions, 1 imports, 26 lines
+- `tests/test_file_proxy.py` — 4 functions, 5 imports, 55 lines
+- `tests/test_filesize.py` — 2 functions, 1 imports, 21 lines
+- `tests/test_highlighter.py` — Tests for the highlighter classes.
+- `tests/test_stack.py` — 1 function, 1 imports, 11 lines
+- `tests/test_tools.py` — 4 functions, 2 imports, 39 lines
 - `tests/test_json.py` — 1 function, 2 imports, 9 lines
 - `tests/test_null_file.py` — 1 function, 1 imports, 24 lines
+- `tests/test_pick.py` — 1 function, 1 imports, 15 lines
+- `tests/test_ratio.py` — 1 class, 2 functions, 3 imports, 59 lines
 - `tests/test_color_triplet.py` — 3 functions, 1 imports, 17 lines
+- `tests/test_getfileno.py` — 3 functions, 1 imports, 26 lines
+- `pyproject.toml` — 69 lines
 - `tests/test_unicode_data.py` — 4 functions, 2 imports, 65 lines
 - `tests/conftest.py` — 1 function, 1 imports, 9 lines
 - `tests/pytest.ini` — 3 lines
+- `setup.py` — 1 imports, 9 lines
 - `tests/__init__.py` — 0 lines
+- `docs/source/console.rst` — 438 lines
+- `examples/downloader.py` — 
+- `examples/repr.py` — 1 class, 2 imports, 24 lines
+- `examples/suppress.py` — 1 function, 2 imports, 24 lines
+- `examples/table_movie.py` — Same as the table_movie.py but uses Live to update
+- `examples/fullscreen.py` — 
+- `examples/group2.py` — 1 function, 3 imports, 13 lines
+- `examples/highlighter.py` — 
+- `examples/rainbow.py` — 
 - `examples/save_table_svg.py` — 
 - `examples/screen.py` — 
 - `examples/spinners.py` — 6 imports, 24 lines
 - `examples/status.py` — 2 imports, 14 lines
 - `examples/table.py` — 
-- `examples/table_movie.py` — Same as the table_movie.py but uses Live to update
 - `examples/top_lite_simulator.py` — Lite simulation of the top linux command.
 - `examples/tree.py` — 
 - `examples/attrs.py` — 3 classs, 6 imports, 54 lines
 - `examples/bars.py` — 
 - `examples/columns.py` — 
+- `examples/cp_progress.py` — 
 - `examples/dynamic_progress.py` — 
 - `examples/exception.py` — 
 - `examples/export.py` — 
-- `examples/fullscreen.py` — 
+- `examples/file_progress.py` — 3 imports, 17 lines
 - `examples/group.py` — 3 imports, 10 lines
-- `examples/group2.py` — 1 function, 3 imports, 13 lines
-- `examples/highlighter.py` — 
 - `examples/jobs.py` — 3 imports, 32 lines
 - `examples/justify.py` — 
 - `examples/justify2.py` — 
@@ -2304,61 +2400,20 @@ graph LR
 - `examples/overflow.py` — 2 imports, 12 lines
 - `examples/padding.py` — 2 imports, 6 lines
 - `examples/print_calendar.py` — 
-- `examples/rainbow.py` — 
-- `examples/recursive_error.py` — 
-- `examples/repr.py` — 1 class, 2 imports, 24 lines
-- `examples/suppress.py` — 1 function, 2 imports, 24 lines
-- `examples/cp_progress.py` — 
-- `examples/downloader.py` — 
-- `examples/file_progress.py` — 3 imports, 17 lines
-- `benchmarks/benchmarks.py` — 9 classs, 10 imports, 219 lines
-- `benchmarks/__init__.py` — 0 lines
-- `docs/source/tree.rst` — 46 lines
-- `examples/README.md` — 6 lines
-- `docs/source/reference/align.rst` — 8 lines
-- `docs/source/reference/bar.rst` — 8 lines
-- `docs/source/reference/color.rst` — 8 lines
-- `docs/source/reference/columns.rst` — 8 lines
-- `docs/source/reference/console.rst` — 6 lines
-- `docs/source/reference/control.rst` — 6 lines
-- `docs/source/reference/emoji.rst` — 7 lines
-- `docs/source/reference/highlighter.rst` — 8 lines
-- `docs/source/reference/init.rst` — 8 lines
-- `docs/source/reference/json.rst` — 8 lines
-- `docs/source/reference/layout.rst` — 8 lines
-- `docs/source/reference/live.rst` — 5 lines
-- `docs/source/reference/logging.rst` — 9 lines
-- `docs/source/reference/markdown.rst` — 8 lines
-- `docs/source/reference/markup.rst` — 6 lines
-- `docs/source/reference/measure.rst` — 6 lines
-- `docs/source/reference/padding.rst` — 6 lines
-- `docs/source/reference/panel.rst` — 7 lines
-- `docs/source/reference/pretty.rst` — 7 lines
-- `docs/source/reference/progress.rst` — 6 lines
-- `docs/source/reference/progress_bar.rst` — 8 lines
-- `docs/source/reference/prompt.rst` — 6 lines
-- `docs/source/reference/protocol.rst` — 6 lines
-- `docs/source/reference/rule.rst` — 6 lines
-- `docs/source/reference/segment.rst` — 6 lines
-- `docs/source/reference/spinner.rst` — 6 lines
-- `docs/source/reference/status.rst` — 6 lines
-- `docs/source/reference/style.rst` — 8 lines
-- `docs/source/reference/styled.rst` — 8 lines
-- `docs/source/reference/syntax.rst` — 6 lines
-- `docs/source/reference/table.rst` — 6 lines
-- `docs/source/reference/text.rst` — 7 lines
-- `docs/source/reference/theme.rst` — 7 lines
-- `docs/source/reference/traceback.rst` — 7 lines
-- `docs/source/reference/tree.rst` — 6 lines
-- `docs/source/style.rst` — 161 lines
 - `docs/source/syntax.rst` — 58 lines
 - `docs/source/tables.rst` — 172 lines
 - `docs/source/text.rst` — 61 lines
 - `docs/source/traceback.rst` — 99 lines
+- `docs/source/tree.rst` — 46 lines
+- `docs/source/reference/panel.rst` — 7 lines
+- `docs/source/reference/syntax.rst` — 6 lines
+- `docs/source/reference/text.rst` — 7 lines
+- `docs/source/reference/traceback.rst` — 7 lines
+- `docs/source/style.rst` — 161 lines
+- `docs/source/prompt.rst` — 41 lines
+- `docs/source/protocol.rst` — 74 lines
 - `docs/source/appendix/colors.rst` — 221 lines
 - `docs/source/columns.rst` — 24 lines
-- `docs/source/conf.py` — 2 imports, 78 lines
-- `docs/source/console.rst` — 441 lines
 - `docs/source/group.rst` — 31 lines
 - `docs/source/highlighting.rst` — 69 lines
 - `docs/source/index.rst` — 47 lines
@@ -2372,24 +2427,20 @@ graph LR
 - `docs/source/panel.rst` — 25 lines
 - `docs/source/pretty.rst` — 243 lines
 - `docs/source/progress.rst` — 299 lines
-- `docs/source/prompt.rst` — 41 lines
-- `docs/source/protocol.rst` — 74 lines
-- `docs/source/reference.rst` — 42 lines
-- `docs/source/reference/abc.rst` — 8 lines
 - `docs/source/appendix/box.rst` — 21 lines
 - `docs/images/svg_export.svg` — 546 lines
-- `docs/make.bat` — 36 lines
-- `docs/requirements.txt` — 5 lines
-- `docs/source/appendix.rst` — 9 lines
+- `docs/source/reference/bar.rst` — 8 lines
+- `docs/source/reference/emoji.rst` — 7 lines
+- `docs/source/reference/logging.rst` — 9 lines
+- `docs/source/reference/theme.rst` — 7 lines
+- `docs/source/reference.rst` — 42 lines
 - `docs/images/box.svg` — 287 lines
-- `benchmarks/results/darrenburns-2022-mbp/ef80460f-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/f2845e12-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/f2af8c9d-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/f5ed5bde-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/f82a4ccf-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/f84d5dee-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/machine.json` — 9 lines
-- `docs/Makefile` — 21 lines
+- `benchmarks/results/darrenburns-2022-mbp/d06540a2-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/d1ea01d0-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/d6e6a762-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/d9d59c6e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2409,7 +2460,14 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/eab3fe8e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/ecf3d7f1-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/edcb6f9e-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `rich/_unicode_data/__init__.py` — 2 functions, 9 imports, 94 lines
+- `benchmarks/results/darrenburns-2022-mbp/ef80460f-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/benchmarks.json` — 515 lines
+- `benchmarks/results/darrenburns-2022-mbp/ac1a33da-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/aca0b60b-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/ad6e3dea-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/ae5865eb-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/b15bc18c-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/b391635e-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/b9e0014a-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/b9e0014a-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/ba5d0c2c-virtualenv-py3.10.json` — 2 lines
@@ -2424,7 +2482,12 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/c9afafdd-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/cefafdc1-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/cf606f0a-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/d06540a2-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `asv.conf.json` — 35 lines
+- `benchmarks/results/darrenburns-2022-mbp/949e1f72-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/95d8bf98-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/96ea5fed-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/99831099-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/9a4fbf83-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/9abc0292-virtualenv-py3.10.json` — 2 lines
@@ -2440,12 +2503,10 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/aa4546ac-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/aa7926c1-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/aaea99f7-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/ac1a33da-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/aca0b60b-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/ad6e3dea-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/ae5865eb-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/b15bc18c-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/b391635e-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/7441bf27-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/76620730-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/79ea1c1d-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/7bad81d5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/7d00fa83-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/7d02d29b-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/7e4a2db4-virtualenv-py3.10.json` — 2 lines
@@ -2463,11 +2524,9 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/8e649fea-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/911d305f-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/932e26b6-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/949e1f72-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/95d8bf98-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/96ea5fed-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/972dedff-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/579a29c8-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/588f0331-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/58bfa48f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/5f021978-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/5f021978-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/5f03e3ba-virtualenv-py3.10.json` — 2 lines
@@ -2483,10 +2542,8 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/690507d4-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/6d7ba589-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/71135d19-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/7441bf27-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/76620730-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/79ea1c1d-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/7bad81d5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/44f54dd8-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/results/darrenburns-2022-mbp/464e4e33-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/489fafc6-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/48da2791-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/4b123ddf-virtualenv-py3.10.json` — 2 lines
@@ -2502,9 +2559,6 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/550d3911-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/55e11902-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/573125e9-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/579a29c8-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/588f0331-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/58bfa48f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2ea7e586-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2ea7e586-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/30498f59-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
@@ -2521,10 +2575,6 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/43a26c0a-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/43d4c4e5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/43d4c4e5-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/44f54dd8-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/darrenburns-2022-mbp/464e4e33-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/189a2a3f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
-- `benchmarks/results/darrenburns-2022-mbp/19e26c94-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/1cdcd1ae-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/1daa1771-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/1f3f7f1e-virtualenv-py3.10.json` — 2 lines
@@ -2542,6 +2592,7 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/2c93dce9-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2d3152a2-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/2d3ec69f-virtualenv-py3.10.json` — 2 lines
+- `benchmarks/__init__.py` — 0 lines
 - `benchmarks/results/darrenburns-2022-mbp/03392a1b-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/038e22eb-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/03a52134-virtualenv-py3.10.json` — 2 lines
@@ -2560,40 +2611,77 @@ graph LR
 - `benchmarks/results/darrenburns-2022-mbp/1442dd77-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/15623c5a-virtualenv-py3.10.json` — 2 lines
 - `benchmarks/results/darrenburns-2022-mbp/177958c5-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/189a2a3f-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
+- `benchmarks/results/darrenburns-2022-mbp/19e26c94-virtualenv-py3.10-setuptools59.2.0.json` — 1 lines
 - `benchmarks/results/darrenburns-2022-mbp/008854c4-virtualenv-py3.10.json` — 2 lines
-- `benchmarks/results/benchmarks.json` — 515 lines
-- `asv.conf.json` — 35 lines
-- `asvhashfile` — 24 lines
-- `benchmarks/README.md` — 30 lines
-- `README.pl.md` — 419 lines
-- `README.pt-br.md` — 462 lines
-- `README.ru.md` — 474 lines
-- `README.sv.md` — 459 lines
 - `README.tr.md` — 452 lines
 - `README.zh-tw.md` — 462 lines
-- `SECURITY.md` — 4 lines
-- `README.de.md` — 460 lines
-- `README.es.md` — 458 lines
-- `README.fa.md` — 496 lines
-- `README.fr.md` — 452 lines
 - `README.hi.md` — 449 lines
 - `README.id.md` — 466 lines
 - `README.it.md` — 463 lines
 - `README.kr.md` — 465 lines
 - `README.md` — 446 lines
-- `.gitignore` — 122 lines
-- `.pre-commit-config.yaml` — 44 lines
+- `README.pl.md` — 419 lines
+- `README.pt-br.md` — 462 lines
+- `README.ru.md` — 474 lines
+- `README.sv.md` — 459 lines
 - `.readthedocs.yml` — 24 lines
-- `AI_POLICY.md` — 8 lines
-- `CHANGELOG.md` — 2386 lines
-- `CODE_OF_CONDUCT.md` — 77 lines
+- `CHANGELOG.md` — 2410 lines
 - `CONTRIBUTING.md` — 150 lines
-- `CONTRIBUTORS.md` — 103 lines
+- `CONTRIBUTORS.md` — 104 lines
 - `FAQ.md` — 114 lines
-- `Makefile` — 16 lines
 - `README.cn.md` — 440 lines
 - `README.de-ch.md` — 462 lines
-- `.faq/suggest.md` — 23 lines
+- `README.de.md` — 460 lines
+- `README.es.md` — 458 lines
+- `README.fa.md` — 496 lines
+- `README.fr.md` — 452 lines
+- `SECURITY.md` — 4 lines
+- `faq.yml` — 8 lines
+- `examples/README.md` — 6 lines
+- `docs/source/reference/align.rst` — 8 lines
+- `docs/source/reference/color.rst` — 8 lines
+- `docs/source/reference/columns.rst` — 8 lines
+- `docs/source/reference/console.rst` — 6 lines
+- `docs/source/reference/control.rst` — 6 lines
+- `docs/source/reference/highlighter.rst` — 8 lines
+- `docs/source/reference/init.rst` — 8 lines
+- `docs/source/reference/json.rst` — 8 lines
+- `docs/source/reference/layout.rst` — 8 lines
+- `docs/source/reference/live.rst` — 5 lines
+- `docs/source/reference/markdown.rst` — 8 lines
+- `docs/source/reference/markup.rst` — 6 lines
+- `docs/source/reference/measure.rst` — 6 lines
+- `docs/source/reference/padding.rst` — 6 lines
+- `docs/source/reference/pretty.rst` — 7 lines
+- `docs/source/reference/progress.rst` — 6 lines
+- `docs/source/reference/progress_bar.rst` — 8 lines
+- `docs/source/reference/prompt.rst` — 6 lines
+- `docs/source/reference/protocol.rst` — 6 lines
+- `docs/source/reference/rule.rst` — 6 lines
+- `docs/source/reference/segment.rst` — 6 lines
+- `docs/source/reference/spinner.rst` — 6 lines
+- `docs/source/reference/status.rst` — 6 lines
+- `docs/source/reference/style.rst` — 8 lines
+- `docs/source/reference/styled.rst` — 8 lines
+- `docs/source/reference/table.rst` — 6 lines
+- `docs/source/reference/tree.rst` — 6 lines
+- `rich/_unicode_data/__init__.py` — 2 functions, 9 imports, 94 lines
+- `.gitignore` — 122 lines
+- `CODE_OF_CONDUCT.md` — 77 lines
+- `Makefile` — 16 lines
+- `docs/source/reference/abc.rst` — 8 lines
+- `docs/source/conf.py` — 2 imports, 78 lines
 - `.coveragerc` — 13 lines
+- `docs/make.bat` — 36 lines
+- `docs/requirements.txt` — 5 lines
+- `docs/source/appendix.rst` — 9 lines
+- `benchmarks/results/darrenburns-2022-mbp/machine.json` — 9 lines
+- `docs/Makefile` — 21 lines
+- `asvhashfile` — 24 lines
+- `benchmarks/README.md` — 30 lines
+- `.pre-commit-config.yaml` — 44 lines
+- `AI_POLICY.md` — 8 lines
+- `.faq/suggest.md` — 23 lines
 - `.faq/FAQ.md` — 21 lines
 
